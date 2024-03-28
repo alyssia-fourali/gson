@@ -114,9 +114,11 @@ public class DateToISO8601Converter {
     }
 
     int offset = tz.getOffset(calendar.getTimeInMillis());
+    final int MILLISECONDS_PER_MINUTE = 60 * 1000;
+    final int MINUTES_PER_HOUR = 60;
     if (offset != 0) {
-      int hours = Math.abs((offset / (60 * 1000)) / 60);
-      int minutes = Math.abs((offset / (60 * 1000)) % 60);
+      int hours = Math.abs((offset / MILLISECONDS_PER_MINUTE) / MINUTES_PER_HOUR);
+      int minutes = Math.abs((offset / MILLISECONDS_PER_MINUTE) % MINUTES_PER_HOUR);
       formatted.append(offset < 0 ? '-' : '+');
       padInt(formatted, hours, "hh".length());
       formatted.append(':');
