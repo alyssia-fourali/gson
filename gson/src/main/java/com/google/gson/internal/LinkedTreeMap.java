@@ -56,7 +56,8 @@ public final class LinkedTreeMap<K, V> extends AbstractMap<K, V> implements Seri
   Node<K, V> root;
   int size = 0;
   int modCount = 0;
-
+  private EntrySet entrySet;
+  private KeySet keySet;
   // Used to preserve iteration order
   final Node<K, V> header;
 
@@ -141,6 +142,18 @@ public final class LinkedTreeMap<K, V> extends AbstractMap<K, V> implements Seri
   public V remove(Object key) {
     Node<K, V> node = removeInternalByKey(key);
     return node != null ? node.value : null;
+  }
+
+  @Override
+  public Set<Entry<K, V>> entrySet() {
+    EntrySet result = entrySet;
+    return result != null ? result : (entrySet = new EntrySet());
+  }
+
+  @Override
+  public Set<K> keySet() {
+    KeySet result = keySet;
+    return result != null ? result : (keySet = new KeySet());
   }
 
   /**
@@ -233,9 +246,6 @@ public final class LinkedTreeMap<K, V> extends AbstractMap<K, V> implements Seri
     return valuesEqual ? mine : null;
   }
 
-  private static boolean equal(Object a, Object b) {
-    return Objects.equals(a, b);
-  }
 
   /**
    * Removes {@code node} from this tree, rearranging the tree's structure as necessary.
@@ -307,6 +317,10 @@ public final class LinkedTreeMap<K, V> extends AbstractMap<K, V> implements Seri
       removeInternal(node, true);
     }
     return node;
+  }
+
+  private static boolean equal(Object a, Object b) {
+    return Objects.equals(a, b);
   }
 
   @SuppressWarnings("ReferenceEquality")
@@ -445,20 +459,6 @@ public final class LinkedTreeMap<K, V> extends AbstractMap<K, V> implements Seri
     pivot.height = Math.max(root.height, pivotLeft != null ? pivotLeft.height : 0) + 1;
   }
 
-  private EntrySet entrySet;
-  private KeySet keySet;
-
-  @Override
-  public Set<Entry<K, V>> entrySet() {
-    EntrySet result = entrySet;
-    return result != null ? result : (entrySet = new EntrySet());
-  }
-
-  @Override
-  public Set<K> keySet() {
-    KeySet result = keySet;
-    return result != null ? result : (keySet = new KeySet());
-  }
 
   static final class Node<K, V> implements Entry<K, V> {
     Node<K, V> parent;
