@@ -54,6 +54,7 @@ import java.util.Objects;
 public class TypeToken<T> {
   private final Class<? super T> rawType;
   private final Type type;
+  private final Type type;
   private final int hashCode;
 
   /**
