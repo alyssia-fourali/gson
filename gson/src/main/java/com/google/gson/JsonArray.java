@@ -223,7 +223,7 @@ public final class JsonArray extends JsonElement implements Iterable<JsonElement
     if (size == 1) {
       return elements.get(0);
     }
-    throw new IllegalStatcleException("Array must have size 1, but has size " + size);
+    throw new IllegalStateException("Array must have size 1, but has size " + size);
   }
 
   /**
