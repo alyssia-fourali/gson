@@ -156,72 +156,98 @@ public final class LinkedTreeMap<K, V> extends AbstractMap<K, V> implements Seri
     return result != null ? result : (keySet = new KeySet());
   }
 
-  /**
-   * Returns the node at or adjacent to the given key, creating it if requested.
-   *
-   * @throws ClassCastException if {@code key} and the tree's keys aren't mutually comparable.
-   */
-  Node<K, V> find(K key, boolean create) {
-    Comparator<? super K> comparator = this.comparator;
-    Node<K, V> nearest = root;
-    int comparison = 0;
 
-    if (nearest != null) {
+  class FindNodeReturnValues{
+    Node<K, V> nearest;
+    int comparison;
+
+    FindNodeReturnValues(Node<K, V> nearest, int comparison){
+      this.nearest = nearest;
+      this.comparison = 0;
+    }
+  }
+
+  private FindNodeReturnValues findNode(K key){
+    Comparator<? super K> comparator = this.comparator;
+    FindNodeReturnValues findNodeReturnValues = new FindNodeReturnValues(root,0);
+
+    if (findNodeReturnValues.nearest != null) {
       // Micro-optimization: avoid polymorphic calls to Comparator.compare().
       @SuppressWarnings("unchecked") // Throws a ClassCastException below if there's trouble.
       Comparable<Object> comparableKey =
-          (comparator == NATURAL_ORDER) ? (Comparable<Object>) key : null;
+              (comparator == NATURAL_ORDER) ? (Comparable<Object>) key : null;
 
       while (true) {
-        comparison =
-            (comparableKey != null)
-                ? comparableKey.compareTo(nearest.key)
-                : comparator.compare(key, nearest.key);
+        findNodeReturnValues.comparison =
+                (comparableKey != null)
+                        ? comparableKey.compareTo(findNodeReturnValues.nearest.key)
+                        : comparator.compare(key, findNodeReturnValues.nearest.key);
 
         // We found the requested key.
-        if (comparison == 0) {
-          return nearest;
+        if (findNodeReturnValues.comparison == 0) {
+          return findNodeReturnValues;
         }
 
         // If it exists, the key is in a subtree. Go deeper.
-        Node<K, V> child = (comparison < 0) ? nearest.left : nearest.right;
+        Node<K, V> child = (findNodeReturnValues.comparison < 0) ? findNodeReturnValues.nearest.left : findNodeReturnValues.nearest.right;
         if (child == null) {
           break;
         }
 
-        nearest = child;
+        findNodeReturnValues.nearest = child;
       }
     }
 
-    // The key doesn't exist in this tree.
-    if (!create) {
-      return null;
-    }
+    return findNodeReturnValues;
+  }
 
-    // Create the node and add it to the tree or the table.
+  private Node<K, V> createNode(K key, FindNodeReturnValues findNodeReturnValues){
     Node<K, V> header = this.header;
     Node<K, V> created;
-    if (nearest == null) {
+    if (findNodeReturnValues.nearest == null) {
       // Check that the value is comparable if we didn't do any comparisons.
       if (comparator == NATURAL_ORDER && !(key instanceof Comparable)) {
         throw new ClassCastException(key.getClass().getName() + " is not Comparable");
       }
-      created = new Node<>(allowNullValues, nearest, key, header, header.prev);
-      root = created;
+      created = new Node<>(allowNullValues, findNodeReturnValues.nearest, key, header, header.prev);
+      setRoot(created);
     } else {
-      created = new Node<>(allowNullValues, nearest, key, header, header.prev);
-      if (comparison < 0) { // nearest.key is higher
-        nearest.left = created;
+      created = new Node<>(allowNullValues, findNodeReturnValues.nearest, key, header, header.prev);
+      if (findNodeReturnValues.comparison < 0) { // nearest.key is higher
+        findNodeReturnValues.nearest.left = created;
       } else { // comparison > 0, nearest.key is lower
-        nearest.right = created;
+        findNodeReturnValues.nearest.right = created;
       }
-      rebalance(nearest, true);
+      rebalance(findNodeReturnValues.nearest, true);
     }
     size++;
     modCount++;
 
     return created;
   }
+
+  void setRoot(Node<K, V> created){
+    root = created;
+  }
+
+  /**
+   * Returns the node at or adjacent to the given key, creating it if requested.
+   *
+   * @throws ClassCastException if {@code key} and the tree's keys aren't mutually comparable.
+   */
+  Node<K, V> find(K key, boolean create){
+    FindNodeReturnValues findNodeReturnValues = findNode(key);
+    if(findNodeReturnValues.nearest != null){
+      return findNodeReturnValues.nearest;
+    }
+
+    if(!create){
+      return null;
+    }
+
+    return createNode(key, findNodeReturnValues);
+  }
+
 
   @SuppressWarnings("unchecked")
   Node<K, V> findByObject(Object key) {
