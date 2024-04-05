@@ -44,12 +44,12 @@ import java.util.Set;
 public final class LinkedTreeMap<K, V> extends AbstractMap<K, V> implements Serializable {
   @SuppressWarnings({"unchecked", "rawtypes"}) // to avoid Comparable<Comparable<Comparable<...>>>
   private static final Comparator<Comparable> NATURAL_ORDER =
-      new Comparator<Comparable>() {
-        @Override
-        public int compare(Comparable a, Comparable b) {
-          return a.compareTo(b);
-        }
-      };
+          new Comparator<Comparable>() {
+            @Override
+            public int compare(Comparable a, Comparable b) {
+              return a.compareTo(b);
+            }
+          };
 
   private final Comparator<? super K> comparator;
   private final boolean allowNullValues;
@@ -156,98 +156,72 @@ public final class LinkedTreeMap<K, V> extends AbstractMap<K, V> implements Seri
     return result != null ? result : (keySet = new KeySet());
   }
 
-
-  class FindNodeReturnValues{
-    Node<K, V> nearest;
-    int comparison;
-
-    FindNodeReturnValues(Node<K, V> nearest, int comparison){
-      this.nearest = nearest;
-      this.comparison = 0;
-    }
-  }
-
-  private FindNodeReturnValues findNode(K key){
+  /**
+   * Returns the node at or adjacent to the given key, creating it if requested.
+   *
+   * @throws ClassCastException if {@code key} and the tree's keys aren't mutually comparable.
+   */
+  Node<K, V> find(K key, boolean create) {
     Comparator<? super K> comparator = this.comparator;
-    FindNodeReturnValues findNodeReturnValues = new FindNodeReturnValues(root,0);
+    Node<K, V> nearest = root;
+    int comparison = 0;
 
-    if (findNodeReturnValues.nearest != null) {
+    if (nearest != null) {
       // Micro-optimization: avoid polymorphic calls to Comparator.compare().
       @SuppressWarnings("unchecked") // Throws a ClassCastException below if there's trouble.
       Comparable<Object> comparableKey =
               (comparator == NATURAL_ORDER) ? (Comparable<Object>) key : null;
 
       while (true) {
-        findNodeReturnValues.comparison =
+        comparison =
                 (comparableKey != null)
-                        ? comparableKey.compareTo(findNodeReturnValues.nearest.key)
-                        : comparator.compare(key, findNodeReturnValues.nearest.key);
+                        ? comparableKey.compareTo(nearest.key)
+                        : comparator.compare(key, nearest.key);
 
         // We found the requested key.
-        if (findNodeReturnValues.comparison == 0) {
-          return findNodeReturnValues;
+        if (comparison == 0) {
+          return nearest;
         }
 
         // If it exists, the key is in a subtree. Go deeper.
-        Node<K, V> child = (findNodeReturnValues.comparison < 0) ? findNodeReturnValues.nearest.left : findNodeReturnValues.nearest.right;
+        Node<K, V> child = (comparison < 0) ? nearest.left : nearest.right;
         if (child == null) {
           break;
         }
 
-        findNodeReturnValues.nearest = child;
+        nearest = child;
       }
     }
 
-    return findNodeReturnValues;
-  }
+    // The key doesn't exist in this tree.
+    if (!create) {
+      return null;
+    }
 
-  private Node<K, V> createNode(K key, FindNodeReturnValues findNodeReturnValues){
+    // Create the node and add it to the tree or the table.
     Node<K, V> header = this.header;
     Node<K, V> created;
-    if (findNodeReturnValues.nearest == null) {
+    if (nearest == null) {
       // Check that the value is comparable if we didn't do any comparisons.
       if (comparator == NATURAL_ORDER && !(key instanceof Comparable)) {
         throw new ClassCastException(key.getClass().getName() + " is not Comparable");
       }
-      created = new Node<>(allowNullValues, findNodeReturnValues.nearest, key, header, header.prev);
-      setRoot(created);
+      created = new Node<>(allowNullValues, nearest, key, header, header.prev);
+      root = created;
     } else {
-      created = new Node<>(allowNullValues, findNodeReturnValues.nearest, key, header, header.prev);
-      if (findNodeReturnValues.comparison < 0) { // nearest.key is higher
-        findNodeReturnValues.nearest.left = created;
+      created = new Node<>(allowNullValues, nearest, key, header, header.prev);
+      if (comparison < 0) { // nearest.key is higher
+        nearest.left = created;
       } else { // comparison > 0, nearest.key is lower
-        findNodeReturnValues.nearest.right = created;
+        nearest.right = created;
       }
-      rebalance(findNodeReturnValues.nearest, true);
+      rebalance(nearest, true);
     }
     size++;
     modCount++;
 
     return created;
   }
-
-  void setRoot(Node<K, V> created){
-    root = created;
-  }
-
-  /**
-   * Returns the node at or adjacent to the given key, creating it if requested.
-   *
-   * @throws ClassCastException if {@code key} and the tree's keys aren't mutually comparable.
-   */
-  Node<K, V> find(K key, boolean create){
-    FindNodeReturnValues findNodeReturnValues = findNode(key);
-    if(findNodeReturnValues.nearest != null){
-      return findNodeReturnValues.nearest;
-    }
-
-    if(!create){
-      return null;
-    }
-
-    return createNode(key, findNodeReturnValues);
-  }
-
 
   @SuppressWarnings("unchecked")
   Node<K, V> findByObject(Object key) {
@@ -526,7 +500,7 @@ public final class LinkedTreeMap<K, V> extends AbstractMap<K, V> implements Seri
       if (o instanceof Entry) {
         Entry<?, ?> other = (Entry<?, ?>) o;
         return (key == null ? other.getKey() == null : key.equals(other.getKey()))
-            && (value == null ? other.getValue() == null : value.equals(other.getValue()));
+                && (value == null ? other.getValue() == null : value.equals(other.getValue()));
       }
       return false;
     }

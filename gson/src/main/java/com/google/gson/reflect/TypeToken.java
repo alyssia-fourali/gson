@@ -108,10 +108,10 @@ public class TypeToken<T> {
     // Check for raw TypeToken as superclass
     else if (superclass == TypeToken.class) {
       throw new IllegalStateException(
-          "TypeToken must be created with a type argument: new TypeToken<...>() {}; When using code"
-              + " shrinkers (ProGuard, R8, ...) make sure that generic signatures are preserved."
-              + "\nSee "
-              + TroubleshootingGuide.createUrl("type-token-raw"));
+              "TypeToken must be created with a type argument: new TypeToken<...>() {}; When using code"
+                      + " shrinkers (ProGuard, R8, ...) make sure that generic signatures are preserved."
+                      + "\nSee "
+                      + TroubleshootingGuide.createUrl("type-token-raw"));
     }
 
     // User created subclass of subclass of TypeToken
@@ -122,12 +122,12 @@ public class TypeToken<T> {
     if (type instanceof TypeVariable) {
       TypeVariable<?> typeVariable = (TypeVariable<?>) type;
       throw new IllegalArgumentException(
-          "TypeToken type argument must not contain a type variable; captured type variable "
-              + typeVariable.getName()
-              + " declared by "
-              + typeVariable.getGenericDeclaration()
-              + "\nSee "
-              + TroubleshootingGuide.createUrl("typetoken-type-variable"));
+              "TypeToken type argument must not contain a type variable; captured type variable "
+                      + typeVariable.getName()
+                      + " declared by "
+                      + typeVariable.getGenericDeclaration()
+                      + "\nSee "
+                      + TroubleshootingGuide.createUrl("typetoken-type-variable"));
     } else if (type instanceof GenericArrayType) {
       verifyNoTypeVariable(((GenericArrayType) type).getGenericComponentType());
     } else if (type instanceof ParameterizedType) {
@@ -153,7 +153,7 @@ public class TypeToken<T> {
       // variable declared by method of local class, see
       // https://github.com/eclipse-jdt/eclipse.jdt.core/issues/975
       throw new IllegalArgumentException(
-          "TypeToken captured `null` as type argument; probably a compiler / runtime bug");
+              "TypeToken captured `null` as type argument; probably a compiler / runtime bug");
     }
   }
 
@@ -198,10 +198,10 @@ public class TypeToken<T> {
       return isAssignableFrom(from, (ParameterizedType) type, new HashMap<String, Type>());
     } else if (type instanceof GenericArrayType) {
       return rawType.isAssignableFrom($Gson$Types.getRawType(from))
-          && isAssignableFrom(from, (GenericArrayType) type);
+              && isAssignableFrom(from, (GenericArrayType) type);
     } else {
       throw buildUnsupportedTypeException(
-          type, Class.class, ParameterizedType.class, GenericArrayType.class);
+              type, Class.class, ParameterizedType.class, GenericArrayType.class);
     }
   }
 
@@ -233,7 +233,7 @@ public class TypeToken<T> {
         t = classType;
       }
       return isAssignableFrom(
-          t, (ParameterizedType) toGenericComponentType, new HashMap<String, Type>());
+              t, (ParameterizedType) toGenericComponentType, new HashMap<String, Type>());
     }
     // No generic defined on "to"; therefore, return true and let other
     // checks determine assignability
@@ -242,7 +242,7 @@ public class TypeToken<T> {
 
   /** Private recursive helper function to actually do the type-safe checking of assignability. */
   private static boolean isAssignableFrom(
-      Type from, ParameterizedType to, Map<String, Type> typeVarMap) {
+          Type from, ParameterizedType to, Map<String, Type> typeVarMap) {
 
     if (from == null) {
       return false;
@@ -295,7 +295,7 @@ public class TypeToken<T> {
    * in the typeVarMap.
    */
   private static boolean typeEquals(
-      ParameterizedType from, ParameterizedType to, Map<String, Type> typeVarMap) {
+          ParameterizedType from, ParameterizedType to, Map<String, Type> typeVarMap) {
     if (from.getRawType().equals(to.getRawType())) {
       Type[] fromArgs = from.getActualTypeArguments();
       Type[] toArgs = to.getActualTypeArguments();
@@ -310,7 +310,7 @@ public class TypeToken<T> {
   }
 
   private static IllegalArgumentException buildUnsupportedTypeException(
-      Type token, Class<?>... expected) {
+          Type token, Class<?>... expected) {
 
     // Build exception message
     StringBuilder exceptionMessage = new StringBuilder("Unsupported type, expected one of: ");
@@ -318,10 +318,10 @@ public class TypeToken<T> {
       exceptionMessage.append(clazz.getName()).append(", ");
     }
     exceptionMessage
-        .append("but got: ")
-        .append(token.getClass().getName())
-        .append(", for type token: ")
-        .append(token.toString());
+            .append("but got: ")
+            .append(token.getClass().getName())
+            .append(", for type token: ")
+            .append(token.toString());
 
     return new IllegalArgumentException(exceptionMessage.toString());
   }
@@ -332,7 +332,7 @@ public class TypeToken<T> {
    */
   private static boolean matches(Type from, Type to, Map<String, Type> typeMap) {
     return to.equals(from)
-        || (from instanceof TypeVariable
+            || (from instanceof TypeVariable
             && to.equals(typeMap.get(((TypeVariable<?>) from).getName())));
   }
 
@@ -399,11 +399,11 @@ public class TypeToken<T> {
     int actualArgsCount = typeArguments.length;
     if (actualArgsCount != expectedArgsCount) {
       throw new IllegalArgumentException(
-          rawClass.getName()
-              + " requires "
-              + expectedArgsCount
-              + " type arguments, but got "
-              + actualArgsCount);
+              rawClass.getName()
+                      + " requires "
+                      + expectedArgsCount
+                      + " type arguments, but got "
+                      + actualArgsCount);
     }
 
     // For legacy reasons create a TypeToken(Class) if the type is not generic
@@ -414,14 +414,14 @@ public class TypeToken<T> {
     // Check for this here to avoid misleading exception thrown by ParameterizedTypeImpl
     if ($Gson$Types.requiresOwnerType(rawType)) {
       throw new IllegalArgumentException(
-          "Raw type "
-              + rawClass.getName()
-              + " is not supported because it requires specifying an owner type");
+              "Raw type "
+                      + rawClass.getName()
+                      + " is not supported because it requires specifying an owner type");
     }
 
     for (int i = 0; i < expectedArgsCount; i++) {
       Type typeArgument =
-          Objects.requireNonNull(typeArguments[i], "Type argument must not be null");
+              Objects.requireNonNull(typeArguments[i], "Type argument must not be null");
       Class<?> rawTypeArgument = $Gson$Types.getRawType(typeArgument);
       TypeVariable<?> typeVariable = typeVariables[i];
 
@@ -430,12 +430,12 @@ public class TypeToken<T> {
 
         if (!rawBound.isAssignableFrom(rawTypeArgument)) {
           throw new IllegalArgumentException(
-              "Type argument "
-                  + typeArgument
-                  + " does not satisfy bounds for type variable "
-                  + typeVariable
-                  + " declared by "
-                  + rawType);
+                  "Type argument "
+                          + typeArgument
+                          + " does not satisfy bounds for type variable "
+                          + typeVariable
+                          + " declared by "
+                          + rawType);
         }
       }
     }

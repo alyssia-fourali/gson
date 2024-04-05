@@ -1,6 +1,10 @@
 package com.google.gson.internal.bind.util;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class DateParsingUtils {
     private DateParsingUtils(){}

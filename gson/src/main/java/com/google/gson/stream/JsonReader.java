@@ -797,8 +797,8 @@ public class JsonReader implements Closeable {
             }
             long newValue = value * 10 - (c - '0');
             fitsInLong &=
-                value > MIN_INCOMPLETE_INTEGER
-                    || (value == MIN_INCOMPLETE_INTEGER && newValue < value);
+                    value > MIN_INCOMPLETE_INTEGER
+                            || (value == MIN_INCOMPLETE_INTEGER && newValue < value);
             value = newValue;
           } else if (last == NUMBER_CHAR_DECIMAL) {
             last = NUMBER_CHAR_FRACTION_DIGIT;
@@ -812,15 +812,15 @@ public class JsonReader implements Closeable {
     // Don't store -0 as long; user might want to read it as double -0.0
     // Don't try to convert Long.MIN_VALUE to positive long; it would overflow MAX_VALUE
     if (last == NUMBER_CHAR_DIGIT
-        && fitsInLong
-        && (value != Long.MIN_VALUE || negative)
-        && (value != 0 || !negative)) {
+            && fitsInLong
+            && (value != Long.MIN_VALUE || negative)
+            && (value != 0 || !negative)) {
       peekedLong = negative ? value : -value;
       pos += i;
       return peeked = PEEKED_LONG;
     } else if (last == NUMBER_CHAR_DIGIT
-        || last == NUMBER_CHAR_FRACTION_DIGIT
-        || last == NUMBER_CHAR_EXP_DIGIT) {
+            || last == NUMBER_CHAR_FRACTION_DIGIT
+            || last == NUMBER_CHAR_EXP_DIGIT) {
       peekedNumberLength = i;
       return peeked = PEEKED_NUMBER;
     } else {
@@ -1074,7 +1074,7 @@ public class JsonReader implements Closeable {
         // through U+001F)
         if (strictness == Strictness.STRICT && c < 0x20) {
           throw syntaxError(
-              "Unescaped control characters (\\u0000-\\u001F) are not allowed in strict mode");
+                  "Unescaped control characters (\\u0000-\\u001F) are not allowed in strict mode");
         } else if (c == quote) {
           pos = p;
           int len = p - start - 1;
@@ -1169,7 +1169,7 @@ public class JsonReader implements Closeable {
     }
 
     String result =
-        (null == builder) ? new String(buffer, pos, i) : builder.append(buffer, pos, i).toString();
+            (null == builder) ? new String(buffer, pos, i) : builder.append(buffer, pos, i).toString();
     pos += i;
     return result;
   }
@@ -1535,7 +1535,7 @@ public class JsonReader implements Closeable {
   private void checkLenient() throws MalformedJsonException {
     if (strictness != Strictness.LENIENT) {
       throw syntaxError(
-          "Use JsonReader.setStrictness(Strictness.LENIENT) to accept malformed JSON");
+              "Use JsonReader.setStrictness(Strictness.LENIENT) to accept malformed JSON");
     }
   }
 
@@ -1749,21 +1749,21 @@ public class JsonReader implements Closeable {
    */
   private MalformedJsonException syntaxError(String message) throws MalformedJsonException {
     throw new MalformedJsonException(
-        message + locationString() + "\nSee " + TroubleshootingGuide.createUrl("malformed-json"));
+            message + locationString() + "\nSee " + TroubleshootingGuide.createUrl("malformed-json"));
   }
 
   private IllegalStateException unexpectedTokenError(String expected) throws IOException {
     JsonToken peeked = peek();
     String troubleshootingId =
-        peeked == JsonToken.NULL ? "adapter-not-null-safe" : "unexpected-json-structure";
+            peeked == JsonToken.NULL ? "adapter-not-null-safe" : "unexpected-json-structure";
     return new IllegalStateException(
-        "Expected "
-            + expected
-            + " but was "
-            + peek()
-            + locationString()
-            + "\nSee "
-            + TroubleshootingGuide.createUrl(troubleshootingId));
+            "Expected "
+                    + expected
+                    + " but was "
+                    + peek()
+                    + locationString()
+                    + "\nSee "
+                    + TroubleshootingGuide.createUrl(troubleshootingId));
   }
 
   /** Consumes the non-execute prefix if it exists. */
@@ -1779,10 +1779,10 @@ public class JsonReader implements Closeable {
     int p = pos;
     char[] buf = buffer;
     if (buf[p] != ')'
-        || buf[p + 1] != ']'
-        || buf[p + 2] != '}'
-        || buf[p + 3] != '\''
-        || buf[p + 4] != '\n') {
+            || buf[p + 1] != ']'
+            || buf[p + 2] != '}'
+            || buf[p + 3] != '\''
+            || buf[p + 4] != '\n') {
       return; // not a security token!
     }
 
@@ -1792,27 +1792,27 @@ public class JsonReader implements Closeable {
 
   static {
     JsonReaderInternalAccess.INSTANCE =
-        new JsonReaderInternalAccess() {
-          @Override
-          public void promoteNameToValue(JsonReader reader) throws IOException {
-            if (reader instanceof JsonTreeReader) {
-              ((JsonTreeReader) reader).promoteNameToValue();
-              return;
-            }
-            int p = reader.peeked;
-            if (p == PEEKED_NONE) {
-              p = reader.doPeek();
-            }
-            if (p == PEEKED_DOUBLE_QUOTED_NAME) {
-              reader.peeked = PEEKED_DOUBLE_QUOTED;
-            } else if (p == PEEKED_SINGLE_QUOTED_NAME) {
-              reader.peeked = PEEKED_SINGLE_QUOTED;
-            } else if (p == PEEKED_UNQUOTED_NAME) {
-              reader.peeked = PEEKED_UNQUOTED;
-            } else {
-              throw reader.unexpectedTokenError("a name");
-            }
-          }
-        };
+            new JsonReaderInternalAccess() {
+              @Override
+              public void promoteNameToValue(JsonReader reader) throws IOException {
+                if (reader instanceof JsonTreeReader) {
+                  ((JsonTreeReader) reader).promoteNameToValue();
+                  return;
+                }
+                int p = reader.peeked;
+                if (p == PEEKED_NONE) {
+                  p = reader.doPeek();
+                }
+                if (p == PEEKED_DOUBLE_QUOTED_NAME) {
+                  reader.peeked = PEEKED_DOUBLE_QUOTED;
+                } else if (p == PEEKED_SINGLE_QUOTED_NAME) {
+                  reader.peeked = PEEKED_SINGLE_QUOTED;
+                } else if (p == PEEKED_UNQUOTED_NAME) {
+                  reader.peeked = PEEKED_UNQUOTED;
+                } else {
+                  throw reader.unexpectedTokenError("a name");
+                }
+              }
+            };
   }
 }
