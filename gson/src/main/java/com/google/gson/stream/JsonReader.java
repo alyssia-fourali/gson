@@ -1690,7 +1690,7 @@ public class JsonReader implements Closeable {
         // fall-through
 
       case '\'':
-        handleStrictModeCheck("'");
+        handleStrictModeCheck();
       case '"':
       case '\\':
       case '/':
@@ -1731,7 +1731,7 @@ public class JsonReader implements Closeable {
     lineStart = pos;
   }
 
-  private void handleStrictModeCheck(String character) throws IOException{
+  private void handleStrictModeCheck() throws IOException{
     if (strictness == Strictness.STRICT) {
       throw syntaxError("Invalid escaped character \"'\" in strict mode");
     }
