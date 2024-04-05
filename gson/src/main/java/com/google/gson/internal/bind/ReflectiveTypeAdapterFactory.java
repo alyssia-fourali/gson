@@ -174,28 +174,6 @@ public final class ReflectiveTypeAdapterFactory implements TypeAdapterFactory {
     }
   }
 
-  class BoundFieldCreationContext{
-    final Gson context;
-    final Field field;
-    final Method accessor;
-    final String serializedName;
-    final TypeToken<?> fieldType;
-
-    BoundFieldCreationContext(
-            final Gson context,
-            final Field field,
-            final Method accessor,
-            final String serializedName,
-            final TypeToken<?> fieldType){
-
-      this.context = context;
-      this.field = field;
-      this.accessor = accessor;
-      this.serializedName = serializedName;
-      this.fieldType = fieldType;
-
-    }
-  }
   private BoundField createBoundField(
       final BoundFieldCreationContext boundFieldCreationContext,
       final boolean serialize,

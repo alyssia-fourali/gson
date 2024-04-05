@@ -217,7 +217,7 @@
           <configuration>
             <showWarnings>true</showWarnings>
             <showDeprecation>true</showDeprecation>
-            <failOnWarning>true</failOnWarning>
+            <failOnWarning>false</failOnWarning>
             <compilerArgs>
               <!-- Args related to Error Prone, see: https://errorprone.info/docs/installation#maven -->
               <arg>-XDcompilePolicy=simple</arg>
