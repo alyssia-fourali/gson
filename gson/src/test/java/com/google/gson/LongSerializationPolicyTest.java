@@ -43,8 +43,8 @@ public class LongSerializationPolicyTest {
   public void testDefaultLongSerializationIntegration() {
     Gson gson =
         new GsonBuilder().setLongSerializationPolicy(LongSerializationPolicy.DEFAULT).create();
-    assertThat(gson.toJson(new long[] {1L}, long[].class)).isEqualTo("[1]");
-    assertThat(gson.toJson(new Long[] {1L}, Long[].class)).isEqualTo("[1]");
+    assertThat(gson.toJson.toJson(new long[] {1L}, long[].class)).isEqualTo("[1]");
+    assertThat(gson.toJson.toJson(new Long[] {1L}, Long[].class)).isEqualTo("[1]");
   }
 
   @Test
@@ -53,7 +53,7 @@ public class LongSerializationPolicyTest {
     assertThat(policy.serialize(null).isJsonNull()).isTrue();
 
     Gson gson = new GsonBuilder().setLongSerializationPolicy(policy).create();
-    assertThat(gson.toJson(null, Long.class)).isEqualTo("null");
+    assertThat(gson.toJson.toJson(null, Long.class)).isEqualTo("null");
   }
 
   @Test
@@ -71,8 +71,8 @@ public class LongSerializationPolicyTest {
   public void testStringLongSerializationIntegration() {
     Gson gson =
         new GsonBuilder().setLongSerializationPolicy(LongSerializationPolicy.STRING).create();
-    assertThat(gson.toJson(new long[] {1L}, long[].class)).isEqualTo("[\"1\"]");
-    assertThat(gson.toJson(new Long[] {1L}, long[].class)).isEqualTo("[\"1\"]");
+    assertThat(gson.toJson.toJson(new long[] {1L}, long[].class)).isEqualTo("[\"1\"]");
+    assertThat(gson.toJson.toJson(new Long[] {1L}, long[].class)).isEqualTo("[\"1\"]");
   }
 
   @Test
@@ -81,6 +81,6 @@ public class LongSerializationPolicyTest {
     assertThat(policy.serialize(null).isJsonNull()).isTrue();
 
     Gson gson = new GsonBuilder().setLongSerializationPolicy(policy).create();
-    assertThat(gson.toJson(null, Long.class)).isEqualTo("null");
+    assertThat(gson.toJson.toJson(null, Long.class)).isEqualTo("null");
   }
 }

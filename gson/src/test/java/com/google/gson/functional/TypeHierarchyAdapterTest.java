@@ -63,7 +63,7 @@ public final class TypeHierarchyAdapterTest {
     Company company = new Company();
     company.ceo = eric;
 
-    String json = gson.toJson(company, Company.class);
+    String json = gson.toJson.toJson(company, Company.class);
     assertThat(json)
         .isEqualTo(
             "{\n"
@@ -105,8 +105,8 @@ public final class TypeHierarchyAdapterTest {
                 + "  }\n"
                 + "}");
 
-    Company copied = gson.fromJson(json, Company.class);
-    assertThat(gson.toJson(copied, Company.class)).isEqualTo(json);
+    Company copied = gson.fromJson.fromJson(json, Company.class);
+    assertThat(gson.toJson.toJson(copied, Company.class)).isEqualTo(json);
     assertThat(company.ceo.userid).isEqualTo(copied.ceo.userid);
     assertThat(company.ceo.assistant.userid).isEqualTo(copied.ceo.assistant.userid);
     assertThat(company.ceo.minions[0].userid).isEqualTo(copied.ceo.minions[0].userid);
@@ -129,9 +129,9 @@ public final class TypeHierarchyAdapterTest {
     Manager manager = new Manager();
     manager.userid = "inder";
 
-    String json = gson.toJson(manager, Manager.class);
+    String json = gson.toJson.toJson(manager, Manager.class);
     assertThat(json).isEqualTo("\"inder\"");
-    Manager copied = gson.fromJson(json, Manager.class);
+    Manager copied = gson.fromJson.fromJson(json, Manager.class);
     assertThat(copied.userid).isEqualTo(manager.userid);
   }
 

@@ -43,25 +43,25 @@ public class JavaUtilConcurrentAtomicTest {
 
   @Test
   public void testAtomicBoolean() {
-    AtomicBoolean target = gson.fromJson("true", AtomicBoolean.class);
+    AtomicBoolean target = gson.fromJson.fromJson("true", AtomicBoolean.class);
     assertThat(target.get()).isTrue();
-    String json = gson.toJson(target);
+    String json = gson.toJson.toJson(target);
     assertThat(json).isEqualTo("true");
   }
 
   @Test
   public void testAtomicInteger() {
-    AtomicInteger target = gson.fromJson("10", AtomicInteger.class);
+    AtomicInteger target = gson.fromJson.fromJson("10", AtomicInteger.class);
     assertThat(target.get()).isEqualTo(10);
-    String json = gson.toJson(target);
+    String json = gson.toJson.toJson(target);
     assertThat(json).isEqualTo("10");
   }
 
   @Test
   public void testAtomicLong() {
-    AtomicLong target = gson.fromJson("10", AtomicLong.class);
+    AtomicLong target = gson.fromJson.fromJson("10", AtomicLong.class);
     assertThat(target.get()).isEqualTo(10);
-    String json = gson.toJson(target);
+    String json = gson.toJson.toJson(target);
     assertThat(json).isEqualTo("10");
   }
 
@@ -69,31 +69,31 @@ public class JavaUtilConcurrentAtomicTest {
   public void testAtomicLongWithStringSerializationPolicy() {
     Gson gson =
         new GsonBuilder().setLongSerializationPolicy(LongSerializationPolicy.STRING).create();
-    AtomicLongHolder target = gson.fromJson("{'value':'10'}", AtomicLongHolder.class);
+    AtomicLongHolder target = gson.fromJson.fromJson("{'value':'10'}", AtomicLongHolder.class);
     assertThat(target.value.get()).isEqualTo(10);
-    String json = gson.toJson(target);
+    String json = gson.toJson.toJson(target);
     assertThat(json).isEqualTo("{\"value\":\"10\"}");
   }
 
   @Test
   public void testAtomicIntegerArray() {
-    AtomicIntegerArray target = gson.fromJson("[10, 13, 14]", AtomicIntegerArray.class);
+    AtomicIntegerArray target = gson.fromJson.fromJson("[10, 13, 14]", AtomicIntegerArray.class);
     assertThat(target.length()).isEqualTo(3);
     assertThat(target.get(0)).isEqualTo(10);
     assertThat(target.get(1)).isEqualTo(13);
     assertThat(target.get(2)).isEqualTo(14);
-    String json = gson.toJson(target);
+    String json = gson.toJson.toJson(target);
     assertThat(json).isEqualTo("[10,13,14]");
   }
 
   @Test
   public void testAtomicLongArray() {
-    AtomicLongArray target = gson.fromJson("[10, 13, 14]", AtomicLongArray.class);
+    AtomicLongArray target = gson.fromJson.fromJson("[10, 13, 14]", AtomicLongArray.class);
     assertThat(target.length()).isEqualTo(3);
     assertThat(target.get(0)).isEqualTo(10);
     assertThat(target.get(1)).isEqualTo(13);
     assertThat(target.get(2)).isEqualTo(14);
-    String json = gson.toJson(target);
+    String json = gson.toJson.toJson(target);
     assertThat(json).isEqualTo("[10,13,14]");
   }
 
@@ -101,12 +101,12 @@ public class JavaUtilConcurrentAtomicTest {
   public void testAtomicLongArrayWithStringSerializationPolicy() {
     Gson gson =
         new GsonBuilder().setLongSerializationPolicy(LongSerializationPolicy.STRING).create();
-    AtomicLongArray target = gson.fromJson("['10', '13', '14']", AtomicLongArray.class);
+    AtomicLongArray target = gson.fromJson.fromJson("['10', '13', '14']", AtomicLongArray.class);
     assertThat(target.length()).isEqualTo(3);
     assertThat(target.get(0)).isEqualTo(10);
     assertThat(target.get(1)).isEqualTo(13);
     assertThat(target.get(2)).isEqualTo(14);
-    String json = gson.toJson(target);
+    String json = gson.toJson.toJson(target);
     assertThat(json).isEqualTo("[\"10\",\"13\",\"14\"]");
   }
 

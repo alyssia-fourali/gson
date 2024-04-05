@@ -55,7 +55,7 @@ public class ReadersWritersTest {
   public void testWriterForSerialization() {
     Writer writer = new StringWriter();
     BagOfPrimitives src = new BagOfPrimitives();
-    gson.toJson(src, writer);
+    gson.toJson.toJson(src, writer);
     assertThat(writer.toString()).isEqualTo(src.getExpectedJson());
   }
 
@@ -63,21 +63,21 @@ public class ReadersWritersTest {
   public void testReaderForDeserialization() {
     BagOfPrimitives expected = new BagOfPrimitives();
     Reader json = new StringReader(expected.getExpectedJson());
-    BagOfPrimitives actual = gson.fromJson(json, BagOfPrimitives.class);
+    BagOfPrimitives actual = gson.fromJson.fromJson(json, BagOfPrimitives.class);
     assertThat(actual).isEqualTo(expected);
   }
 
   @Test
   public void testTopLevelNullObjectSerializationWithWriter() {
     StringWriter writer = new StringWriter();
-    gson.toJson(null, writer);
+    gson.toJson.toJson(null, writer);
     assertThat(writer.toString()).isEqualTo("null");
   }
 
   @Test
   public void testTopLevelNullObjectDeserializationWithReader() {
     StringReader reader = new StringReader("null");
-    Integer nullIntObject = gson.fromJson(reader, Integer.class);
+    Integer nullIntObject = gson.fromJson.fromJson(reader, Integer.class);
     assertThat(nullIntObject).isNull();
   }
 
@@ -85,7 +85,7 @@ public class ReadersWritersTest {
   public void testTopLevelNullObjectSerializationWithWriterAndSerializeNulls() {
     Gson gson = new GsonBuilder().serializeNulls().create();
     StringWriter writer = new StringWriter();
-    gson.toJson(null, writer);
+    gson.toJson.toJson(null, writer);
     assertThat(writer.toString()).isEqualTo("null");
   }
 
@@ -93,7 +93,7 @@ public class ReadersWritersTest {
   public void testTopLevelNullObjectDeserializationWithReaderAndSerializeNulls() {
     Gson gson = new GsonBuilder().serializeNulls().create();
     StringReader reader = new StringReader("null");
-    Integer nullIntObject = gson.fromJson(reader, Integer.class);
+    Integer nullIntObject = gson.fromJson.fromJson(reader, Integer.class);
     assertThat(nullIntObject).isNull();
   }
 
@@ -101,13 +101,13 @@ public class ReadersWritersTest {
   public void testReadWriteTwoStrings() throws IOException {
     Gson gson = new Gson();
     CharArrayWriter writer = new CharArrayWriter();
-    writer.write(gson.toJson("one").toCharArray());
-    writer.write(gson.toJson("two").toCharArray());
+    writer.write(gson.toJson.toJson("one").toCharArray());
+    writer.write(gson.toJson.toJson("two").toCharArray());
     CharArrayReader reader = new CharArrayReader(writer.toCharArray());
     JsonStreamParser parser = new JsonStreamParser(reader);
-    String actualOne = gson.fromJson(parser.next(), String.class);
+    String actualOne = gson.fromJson.fromJson(parser.next(), String.class);
     assertThat(actualOne).isEqualTo("one");
-    String actualTwo = gson.fromJson(parser.next(), String.class);
+    String actualTwo = gson.fromJson.fromJson(parser.next(), String.class);
     assertThat(actualTwo).isEqualTo("two");
   }
 
@@ -116,14 +116,14 @@ public class ReadersWritersTest {
     Gson gson = new Gson();
     CharArrayWriter writer = new CharArrayWriter();
     BagOfPrimitives expectedOne = new BagOfPrimitives(1, 1, true, "one");
-    writer.write(gson.toJson(expectedOne).toCharArray());
+    writer.write(gson.toJson.toJson(expectedOne).toCharArray());
     BagOfPrimitives expectedTwo = new BagOfPrimitives(2, 2, false, "two");
-    writer.write(gson.toJson(expectedTwo).toCharArray());
+    writer.write(gson.toJson.toJson(expectedTwo).toCharArray());
     CharArrayReader reader = new CharArrayReader(writer.toCharArray());
     JsonStreamParser parser = new JsonStreamParser(reader);
-    BagOfPrimitives actualOne = gson.fromJson(parser.next(), BagOfPrimitives.class);
+    BagOfPrimitives actualOne = gson.fromJson.fromJson(parser.next(), BagOfPrimitives.class);
     assertThat(actualOne.stringValue).isEqualTo("one");
-    BagOfPrimitives actualTwo = gson.fromJson(parser.next(), BagOfPrimitives.class);
+    BagOfPrimitives actualTwo = gson.fromJson.fromJson(parser.next(), BagOfPrimitives.class);
     assertThat(actualTwo.stringValue).isEqualTo("two");
     assertThat(parser.hasNext()).isFalse();
   }
@@ -131,7 +131,7 @@ public class ReadersWritersTest {
   @Test
   public void testTypeMismatchThrowsJsonSyntaxExceptionForStrings() {
     try {
-      gson.fromJson("true", new TypeToken<Map<String, String>>() {}.getType());
+      gson.fromJson.fromJson("true", new TypeToken<Map<String, String>>() {}.getType());
       fail();
     } catch (JsonSyntaxException expected) {
     }
@@ -140,7 +140,7 @@ public class ReadersWritersTest {
   @Test
   public void testTypeMismatchThrowsJsonSyntaxExceptionForReaders() {
     try {
-      gson.fromJson(new StringReader("true"), new TypeToken<Map<String, String>>() {}.getType());
+      gson.fromJson.fromJson(new StringReader("true"), new TypeToken<Map<String, String>>() {}.getType());
       fail();
     } catch (JsonSyntaxException expected) {
     }
@@ -189,7 +189,7 @@ public class ReadersWritersTest {
     }
 
     CustomAppendable appendable = new CustomAppendable();
-    gson.toJson(Arrays.asList("test", 123, true), appendable);
+    gson.toJson.toJson(Arrays.asList("test", 123, true), appendable);
     // Make sure CharSequence.toString() was called at least two times to verify that
     // CurrentWrite.cachedString is properly overwritten when char array changes
     assertThat(appendable.toStringCallCount).isAtLeast(2);

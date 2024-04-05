@@ -50,13 +50,13 @@ public class UncategorizedTest {
   @Test
   public void testInvalidJsonDeserializationFails() throws Exception {
     try {
-      gson.fromJson("adfasdf1112,,,\":", BagOfPrimitives.class);
+      gson.fromJson.fromJson("adfasdf1112,,,\":", BagOfPrimitives.class);
       fail("Bad JSON should throw a ParseException");
     } catch (JsonParseException expected) {
     }
 
     try {
-      gson.fromJson("{adfasdf1112,,,\":}", BagOfPrimitives.class);
+      gson.fromJson.fromJson("{adfasdf1112,,,\":}", BagOfPrimitives.class);
       fail("Bad JSON should throw a ParseException");
     } catch (JsonParseException expected) {
     }
@@ -67,21 +67,21 @@ public class UncategorizedTest {
     ClassOverridingEquals objA = new ClassOverridingEquals();
     ClassOverridingEquals objB = new ClassOverridingEquals();
     objB.ref = objA;
-    String json = gson.toJson(objB);
+    String json = gson.toJson.toJson(objB);
     assertThat(json).isEqualTo(objB.getExpectedJson());
   }
 
   @Test
   public void testStaticFieldsAreNotSerialized() {
     BagOfPrimitives target = new BagOfPrimitives();
-    assertThat(gson.toJson(target)).doesNotContain("DEFAULT_VALUE");
+    assertThat(gson.toJson.toJson(target)).doesNotContain("DEFAULT_VALUE");
   }
 
   @Test
   public void testGsonInstanceReusableForSerializationAndDeserialization() {
     BagOfPrimitives bag = new BagOfPrimitives();
-    String json = gson.toJson(bag);
-    BagOfPrimitives deserialized = gson.fromJson(json, BagOfPrimitives.class);
+    String json = gson.toJson.toJson(bag);
+    BagOfPrimitives deserialized = gson.fromJson.fromJson(json, BagOfPrimitives.class);
     assertThat(deserialized).isEqualTo(bag);
   }
 
@@ -94,12 +94,12 @@ public class UncategorizedTest {
   public void testReturningDerivedClassesDuringDeserialization() {
     Gson gson = new GsonBuilder().registerTypeAdapter(Base.class, new BaseTypeAdapter()).create();
     String json = "{\"opType\":\"OP1\"}";
-    Base base = gson.fromJson(json, Base.class);
+    Base base = gson.fromJson.fromJson(json, Base.class);
     assertThat(base).isInstanceOf(Derived1.class);
     assertThat(base.opType).isEqualTo(OperationType.OP1);
 
     json = "{\"opType\":\"OP2\"}";
-    base = gson.fromJson(json, Base.class);
+    base = gson.fromJson.fromJson(json, Base.class);
     assertThat(base).isInstanceOf(Derived2.class);
     assertThat(base.opType).isEqualTo(OperationType.OP2);
   }
@@ -111,7 +111,7 @@ public class UncategorizedTest {
   @Test
   public void testTrailingWhitespace() throws Exception {
     List<Integer> integers =
-        gson.fromJson("[1,2,3]  \n\n  ", new TypeToken<List<Integer>>() {}.getType());
+        gson.fromJson.fromJson("[1,2,3]  \n\n  ", new TypeToken<List<Integer>>() {}.getType());
     assertThat(integers).containsExactly(1, 2, 3).inOrder();
   }
 

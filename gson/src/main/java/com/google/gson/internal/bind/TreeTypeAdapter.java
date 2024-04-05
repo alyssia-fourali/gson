@@ -185,18 +185,18 @@ public final class TreeTypeAdapter<T> extends SerializationDelegatingTypeAdapter
       implements JsonSerializationContext, JsonDeserializationContext {
     @Override
     public JsonElement serialize(Object src) {
-      return gson.toJsonTree(src);
+      return gson.toJson.toJsonTree(src);
     }
 
     @Override
     public JsonElement serialize(Object src, Type typeOfSrc) {
-      return gson.toJsonTree(src, typeOfSrc);
+      return gson.toJson.toJsonTree(src, typeOfSrc);
     }
 
     @Override
     @SuppressWarnings({"unchecked", "TypeParameterUnusedInFormals"})
     public <R> R deserialize(JsonElement json, Type typeOfT) throws JsonParseException {
-      return gson.fromJson(json, typeOfT);
+      return gson.fromJson.fromJson(json, typeOfT);
     }
   }
 }

@@ -38,9 +38,9 @@ public final class RuntimeTypeAdapterFactoryTest {
     CreditCard original = new CreditCard("Jesse", 234);
     assertEquals(
         "{\"type\":\"CreditCard\",\"cvv\":234,\"ownerName\":\"Jesse\"}",
-        gson.toJson(original, BillingInstrument.class));
+        gson.toJson.toJson(original, BillingInstrument.class));
     BillingInstrument deserialized =
-        gson.fromJson("{type:'CreditCard',cvv:234,ownerName:'Jesse'}", BillingInstrument.class);
+        gson.fromJson.fromJson("{type:'CreditCard',cvv:234,ownerName:'Jesse'}", BillingInstrument.class);
     assertEquals("Jesse", deserialized.ownerName);
     assertTrue(deserialized instanceof CreditCard);
   }
@@ -58,9 +58,9 @@ public final class RuntimeTypeAdapterFactoryTest {
 
     CreditCard original = new CreditCard("Jesse", 234);
     assertEquals(
-        "{\"type\":\"CreditCard\",\"cvv\":234,\"ownerName\":\"Jesse\"}", gson.toJson(original));
+        "{\"type\":\"CreditCard\",\"cvv\":234,\"ownerName\":\"Jesse\"}", gson.toJson.toJson(original));
     BillingInstrument deserialized =
-        gson.fromJson("{type:'CreditCard',cvv:234,ownerName:'Jesse'}", BillingInstrument.class);
+        gson.fromJson.fromJson("{type:'CreditCard',cvv:234,ownerName:'Jesse'}", BillingInstrument.class);
     assertEquals("Jesse", deserialized.ownerName);
     assertTrue(deserialized instanceof CreditCard);
   }
@@ -75,9 +75,9 @@ public final class RuntimeTypeAdapterFactoryTest {
     BillingInstrument original = new BillingInstrument("Jesse");
     assertEquals(
         "{\"type\":\"BillingInstrument\",\"ownerName\":\"Jesse\"}",
-        gson.toJson(original, BillingInstrument.class));
+        gson.toJson.toJson(original, BillingInstrument.class));
     BillingInstrument deserialized =
-        gson.fromJson("{type:'BillingInstrument',ownerName:'Jesse'}", BillingInstrument.class);
+        gson.fromJson.fromJson("{type:'BillingInstrument',ownerName:'Jesse'}", BillingInstrument.class);
     assertEquals("Jesse", deserialized.ownerName);
   }
 
@@ -151,7 +151,7 @@ public final class RuntimeTypeAdapterFactoryTest {
         RuntimeTypeAdapterFactory.of(BillingInstrument.class).registerSubtype(CreditCard.class);
     Gson gson = new GsonBuilder().registerTypeAdapterFactory(billingAdapter).create();
     try {
-      gson.fromJson("{ownerName:'Jesse'}", BillingInstrument.class);
+      gson.fromJson.fromJson("{ownerName:'Jesse'}", BillingInstrument.class);
       fail();
     } catch (JsonParseException expected) {
     }
@@ -163,7 +163,7 @@ public final class RuntimeTypeAdapterFactoryTest {
         RuntimeTypeAdapterFactory.of(BillingInstrument.class).registerSubtype(BankTransfer.class);
     Gson gson = new GsonBuilder().registerTypeAdapterFactory(billingAdapter).create();
     try {
-      gson.fromJson("{type:'CreditCard',ownerName:'Jesse'}", BillingInstrument.class);
+      gson.fromJson.fromJson("{type:'CreditCard',ownerName:'Jesse'}", BillingInstrument.class);
       fail();
     } catch (JsonParseException expected) {
     }
@@ -175,7 +175,7 @@ public final class RuntimeTypeAdapterFactoryTest {
         RuntimeTypeAdapterFactory.of(BillingInstrument.class).registerSubtype(BankTransfer.class);
     Gson gson = new GsonBuilder().registerTypeAdapterFactory(billingAdapter).create();
     try {
-      gson.toJson(new CreditCard("Jesse", 456), BillingInstrument.class);
+      gson.toJson.toJson(new CreditCard("Jesse", 456), BillingInstrument.class);
       fail();
     } catch (JsonParseException expected) {
     }
@@ -188,7 +188,7 @@ public final class RuntimeTypeAdapterFactoryTest {
             .registerSubtype(CreditCard.class);
     Gson gson = new GsonBuilder().registerTypeAdapterFactory(billingAdapter).create();
     try {
-      gson.toJson(new CreditCard("Jesse", 456), BillingInstrument.class);
+      gson.toJson.toJson(new CreditCard("Jesse", 456), BillingInstrument.class);
       fail();
     } catch (JsonParseException expected) {
     }
@@ -202,9 +202,9 @@ public final class RuntimeTypeAdapterFactoryTest {
             .registerSubtype(BankTransfer.class);
     Gson gson = new GsonBuilder().registerTypeAdapterFactory(billingAdapter).create();
     String serialized =
-        gson.toJson(new BillingInstrumentWrapper(null), BillingInstrumentWrapper.class);
+        gson.toJson.toJson(new BillingInstrumentWrapper(null), BillingInstrumentWrapper.class);
     BillingInstrumentWrapper deserialized =
-        gson.fromJson(serialized, BillingInstrumentWrapper.class);
+        gson.fromJson.fromJson(serialized, BillingInstrumentWrapper.class);
     assertNull(deserialized.instrument);
   }
 

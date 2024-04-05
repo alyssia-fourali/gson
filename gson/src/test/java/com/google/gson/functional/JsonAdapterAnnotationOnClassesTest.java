@@ -50,28 +50,28 @@ public final class JsonAdapterAnnotationOnClassesTest {
   @Test
   public void testJsonAdapterInvoked() {
     Gson gson = new Gson();
-    String json = gson.toJson(new A("bar"));
+    String json = gson.toJson.toJson(new A("bar"));
     assertThat(json).isEqualTo("\"jsonAdapter\"");
 
     // Also invoke the JsonAdapter javadoc sample
-    json = gson.toJson(new User("Inderjeet", "Singh"));
+    json = gson.toJson.toJson(new User("Inderjeet", "Singh"));
     assertThat(json).isEqualTo("{\"name\":\"Inderjeet Singh\"}");
-    User user = gson.fromJson("{'name':'Joel Leitch'}", User.class);
+    User user = gson.fromJson.fromJson("{'name':'Joel Leitch'}", User.class);
     assertThat(user.firstName).isEqualTo("Joel");
     assertThat(user.lastName).isEqualTo("Leitch");
 
-    json = gson.toJson(Foo.BAR);
+    json = gson.toJson.toJson(Foo.BAR);
     assertThat(json).isEqualTo("\"bar\"");
-    Foo baz = gson.fromJson("\"baz\"", Foo.class);
+    Foo baz = gson.fromJson.fromJson("\"baz\"", Foo.class);
     assertThat(baz).isEqualTo(Foo.BAZ);
   }
 
   @Test
   public void testJsonAdapterFactoryInvoked() {
     Gson gson = new Gson();
-    String json = gson.toJson(new C("bar"));
+    String json = gson.toJson.toJson(new C("bar"));
     assertThat(json).isEqualTo("\"jsonAdapterFactory\"");
-    C c = gson.fromJson("\"bar\"", C.class);
+    C c = gson.fromJson.fromJson("\"bar\"", C.class);
     assertThat(c.value).isEqualTo("jsonAdapterFactory");
   }
 
@@ -90,7 +90,7 @@ public final class JsonAdapterAnnotationOnClassesTest {
           }
         };
     Gson gson = new GsonBuilder().registerTypeAdapter(A.class, typeAdapter).create();
-    String json = gson.toJson(new A("abcd"));
+    String json = gson.toJson.toJson(new A("abcd"));
     assertThat(json).isEqualTo("\"registeredAdapter\"");
   }
 
@@ -105,9 +105,9 @@ public final class JsonAdapterAnnotationOnClassesTest {
           }
         };
     Gson gson = new GsonBuilder().registerTypeAdapter(A.class, serializer).create();
-    String json = gson.toJson(new A("abcd"));
+    String json = gson.toJson.toJson(new A("abcd"));
     assertThat(json).isEqualTo("\"registeredSerializer\"");
-    A target = gson.fromJson("abcd", A.class);
+    A target = gson.fromJson.fromJson("abcd", A.class);
     assertThat(target.value).isEqualTo("jsonAdapter");
   }
 
@@ -123,16 +123,16 @@ public final class JsonAdapterAnnotationOnClassesTest {
           }
         };
     Gson gson = new GsonBuilder().registerTypeAdapter(A.class, deserializer).create();
-    String json = gson.toJson(new A("abcd"));
+    String json = gson.toJson.toJson(new A("abcd"));
     assertThat(json).isEqualTo("\"jsonAdapter\"");
-    A target = gson.fromJson("abcd", A.class);
+    A target = gson.fromJson.fromJson("abcd", A.class);
     assertThat(target.value).isEqualTo("registeredDeserializer");
   }
 
   @Test
   public void testIncorrectTypeAdapterFails() {
     try {
-      String json = new Gson().toJson(new ClassWithIncorrectJsonAdapter("bar"));
+      String json = new Gson().toJson.toJson(new ClassWithIncorrectJsonAdapter("bar"));
       fail(json);
     } catch (ClassCastException expected) {
     }
@@ -140,23 +140,23 @@ public final class JsonAdapterAnnotationOnClassesTest {
 
   @Test
   public void testSuperclassTypeAdapterNotInvoked() {
-    String json = new Gson().toJson(new B("bar"));
+    String json = new Gson().toJson.toJson(new B("bar"));
     assertThat(json).doesNotContain("jsonAdapter");
   }
 
   @Test
   public void testNullSafeObject() {
     Gson gson = new Gson();
-    NullableClass fromJson = gson.fromJson("null", NullableClass.class);
+    NullableClass fromJson = gson.fromJson.fromJson("null", NullableClass.class);
     assertThat(fromJson).isNull();
 
-    fromJson = gson.fromJson("\"ignored\"", NullableClass.class);
+    fromJson = gson.fromJson.fromJson("\"ignored\"", NullableClass.class);
     assertThat(fromJson).isNotNull();
 
-    String json = gson.toJson(null, NullableClass.class);
+    String json = gson.toJson.toJson(null, NullableClass.class);
     assertThat(json).isEqualTo("null");
 
-    json = gson.toJson(new NullableClass());
+    json = gson.toJson.toJson(new NullableClass());
     assertThat(json).isEqualTo("\"nullable\"");
   }
 
@@ -169,25 +169,25 @@ public final class JsonAdapterAnnotationOnClassesTest {
   public void testFactoryReturningNull() {
     Gson gson = new Gson();
 
-    assertThat(gson.fromJson("null", WithNullReturningFactory.class)).isNull();
-    assertThat(gson.toJson(null, WithNullReturningFactory.class)).isEqualTo("null");
+    assertThat(gson.fromJson.fromJson("null", WithNullReturningFactory.class)).isNull();
+    assertThat(gson.toJson.toJson(null, WithNullReturningFactory.class)).isEqualTo("null");
 
     TypeToken<WithNullReturningFactory<String>> stringTypeArg =
         new TypeToken<WithNullReturningFactory<String>>() {};
-    WithNullReturningFactory<?> deserialized = gson.fromJson("\"a\"", stringTypeArg);
+    WithNullReturningFactory<?> deserialized = gson.fromJson.fromJson("\"a\"", stringTypeArg);
     assertThat(deserialized.t).isEqualTo("custom-read:a");
-    assertThat(gson.fromJson("null", stringTypeArg)).isNull();
-    assertThat(gson.toJson(new WithNullReturningFactory<>("b"), stringTypeArg.getType()))
+    assertThat(gson.fromJson.fromJson("null", stringTypeArg)).isNull();
+    assertThat(gson.toJson.toJson(new WithNullReturningFactory<>("b"), stringTypeArg.getType()))
         .isEqualTo("\"custom-write:b\"");
-    assertThat(gson.toJson(null, stringTypeArg.getType())).isEqualTo("null");
+    assertThat(gson.toJson.toJson(null, stringTypeArg.getType())).isEqualTo("null");
 
     // Factory should return `null` for this type and Gson should fall back to reflection-based
     // adapter
     TypeToken<WithNullReturningFactory<Integer>> numberTypeArg =
         new TypeToken<WithNullReturningFactory<Integer>>() {};
-    deserialized = gson.fromJson("{\"t\":1}", numberTypeArg);
+    deserialized = gson.fromJson.fromJson("{\"t\":1}", numberTypeArg);
     assertThat(deserialized.t).isEqualTo(1);
-    assertThat(gson.toJson(new WithNullReturningFactory<>(2), numberTypeArg.getType()))
+    assertThat(gson.toJson.toJson(new WithNullReturningFactory<>(2), numberTypeArg.getType()))
         .isEqualTo("{\"t\":2}");
   }
 
@@ -374,7 +374,7 @@ public final class JsonAdapterAnnotationOnClassesTest {
   @Test
   public void testIncorrectJsonAdapterType() {
     try {
-      new Gson().toJson(new D());
+      new Gson().toJson.toJson(new D());
       fail();
     } catch (IllegalArgumentException expected) {
     }
@@ -395,17 +395,17 @@ public final class JsonAdapterAnnotationOnClassesTest {
   public void testDelegatingAdapterFactory() {
     @SuppressWarnings("unchecked")
     WithDelegatingFactory<String> deserialized =
-        new Gson().fromJson("{\"custom\":{\"f\":\"de\"}}", WithDelegatingFactory.class);
+        new Gson().fromJson.fromJson("{\"custom\":{\"f\":\"de\"}}", WithDelegatingFactory.class);
     assertThat(deserialized.f).isEqualTo("de");
 
     deserialized =
         new Gson()
-            .fromJson(
+            .fromJson.fromJson(
                 "{\"custom\":{\"f\":\"de\"}}", new TypeToken<WithDelegatingFactory<String>>() {});
     assertThat(deserialized.f).isEqualTo("de");
 
     WithDelegatingFactory<String> serialized = new WithDelegatingFactory<>("se");
-    assertThat(new Gson().toJson(serialized)).isEqualTo("{\"custom\":{\"f\":\"se\"}}");
+    assertThat(new Gson().toJson.toJson(serialized)).isEqualTo("{\"custom\":{\"f\":\"se\"}}");
   }
 
   @JsonAdapter(WithDelegatingFactory.Factory.class)
@@ -457,11 +457,11 @@ public final class JsonAdapterAnnotationOnClassesTest {
   @Test
   public void testDelegatingAdapterFactory_Delayed() {
     WithDelayedDelegatingFactory deserialized =
-        new Gson().fromJson("{\"custom\":{\"f\":\"de\"}}", WithDelayedDelegatingFactory.class);
+        new Gson().fromJson.fromJson("{\"custom\":{\"f\":\"de\"}}", WithDelayedDelegatingFactory.class);
     assertThat(deserialized.f).isEqualTo("de");
 
     WithDelayedDelegatingFactory serialized = new WithDelayedDelegatingFactory("se");
-    assertThat(new Gson().toJson(serialized)).isEqualTo("{\"custom\":{\"f\":\"se\"}}");
+    assertThat(new Gson().toJson.toJson(serialized)).isEqualTo("{\"custom\":{\"f\":\"se\"}}");
   }
 
   @JsonAdapter(WithDelayedDelegatingFactory.Factory.class)
@@ -518,11 +518,11 @@ public final class JsonAdapterAnnotationOnClassesTest {
 
     // Should use both factories, and therefore have `{"custom": ... }` twice
     WithDelegatingFactory<?> deserialized =
-        gson.fromJson("{\"custom\":{\"custom\":{\"f\":\"de\"}}}", WithDelegatingFactory.class);
+        gson.fromJson.fromJson("{\"custom\":{\"custom\":{\"f\":\"de\"}}}", WithDelegatingFactory.class);
     assertThat(deserialized.f).isEqualTo("de");
 
     WithDelegatingFactory<String> serialized = new WithDelegatingFactory<>("se");
-    assertThat(gson.toJson(serialized)).isEqualTo("{\"custom\":{\"custom\":{\"f\":\"se\"}}}");
+    assertThat(gson.toJson.toJson(serialized)).isEqualTo("{\"custom\":{\"custom\":{\"f\":\"se\"}}}");
   }
 
   /**
@@ -552,11 +552,11 @@ public final class JsonAdapterAnnotationOnClassesTest {
     // skips past the @JsonAdapter one, so the JSON string is `{"custom": ...}` instead of
     // `{"custom":{"custom":...}}`
     WithDelegatingFactory<?> deserialized =
-        gson.fromJson("{\"custom\":{\"f\":\"de\"}}", WithDelegatingFactory.class);
+        gson.fromJson.fromJson("{\"custom\":{\"f\":\"de\"}}", WithDelegatingFactory.class);
     assertThat(deserialized.f).isEqualTo("de");
 
     WithDelegatingFactory<String> serialized = new WithDelegatingFactory<>("se");
-    assertThat(gson.toJson(serialized)).isEqualTo("{\"custom\":{\"f\":\"se\"}}");
+    assertThat(gson.toJson.toJson(serialized)).isEqualTo("{\"custom\":{\"f\":\"se\"}}");
   }
 
   /**
@@ -591,13 +591,13 @@ public final class JsonAdapterAnnotationOnClassesTest {
     // Should use both factories, and therefore have `{"custom": ... }` once for class and once for
     // the field, and for field also properly delegate to custom String adapter defined above
     WithDelegatingFactoryOnClassAndField deserialized =
-        gson.fromJson(
+        gson.fromJson.fromJson(
             "{\"custom\":{\"f\":{\"custom\":\"de\"}}}", WithDelegatingFactoryOnClassAndField.class);
     assertThat(deserialized.f).isEqualTo("de-str");
 
     WithDelegatingFactoryOnClassAndField serialized =
         new WithDelegatingFactoryOnClassAndField("se");
-    assertThat(gson.toJson(serialized)).isEqualTo("{\"custom\":{\"f\":{\"custom\":\"se-str\"}}}");
+    assertThat(gson.toJson.toJson(serialized)).isEqualTo("{\"custom\":{\"f\":{\"custom\":\"se-str\"}}}");
   }
 
   /**
@@ -641,13 +641,13 @@ public final class JsonAdapterAnnotationOnClassesTest {
     // expected: Both the declaring class and the field each have `{"custom": ...}` and delegation
     // for the field to the custom String adapter defined above works properly
     WithDelegatingFactoryOnClassAndField deserialized =
-        gson.fromJson(
+        gson.fromJson.fromJson(
             "{\"custom\":{\"f\":{\"custom\":\"de\"}}}", WithDelegatingFactoryOnClassAndField.class);
     assertThat(deserialized.f).isEqualTo("de-str");
 
     WithDelegatingFactoryOnClassAndField serialized =
         new WithDelegatingFactoryOnClassAndField("se");
-    assertThat(gson.toJson(serialized)).isEqualTo("{\"custom\":{\"f\":{\"custom\":\"se-str\"}}}");
+    assertThat(gson.toJson.toJson(serialized)).isEqualTo("{\"custom\":{\"f\":{\"custom\":\"se-str\"}}}");
   }
 
   // Same factory class specified on class and one of its fields
@@ -697,10 +697,10 @@ public final class JsonAdapterAnnotationOnClassesTest {
   public void testJsonSerializer() {
     Gson gson = new Gson();
     // Verify that delegate deserializer (reflection deserializer) is used
-    WithJsonSerializer deserialized = gson.fromJson("{\"f\":\"test\"}", WithJsonSerializer.class);
+    WithJsonSerializer deserialized = gson.fromJson.fromJson("{\"f\":\"test\"}", WithJsonSerializer.class);
     assertThat(deserialized.f).isEqualTo("test");
 
-    String json = gson.toJson(new WithJsonSerializer());
+    String json = gson.toJson.toJson(new WithJsonSerializer());
     // Uses custom serializer which always returns `true`
     assertThat(json).isEqualTo("true");
   }
@@ -723,12 +723,12 @@ public final class JsonAdapterAnnotationOnClassesTest {
   public void testJsonDeserializer() {
     Gson gson = new Gson();
     WithJsonDeserializer deserialized =
-        gson.fromJson("{\"f\":\"test\"}", WithJsonDeserializer.class);
+        gson.fromJson.fromJson("{\"f\":\"test\"}", WithJsonDeserializer.class);
     // Uses custom deserializer which always uses "123" as field value
     assertThat(deserialized.f).isEqualTo("123");
 
     // Verify that delegate serializer (reflection serializer) is used
-    String json = gson.toJson(new WithJsonDeserializer("abc"));
+    String json = gson.toJson.toJson(new WithJsonDeserializer("abc"));
     assertThat(json).isEqualTo("{\"f\":\"abc\"}");
   }
 
@@ -763,7 +763,7 @@ public final class JsonAdapterAnnotationOnClassesTest {
                 CreatedByInstanceCreator.Serializer.class, (InstanceCreator<?>) t -> serializer)
             .create();
 
-    String json = gson.toJson(new CreatedByInstanceCreator());
+    String json = gson.toJson.toJson(new CreatedByInstanceCreator());
     assertThat(json).isEqualTo("\"custom\"");
   }
 
@@ -792,7 +792,7 @@ public final class JsonAdapterAnnotationOnClassesTest {
   /** Tests creation of the adapter referenced by {@code @JsonAdapter} using JDK Unsafe. */
   @Test
   public void testAdapterCreatedByJdkUnsafe() {
-    String json = new Gson().toJson(new CreatedByJdkUnsafe());
+    String json = new Gson().toJson.toJson(new CreatedByJdkUnsafe());
     assertThat(json).isEqualTo("false");
   }
 

@@ -28,23 +28,23 @@ public final class SerializedNameTest {
   public void testFirstNameIsChosenForSerialization() {
     MyClass target = new MyClass("v1", "v2");
     // Ensure name1 occurs exactly once, and name2 and name3 don't appear
-    assertThat(gson.toJson(target)).isEqualTo("{\"name\":\"v1\",\"name1\":\"v2\"}");
+    assertThat(gson.toJson.toJson(target)).isEqualTo("{\"name\":\"v1\",\"name1\":\"v2\"}");
   }
 
   @Test
   public void testMultipleNamesDeserializedCorrectly() {
-    assertThat(gson.fromJson("{'name':'v1'}", MyClass.class).a).isEqualTo("v1");
+    assertThat(gson.fromJson.fromJson("{'name':'v1'}", MyClass.class).a).isEqualTo("v1");
 
     // Both name1 and name2 gets deserialized to b
-    assertThat(gson.fromJson("{'name1':'v11'}", MyClass.class).b).isEqualTo("v11");
-    assertThat(gson.fromJson("{'name2':'v2'}", MyClass.class).b).isEqualTo("v2");
-    assertThat(gson.fromJson("{'name3':'v3'}", MyClass.class).b).isEqualTo("v3");
+    assertThat(gson.fromJson.fromJson("{'name1':'v11'}", MyClass.class).b).isEqualTo("v11");
+    assertThat(gson.fromJson.fromJson("{'name2':'v2'}", MyClass.class).b).isEqualTo("v2");
+    assertThat(gson.fromJson.fromJson("{'name3':'v3'}", MyClass.class).b).isEqualTo("v3");
   }
 
   @Test
   public void testMultipleNamesInTheSameString() {
     // The last value takes precedence
-    assertThat(gson.fromJson("{'name1':'v1','name2':'v2','name3':'v3'}", MyClass.class).b)
+    assertThat(gson.fromJson.fromJson("{'name1':'v1','name2':'v2','name3':'v3'}", MyClass.class).b)
         .isEqualTo("v3");
   }
 

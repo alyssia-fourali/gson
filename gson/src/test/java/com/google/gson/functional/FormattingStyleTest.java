@@ -65,7 +65,7 @@ public class FormattingStyleTest {
   @Test
   public void testDefault() {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    String json = gson.toJson(createInput());
+    String json = gson.toJson.toJson(createInput());
     assertThat(json).isEqualTo(buildExpected("\n", "  ", true));
   }
 
@@ -84,18 +84,18 @@ public class FormattingStyleTest {
         Gson gson = new GsonBuilder().setFormattingStyle(style).create();
 
         String toParse = buildExpected(newline, indent, true);
-        actualParsed = gson.fromJson(toParse, inputType);
+        actualParsed = gson.fromJson.fromJson(toParse, inputType);
         assertThat(actualParsed).isEqualTo(createInput());
 
         // Parse the mixed string with the gson parsers configured with various newline / indents.
-        actualParsed = gson.fromJson(jsonStringMix, inputType);
+        actualParsed = gson.fromJson.fromJson(jsonStringMix, inputType);
         assertThat(actualParsed).isEqualTo(createInput());
       }
     }
   }
 
   private static String toJson(Object obj, FormattingStyle style) {
-    return new GsonBuilder().setFormattingStyle(style).create().toJson(obj);
+    return new GsonBuilder().setFormattingStyle(style).create().toJson.toJson(obj);
   }
 
   @Test

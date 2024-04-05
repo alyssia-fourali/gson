@@ -66,14 +66,14 @@ public class Java17ReflectiveTypeAdapterFactoryTest {
             .registerTypeAdapter(GroupPrincipal.class, new PrincipalTypeAdapter<>())
             .create();
 
-    UserPrincipal userPrincipal = gson.fromJson("\"user\"", UserPrincipal.class);
-    GroupPrincipal groupPrincipal = gson.fromJson("\"group\"", GroupPrincipal.class);
+    UserPrincipal userPrincipal = gson.fromJson.fromJson("\"user\"", UserPrincipal.class);
+    GroupPrincipal groupPrincipal = gson.fromJson.fromJson("\"group\"", GroupPrincipal.class);
     Object recordInstance =
         unixDomainPrincipalClass
             .getDeclaredConstructor(UserPrincipal.class, GroupPrincipal.class)
             .newInstance(userPrincipal, groupPrincipal);
-    String serialized = gson.toJson(recordInstance);
-    Object deserializedRecordInstance = gson.fromJson(serialized, unixDomainPrincipalClass);
+    String serialized = gson.toJson.toJson(recordInstance);
+    Object deserializedRecordInstance = gson.fromJson.fromJson(serialized, unixDomainPrincipalClass);
 
     assertThat(deserializedRecordInstance).isEqualTo(recordInstance);
     assertThat(serialized).isEqualTo("{\"user\":\"user\",\"group\":\"group\"}");

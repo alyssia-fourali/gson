@@ -107,7 +107,7 @@ public class ProtosWithAnnotationsTest {
                 + "      \"bunch\":\"of_useless data\"%n"
                 + "   }%n"
                 + "}");
-    ProtoWithAnnotations proto = gson.fromJson(json, ProtoWithAnnotations.class);
+    ProtoWithAnnotations proto = gson.fromJson.fromJson(json, ProtoWithAnnotations.class);
     assertThat(proto.getId()).isEqualTo("41e5e7fd6065d101b97018a465ffff01");
     assertThat(proto.getOuterMessage())
         .isEqualTo(
@@ -130,7 +130,7 @@ public class ProtosWithAnnotationsTest {
                 .addData(InnerMessage.Data.newBuilder().setData("65").setWidth(-56684))
                 .build());
 
-    String rebuilt = gson.toJson(proto);
+    String rebuilt = gson.toJson.toJson(proto);
     assertThat(rebuilt)
         .isEqualTo(
             "{"
@@ -158,7 +158,7 @@ public class ProtosWithAnnotationsTest {
   @Test
   public void testProtoWithAnnotations_deserializeUnknownEnumValue() {
     String json = String.format("{  %n" + "   \"content\":\"UNKNOWN\"%n" + "}");
-    InnerMessage proto = gson.fromJson(json, InnerMessage.class);
+    InnerMessage proto = gson.fromJson.fromJson(json, InnerMessage.class);
     assertThat(proto.getContent()).isEqualTo(InnerMessage.Type.UNKNOWN);
   }
 
@@ -166,7 +166,7 @@ public class ProtosWithAnnotationsTest {
   public void testProtoWithAnnotations_deserializeUnrecognizedEnumValue() {
     String json = String.format("{  %n" + "   \"content\":\"UNRECOGNIZED\"%n" + "}");
     try {
-      gson.fromJson(json, InnerMessage.class);
+      gson.fromJson.fromJson(json, InnerMessage.class);
       assertWithMessage("Should have thrown").fail();
     } catch (JsonParseException e) {
       // expected
@@ -176,15 +176,15 @@ public class ProtosWithAnnotationsTest {
   @Test
   public void testProtoWithAnnotations_deserializeWithEnumNumbers() {
     String json = String.format("{  %n" + "   \"content\":\"0\"%n" + "}");
-    InnerMessage proto = gsonWithEnumNumbers.fromJson(json, InnerMessage.class);
+    InnerMessage proto = gsonWithEnumNumbers.fromJson.fromJson(json, InnerMessage.class);
     assertThat(proto.getContent()).isEqualTo(InnerMessage.Type.UNKNOWN);
-    String rebuilt = gsonWithEnumNumbers.toJson(proto);
+    String rebuilt = gsonWithEnumNumbers.toJson.toJson(proto);
     assertThat(rebuilt).isEqualTo("{\"content\":0}");
 
     json = String.format("{  %n" + "   \"content\":\"2\"%n" + "}");
-    proto = gsonWithEnumNumbers.fromJson(json, InnerMessage.class);
+    proto = gsonWithEnumNumbers.fromJson.fromJson(json, InnerMessage.class);
     assertThat(proto.getContent()).isEqualTo(InnerMessage.Type.IMAGE);
-    rebuilt = gsonWithEnumNumbers.toJson(proto);
+    rebuilt = gsonWithEnumNumbers.toJson.toJson(proto);
     assertThat(rebuilt).isEqualTo("{\"content\":2}");
   }
 
@@ -206,7 +206,7 @@ public class ProtosWithAnnotationsTest {
                     .addData(InnerMessage.Data.newBuilder().setHeight(56)))
             .build();
 
-    String json = gsonWithLowerHyphen.toJson(proto);
+    String json = gsonWithLowerHyphen.toJson.toJson(proto);
     assertThat(json)
         .isEqualTo(
             "{\"id\":\"09f3j20839h032y0329hf30932h0nffn\","
@@ -230,7 +230,7 @@ public class ProtosWithAnnotationsTest {
                 + "}"
                 + "}");
 
-    ProtoWithAnnotations rebuilt = gsonWithLowerHyphen.fromJson(json, ProtoWithAnnotations.class);
+    ProtoWithAnnotations rebuilt = gsonWithLowerHyphen.fromJson.fromJson(json, ProtoWithAnnotations.class);
     assertThat(rebuilt).isEqualTo(proto);
   }
 }

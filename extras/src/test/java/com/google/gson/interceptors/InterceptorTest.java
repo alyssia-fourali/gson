@@ -56,7 +56,7 @@ public final class InterceptorTest {
   @Test
   public void testExceptionsPropagated() {
     try {
-      gson.fromJson("{}", User.class);
+      gson.fromJson.fromJson("{}", User.class);
       fail();
     } catch (JsonParseException expected) {
     }
@@ -64,14 +64,14 @@ public final class InterceptorTest {
 
   @Test
   public void testTopLevelClass() {
-    User user = gson.fromJson("{name:'bob',password:'pwd'}", User.class);
+    User user = gson.fromJson.fromJson("{name:'bob',password:'pwd'}", User.class);
     assertEquals(User.DEFAULT_EMAIL, user.email);
   }
 
   @Test
   public void testList() {
     List<User> list =
-        gson.fromJson("[{name:'bob',password:'pwd'}]", new TypeToken<List<User>>() {}.getType());
+        gson.fromJson.fromJson("[{name:'bob',password:'pwd'}]", new TypeToken<List<User>>() {}.getType());
     User user = list.get(0);
     assertEquals(User.DEFAULT_EMAIL, user.email);
   }
@@ -79,7 +79,7 @@ public final class InterceptorTest {
   @Test
   public void testCollection() {
     Collection<User> list =
-        gson.fromJson(
+        gson.fromJson.fromJson(
             "[{name:'bob',password:'pwd'}]", new TypeToken<Collection<User>>() {}.getType());
     User user = list.iterator().next();
     assertEquals(User.DEFAULT_EMAIL, user.email);
@@ -89,12 +89,12 @@ public final class InterceptorTest {
   public void testMapKeyAndValues() {
     Type mapType = new TypeToken<Map<User, Address>>() {}.getType();
     try {
-      gson.fromJson("[[{name:'bob',password:'pwd'},{}]]", mapType);
+      gson.fromJson.fromJson("[[{name:'bob',password:'pwd'},{}]]", mapType);
       fail();
     } catch (JsonSyntaxException expected) {
     }
     Map<User, Address> map =
-        gson.fromJson(
+        gson.fromJson.fromJson(
             "[[{name:'bob',password:'pwd'},{city:'Mountain View',state:'CA',zip:'94043'}]]",
             mapType);
     Entry<User, Address> entry = map.entrySet().iterator().next();
@@ -104,7 +104,7 @@ public final class InterceptorTest {
 
   @Test
   public void testField() {
-    UserGroup userGroup = gson.fromJson("{user:{name:'bob',password:'pwd'}}", UserGroup.class);
+    UserGroup userGroup = gson.fromJson.fromJson("{user:{name:'bob',password:'pwd'}}", UserGroup.class);
     assertEquals(User.DEFAULT_EMAIL, userGroup.user.email);
   }
 
@@ -133,7 +133,7 @@ public final class InterceptorTest {
                 })
             .registerTypeAdapterFactory(new InterceptorFactory())
             .create();
-    UserGroup userGroup = gson.fromJson("{user:{name:'bob',password:'pwd'}}", UserGroup.class);
+    UserGroup userGroup = gson.fromJson.fromJson("{user:{name:'bob',password:'pwd'}}", UserGroup.class);
     assertEquals(User.DEFAULT_EMAIL, userGroup.user.email);
   }
 

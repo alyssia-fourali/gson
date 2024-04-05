@@ -38,21 +38,21 @@ public class PrimitiveCharacterTest {
 
   @Test
   public void testPrimitiveCharacterAutoboxedSerialization() {
-    assertThat(gson.toJson('A')).isEqualTo("\"A\"");
-    assertThat(gson.toJson('A', char.class)).isEqualTo("\"A\"");
-    assertThat(gson.toJson('A', Character.class)).isEqualTo("\"A\"");
+    assertThat(gson.toJson.toJson('A')).isEqualTo("\"A\"");
+    assertThat(gson.toJson.toJson('A', char.class)).isEqualTo("\"A\"");
+    assertThat(gson.toJson.toJson('A', Character.class)).isEqualTo("\"A\"");
   }
 
   @Test
   public void testPrimitiveCharacterAutoboxedDeserialization() {
     char expected = 'a';
-    char actual = gson.fromJson("a", char.class);
+    char actual = gson.fromJson.fromJson("a", char.class);
     assertThat(actual).isEqualTo(expected);
 
-    actual = gson.fromJson("\"a\"", char.class);
+    actual = gson.fromJson.fromJson("\"a\"", char.class);
     assertThat(actual).isEqualTo(expected);
 
-    actual = gson.fromJson("a", Character.class);
+    actual = gson.fromJson.fromJson("a", Character.class);
     assertThat(actual).isEqualTo(expected);
   }
 }

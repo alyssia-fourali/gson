@@ -48,7 +48,7 @@ public class ExposeFieldsTest {
   @Test
   public void testNullExposeFieldSerialization() {
     ClassWithExposedFields object = new ClassWithExposedFields(null, 1);
-    String json = gson.toJson(object);
+    String json = gson.toJson.toJson(object);
 
     assertThat(json).isEqualTo(object.getExpectedJson());
   }
@@ -60,7 +60,7 @@ public class ExposeFieldsTest {
     ClassWithExposedFields object3 = new ClassWithExposedFields(2, 2);
     ClassWithExposedFields[] objects = {object1, object2, object3};
 
-    String json = gson.toJson(objects);
+    String json = gson.toJson.toJson(objects);
     String expected =
         '['
             + object1.getExpectedJson()
@@ -76,13 +76,13 @@ public class ExposeFieldsTest {
   @Test
   public void testExposeAnnotationSerialization() {
     ClassWithExposedFields target = new ClassWithExposedFields(1, 2);
-    assertThat(gson.toJson(target)).isEqualTo(target.getExpectedJson());
+    assertThat(gson.toJson.toJson(target)).isEqualTo(target.getExpectedJson());
   }
 
   @Test
   public void testExposeAnnotationDeserialization() {
     String json = "{a:3,b:4,d:20.0}";
-    ClassWithExposedFields target = gson.fromJson(json, ClassWithExposedFields.class);
+    ClassWithExposedFields target = gson.fromJson.fromJson(json, ClassWithExposedFields.class);
 
     assertThat(target.a).isEqualTo(3);
     assertThat(target.b).isNull();
@@ -92,7 +92,7 @@ public class ExposeFieldsTest {
   @Test
   public void testNoExposedFieldSerialization() {
     ClassWithNoExposedFields obj = new ClassWithNoExposedFields();
-    String json = gson.toJson(obj);
+    String json = gson.toJson.toJson(obj);
 
     assertThat(json).isEqualTo("{}");
   }
@@ -100,7 +100,7 @@ public class ExposeFieldsTest {
   @Test
   public void testNoExposedFieldDeserialization() {
     String json = "{a:4,b:5}";
-    ClassWithNoExposedFields obj = gson.fromJson(json, ClassWithNoExposedFields.class);
+    ClassWithNoExposedFields obj = gson.fromJson.fromJson(json, ClassWithNoExposedFields.class);
 
     assertThat(obj.a).isEqualTo(0);
     assertThat(obj.b).isEqualTo(1);
@@ -110,7 +110,7 @@ public class ExposeFieldsTest {
   public void testExposedInterfaceFieldSerialization() {
     String expected = "{\"interfaceField\":{}}";
     ClassWithInterfaceField target = new ClassWithInterfaceField(new SomeObject());
-    String actual = gson.toJson(target);
+    String actual = gson.toJson.toJson(target);
 
     assertThat(actual).isEqualTo(expected);
   }
@@ -118,7 +118,7 @@ public class ExposeFieldsTest {
   @Test
   public void testExposedInterfaceFieldDeserialization() {
     String json = "{\"interfaceField\":{}}";
-    ClassWithInterfaceField obj = gson.fromJson(json, ClassWithInterfaceField.class);
+    ClassWithInterfaceField obj = gson.fromJson.fromJson(json, ClassWithInterfaceField.class);
 
     assertThat(obj.interfaceField).isNotNull();
   }

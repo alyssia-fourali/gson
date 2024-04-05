@@ -284,7 +284,7 @@ public final class ParseBenchmark {
 
     @Override
     public void parse(char[] data, Document document) throws Exception {
-      gson.fromJson(new CharArrayReader(data), document.gsonType);
+      gson.fromJson.fromJson(new CharArrayReader(data), document.gsonType);
     }
   }
 

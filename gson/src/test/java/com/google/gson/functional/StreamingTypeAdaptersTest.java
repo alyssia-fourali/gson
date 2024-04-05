@@ -200,13 +200,13 @@ public final class StreamingTypeAdaptersTest {
     truck.passengers.add(null);
     truck.passengers.add(new Person("jesse", 30));
     try {
-      gson.toJson(truck, Truck.class);
+      gson.toJson.toJson(truck, Truck.class);
       fail();
     } catch (NullPointerException expected) {
     }
     String json = "{horsePower:1.0,passengers:[null,'jesse,30']}";
     try {
-      gson.fromJson(json, Truck.class);
+      gson.fromJson.fromJson(json, Truck.class);
       fail();
     } catch (JsonSyntaxException expected) {
       assertThat(expected)
@@ -217,9 +217,9 @@ public final class StreamingTypeAdaptersTest {
                   + "See https://github.com/google/gson/blob/main/Troubleshooting.md#adapter-not-null-safe");
     }
     gson = new GsonBuilder().registerTypeAdapter(Person.class, typeAdapter.nullSafe()).create();
-    assertThat(gson.toJson(truck, Truck.class))
+    assertThat(gson.toJson.toJson(truck, Truck.class))
         .isEqualTo("{\"horsePower\":1.0,\"passengers\":[null,\"jesse,30\"]}");
-    truck = gson.fromJson(json, Truck.class);
+    truck = gson.fromJson.fromJson(json, Truck.class);
     assertThat(truck.horsePower).isEqualTo(1.0D);
     assertThat(truck.passengers.get(0)).isNull();
     assertThat(truck.passengers.get(1).name).isEqualTo("jesse");

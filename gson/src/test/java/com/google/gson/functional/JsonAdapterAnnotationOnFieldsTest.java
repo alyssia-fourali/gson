@@ -47,18 +47,18 @@ public final class JsonAdapterAnnotationOnFieldsTest {
   @Test
   public void testClassAnnotationAdapterTakesPrecedenceOverDefault() {
     Gson gson = new Gson();
-    String json = gson.toJson(new Computer(new User("Inderjeet Singh")));
+    String json = gson.toJson.toJson(new Computer(new User("Inderjeet Singh")));
     assertThat(json).isEqualTo("{\"user\":\"UserClassAnnotationAdapter\"}");
-    Computer computer = gson.fromJson("{'user':'Inderjeet Singh'}", Computer.class);
+    Computer computer = gson.fromJson.fromJson("{'user':'Inderjeet Singh'}", Computer.class);
     assertThat(computer.user.name).isEqualTo("UserClassAnnotationAdapter");
   }
 
   @Test
   public void testClassAnnotationAdapterFactoryTakesPrecedenceOverDefault() {
     Gson gson = new Gson();
-    String json = gson.toJson(new Gizmo(new Part("Part")));
+    String json = gson.toJson.toJson(new Gizmo(new Part("Part")));
     assertThat(json).isEqualTo("{\"part\":\"GizmoPartTypeAdapterFactory\"}");
-    Gizmo computer = gson.fromJson("{'part':'Part'}", Gizmo.class);
+    Gizmo computer = gson.fromJson.fromJson("{'part':'Part'}", Gizmo.class);
     assertThat(computer.part.name).isEqualTo("GizmoPartTypeAdapterFactory");
   }
 
@@ -66,9 +66,9 @@ public final class JsonAdapterAnnotationOnFieldsTest {
   public void testRegisteredTypeAdapterTakesPrecedenceOverClassAnnotationAdapter() {
     Gson gson =
         new GsonBuilder().registerTypeAdapter(User.class, new RegisteredUserAdapter()).create();
-    String json = gson.toJson(new Computer(new User("Inderjeet Singh")));
+    String json = gson.toJson.toJson(new Computer(new User("Inderjeet Singh")));
     assertThat(json).isEqualTo("{\"user\":\"RegisteredUserAdapter\"}");
-    Computer computer = gson.fromJson("{'user':'Inderjeet Singh'}", Computer.class);
+    Computer computer = gson.fromJson.fromJson("{'user':'Inderjeet Singh'}", Computer.class);
     assertThat(computer.user.name).isEqualTo("RegisteredUserAdapter");
   }
 
@@ -90,18 +90,18 @@ public final class JsonAdapterAnnotationOnFieldsTest {
                   }
                 })
             .create();
-    String json = gson.toJson(new Gadget(new Part("screen")));
+    String json = gson.toJson.toJson(new Gadget(new Part("screen")));
     assertThat(json).isEqualTo("{\"part\":\"PartJsonFieldAnnotationAdapter\"}");
-    Gadget gadget = gson.fromJson("{'part':'screen'}", Gadget.class);
+    Gadget gadget = gson.fromJson.fromJson("{'part':'screen'}", Gadget.class);
     assertThat(gadget.part.name).isEqualTo("PartJsonFieldAnnotationAdapter");
   }
 
   @Test
   public void testFieldAnnotationTakesPrecedenceOverClassAnnotation() {
     Gson gson = new Gson();
-    String json = gson.toJson(new Computer2(new User("Inderjeet Singh")));
+    String json = gson.toJson.toJson(new Computer2(new User("Inderjeet Singh")));
     assertThat(json).isEqualTo("{\"user\":\"UserFieldAnnotationAdapter\"}");
-    Computer2 target = gson.fromJson("{'user':'Interjeet Singh'}", Computer2.class);
+    Computer2 target = gson.fromJson.fromJson("{'user':'Interjeet Singh'}", Computer2.class);
     assertThat(target.user.name).isEqualTo("UserFieldAnnotationAdapter");
   }
 
@@ -233,7 +233,7 @@ public final class JsonAdapterAnnotationOnFieldsTest {
   public void testJsonAdapterInvokedOnlyForAnnotatedFields() {
     Gson gson = new Gson();
     String json = "{'part1':'name','part2':{'name':'name2'}}";
-    GadgetWithTwoParts gadget = gson.fromJson(json, GadgetWithTwoParts.class);
+    GadgetWithTwoParts gadget = gson.fromJson.fromJson(json, GadgetWithTwoParts.class);
     assertThat(gadget.part1.name).isEqualTo("PartJsonFieldAnnotationAdapter");
     assertThat(gadget.part2.name).isEqualTo("name2");
   }
@@ -256,10 +256,10 @@ public final class JsonAdapterAnnotationOnFieldsTest {
     Gson gson = new Gson();
     String fromJson = "{'part':null}";
 
-    GadgetWithOptionalPart gadget = gson.fromJson(fromJson, GadgetWithOptionalPart.class);
+    GadgetWithOptionalPart gadget = gson.fromJson.fromJson(fromJson, GadgetWithOptionalPart.class);
     assertThat(gadget.part).isNull();
 
-    String toJson = gson.toJson(gadget);
+    String toJson = gson.toJson.toJson(gadget);
     assertThat(toJson).doesNotContain("PartJsonFieldAnnotationAdapter");
   }
 
@@ -276,9 +276,9 @@ public final class JsonAdapterAnnotationOnFieldsTest {
   @Test
   public void testNonPrimitiveFieldAnnotationTakesPrecedenceOverDefault() {
     Gson gson = new Gson();
-    String json = gson.toJson(new GadgetWithOptionalPart(new Part("foo")));
+    String json = gson.toJson.toJson(new GadgetWithOptionalPart(new Part("foo")));
     assertThat(json).isEqualTo("{\"part\":\"PartJsonFieldAnnotationAdapter\"}");
-    GadgetWithOptionalPart gadget = gson.fromJson("{'part':'foo'}", GadgetWithOptionalPart.class);
+    GadgetWithOptionalPart gadget = gson.fromJson.fromJson("{'part':'foo'}", GadgetWithOptionalPart.class);
     assertThat(gadget.part.name).isEqualTo("PartJsonFieldAnnotationAdapter");
   }
 
@@ -286,9 +286,9 @@ public final class JsonAdapterAnnotationOnFieldsTest {
   @Test
   public void testPrimitiveFieldAnnotationTakesPrecedenceOverDefault() {
     Gson gson = new Gson();
-    String json = gson.toJson(new GadgetWithPrimitivePart(42));
+    String json = gson.toJson.toJson(new GadgetWithPrimitivePart(42));
     assertThat(json).isEqualTo("{\"part\":\"42\"}");
-    GadgetWithPrimitivePart gadget = gson.fromJson(json, GadgetWithPrimitivePart.class);
+    GadgetWithPrimitivePart gadget = gson.fromJson.fromJson(json, GadgetWithPrimitivePart.class);
     assertThat(gadget.part).isEqualTo(42);
   }
 
@@ -334,9 +334,9 @@ public final class JsonAdapterAnnotationOnFieldsTest {
   @Test
   public void testFieldAnnotationWorksForParameterizedType() {
     Gson gson = new Gson();
-    String json = gson.toJson(new Gizmo2(Arrays.asList(new Part("Part"))));
+    String json = gson.toJson.toJson(new Gizmo2(Arrays.asList(new Part("Part"))));
     assertThat(json).isEqualTo("{\"part\":\"GizmoPartTypeAdapterFactory\"}");
-    Gizmo2 computer = gson.fromJson("{'part':'Part'}", Gizmo2.class);
+    Gizmo2 computer = gson.fromJson.fromJson("{'part':'Part'}", Gizmo2.class);
     assertThat(computer.part.get(0).name).isEqualTo("GizmoPartTypeAdapterFactory");
   }
 
@@ -376,10 +376,10 @@ public final class JsonAdapterAnnotationOnFieldsTest {
   public void testOverwriteBuiltIn() {
     BuiltInOverwriting obj = new BuiltInOverwriting();
     obj.f = new JsonPrimitive(true);
-    String json = new Gson().toJson(obj);
+    String json = new Gson().toJson.toJson(obj);
     assertThat(json).isEqualTo("{\"f\":\"" + JsonElementAdapter.SERIALIZED + "\"}");
 
-    BuiltInOverwriting deserialized = new Gson().fromJson("{\"f\": 2}", BuiltInOverwriting.class);
+    BuiltInOverwriting deserialized = new Gson().fromJson.fromJson("{\"f\": 2}", BuiltInOverwriting.class);
     assertThat(deserialized.f).isEqualTo(JsonElementAdapter.DESERIALIZED);
   }
 
@@ -431,11 +431,11 @@ public final class JsonAdapterAnnotationOnFieldsTest {
     obj.f = 1;
     obj.f2 = new JsonPrimitive(2);
     obj.f3 = new JsonPrimitive(true);
-    String json = gson.toJson(obj);
+    String json = gson.toJson.toJson(obj);
     assertThat(json).isEqualTo("{}");
 
     DelegatingAndOverwriting deserialized =
-        gson.fromJson("{\"f\":1,\"f2\":2,\"f3\":3}", DelegatingAndOverwriting.class);
+        gson.fromJson.fromJson("{\"f\":1,\"f2\":2,\"f3\":3}", DelegatingAndOverwriting.class);
     assertThat(deserialized.f).isEqualTo(Integer.valueOf(1));
     assertThat(deserialized.f2).isEqualTo(new JsonPrimitive(2));
     // Verify that for deserialization type adapter specified by @JsonAdapter is used
@@ -468,13 +468,13 @@ public final class JsonAdapterAnnotationOnFieldsTest {
     obj.f = 1;
     obj.f2 = new JsonPrimitive(2);
     obj.f3 = new JsonPrimitive(true);
-    String json = gson.toJson(obj);
+    String json = gson.toJson.toJson(obj);
     // Verify that for serialization type adapters specified by @JsonAdapter are used
     assertThat(json)
         .isEqualTo("{\"f\":1,\"f2\":2,\"f3\":\"" + JsonElementAdapter.SERIALIZED + "\"}");
 
     DelegatingAndOverwriting deserialized =
-        gson.fromJson("{\"f\":1,\"f2\":2,\"f3\":3}", DelegatingAndOverwriting.class);
+        gson.fromJson.fromJson("{\"f\":1,\"f2\":2,\"f3\":3}", DelegatingAndOverwriting.class);
     assertThat(deserialized.f).isNull();
     assertThat(deserialized.f2).isNull();
     assertThat(deserialized.f3).isNull();
@@ -509,11 +509,11 @@ public final class JsonAdapterAnnotationOnFieldsTest {
     obj.f = 1;
     obj.f2 = new JsonPrimitive(2);
     obj.f3 = new JsonPrimitive(true);
-    String json = gson.toJson(obj);
+    String json = gson.toJson.toJson(obj);
     assertThat(json).isEqualTo("{}");
 
     DelegatingAndOverwriting deserialized =
-        gson.fromJson("{\"f\":1,\"f2\":2,\"f3\":3}", DelegatingAndOverwriting.class);
+        gson.fromJson.fromJson("{\"f\":1,\"f2\":2,\"f3\":3}", DelegatingAndOverwriting.class);
     assertThat(deserialized.f).isNull();
     assertThat(deserialized.f2).isNull();
     assertThat(deserialized.f3).isNull();
@@ -547,16 +547,16 @@ public final class JsonAdapterAnnotationOnFieldsTest {
   public void testDelegatingAdapterFactory() {
     @SuppressWarnings("unchecked")
     WithDelegatingFactory<String> deserialized =
-        new Gson().fromJson("{\"f\":\"test\"}", WithDelegatingFactory.class);
+        new Gson().fromJson.fromJson("{\"f\":\"test\"}", WithDelegatingFactory.class);
     assertThat(deserialized.f).isEqualTo("test-custom");
 
     deserialized =
-        new Gson().fromJson("{\"f\":\"test\"}", new TypeToken<WithDelegatingFactory<String>>() {});
+        new Gson().fromJson.fromJson("{\"f\":\"test\"}", new TypeToken<WithDelegatingFactory<String>>() {});
     assertThat(deserialized.f).isEqualTo("test-custom");
 
     WithDelegatingFactory<String> serialized = new WithDelegatingFactory<>();
     serialized.f = "value";
-    assertThat(new Gson().toJson(serialized)).isEqualTo("{\"f\":\"value-custom\"}");
+    assertThat(new Gson().toJson.toJson(serialized)).isEqualTo("{\"f\":\"value-custom\"}");
   }
 
   private static class WithDelegatingFactory<T> {
@@ -596,12 +596,12 @@ public final class JsonAdapterAnnotationOnFieldsTest {
   @Test
   public void testDelegatingAdapterFactory_Delayed() {
     WithDelayedDelegatingFactory deserialized =
-        new Gson().fromJson("{\"f\":\"test\"}", WithDelayedDelegatingFactory.class);
+        new Gson().fromJson.fromJson("{\"f\":\"test\"}", WithDelayedDelegatingFactory.class);
     assertThat(deserialized.f).isEqualTo("test-custom");
 
     WithDelayedDelegatingFactory serialized = new WithDelayedDelegatingFactory();
     serialized.f = "value";
-    assertThat(new Gson().toJson(serialized)).isEqualTo("{\"f\":\"value-custom\"}");
+    assertThat(new Gson().toJson.toJson(serialized)).isEqualTo("{\"f\":\"value-custom\"}");
   }
 
   // suppress Error Prone warning; should be clear that `Factory` refers to nested class
@@ -645,10 +645,10 @@ public final class JsonAdapterAnnotationOnFieldsTest {
   @Test
   public void testGetAdapterDelegation() {
     Gson gson = new Gson();
-    GetAdapterDelegation deserialized = gson.fromJson("{\"f\":\"de\"}", GetAdapterDelegation.class);
+    GetAdapterDelegation deserialized = gson.fromJson.fromJson("{\"f\":\"de\"}", GetAdapterDelegation.class);
     assertThat(deserialized.f).isEqualTo("de-custom");
 
-    String json = gson.toJson(new GetAdapterDelegation("se"));
+    String json = gson.toJson.toJson(new GetAdapterDelegation("se"));
     assertThat(json).isEqualTo("{\"f\":\"se-custom\"}");
   }
 
@@ -690,10 +690,10 @@ public final class JsonAdapterAnnotationOnFieldsTest {
   public void testJsonSerializer() {
     Gson gson = new Gson();
     // Verify that delegate deserializer for List is used
-    WithJsonSerializer deserialized = gson.fromJson("{\"f\":[1,2,3]}", WithJsonSerializer.class);
+    WithJsonSerializer deserialized = gson.fromJson.fromJson("{\"f\":[1,2,3]}", WithJsonSerializer.class);
     assertThat(deserialized.f).isEqualTo(Arrays.asList(1, 2, 3));
 
-    String json = gson.toJson(new WithJsonSerializer());
+    String json = gson.toJson.toJson(new WithJsonSerializer());
     // Uses custom serializer which always returns `true`
     assertThat(json).isEqualTo("{\"f\":true}");
   }
@@ -715,12 +715,12 @@ public final class JsonAdapterAnnotationOnFieldsTest {
   @Test
   public void testJsonDeserializer() {
     Gson gson = new Gson();
-    WithJsonDeserializer deserialized = gson.fromJson("{\"f\":[5]}", WithJsonDeserializer.class);
+    WithJsonDeserializer deserialized = gson.fromJson.fromJson("{\"f\":[5]}", WithJsonDeserializer.class);
     // Uses custom deserializer which always returns `[3, 2, 1]`
     assertThat(deserialized.f).isEqualTo(Arrays.asList(3, 2, 1));
 
     // Verify that delegate serializer for List is used
-    String json = gson.toJson(new WithJsonDeserializer(Arrays.asList(4, 5, 6)));
+    String json = gson.toJson.toJson(new WithJsonDeserializer(Arrays.asList(4, 5, 6)));
     assertThat(json).isEqualTo("{\"f\":[4,5,6]}");
   }
 

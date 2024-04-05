@@ -72,7 +72,7 @@ public class TypeAdapterRuntimeTypeWrapperTest {
                 })
             .create();
 
-    String json = gson.toJson(new Container());
+    String json = gson.toJson.toJson(new Container());
     assertThat(json).isEqualTo("{\"b\":\"serializer\"}");
   }
 
@@ -84,7 +84,7 @@ public class TypeAdapterRuntimeTypeWrapperTest {
   public void testJsonDeserializer_ReflectiveSerializerDelegate() {
     Gson gson = new GsonBuilder().registerTypeAdapter(Base.class, new Deserializer()).create();
 
-    String json = gson.toJson(new Container());
+    String json = gson.toJson.toJson(new Container());
     assertThat(json).isEqualTo("{\"b\":{\"f\":\"test\"}}");
   }
 
@@ -114,7 +114,7 @@ public class TypeAdapterRuntimeTypeWrapperTest {
             .registerTypeAdapter(Base.class, new Deserializer())
             .create();
 
-    String json = gson.toJson(new Container());
+    String json = gson.toJson.toJson(new Container());
     assertThat(json).isEqualTo("{\"b\":\"custom delegate\"}");
   }
 
@@ -132,7 +132,7 @@ public class TypeAdapterRuntimeTypeWrapperTest {
             .registerTypeAdapter(Base.class, new Deserializer())
             .create();
 
-    String json = gson.toJson(new Container());
+    String json = gson.toJson.toJson(new Container());
     assertThat(json).isEqualTo("{\"b\":{\"f\":\"test\"}}");
   }
 
@@ -158,7 +158,7 @@ public class TypeAdapterRuntimeTypeWrapperTest {
             .registerTypeAdapter(Base.class, new Deserializer())
             .create();
 
-    String json = gson.toJson(new Container());
+    String json = gson.toJson.toJson(new Container());
     assertThat(json).isEqualTo("{\"b\":\"custom delegate\"}");
   }
 
@@ -193,7 +193,7 @@ public class TypeAdapterRuntimeTypeWrapperTest {
                 })
             .create();
 
-    String json = gson.toJson(new Container());
+    String json = gson.toJson.toJson(new Container());
     assertThat(json).isEqualTo("{\"b\":{\"f\":\"test\"}}");
   }
 
@@ -220,7 +220,7 @@ public class TypeAdapterRuntimeTypeWrapperTest {
   public void testGsonFutureAdapter() {
     CyclicBase b = new CyclicBase();
     b.f = new CyclicSub(2);
-    String json = new Gson().toJson(b);
+    String json = new Gson().toJson.toJson(b);
     assertThat(json).isEqualTo("{\"f\":{\"i\":2}}");
   }
 }

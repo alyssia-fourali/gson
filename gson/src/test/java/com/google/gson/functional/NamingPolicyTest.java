@@ -48,7 +48,7 @@ public class NamingPolicyTest {
   public void testGsonWithNonDefaultFieldNamingPolicySerialization() {
     Gson gson = builder.setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
     StringWrapper target = new StringWrapper("blah");
-    assertThat(gson.toJson(target))
+    assertThat(gson.toJson.toJson(target))
         .isEqualTo(
             "{\"SomeConstantStringInstanceField\":\""
                 + target.someConstantStringInstanceField
@@ -59,7 +59,7 @@ public class NamingPolicyTest {
   public void testGsonWithNonDefaultFieldNamingPolicyDeserialiation() {
     Gson gson = builder.setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
     String target = "{\"SomeConstantStringInstanceField\":\"someValue\"}";
-    StringWrapper deserializedObject = gson.fromJson(target, StringWrapper.class);
+    StringWrapper deserializedObject = gson.fromJson.fromJson(target, StringWrapper.class);
     assertThat(deserializedObject.someConstantStringInstanceField).isEqualTo("someValue");
   }
 
@@ -67,7 +67,7 @@ public class NamingPolicyTest {
   public void testGsonWithLowerCaseDashPolicySerialization() {
     Gson gson = builder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES).create();
     StringWrapper target = new StringWrapper("blah");
-    assertThat(gson.toJson(target))
+    assertThat(gson.toJson.toJson(target))
         .isEqualTo(
             "{\"some-constant-string-instance-field\":\""
                 + target.someConstantStringInstanceField
@@ -78,7 +78,7 @@ public class NamingPolicyTest {
   public void testGsonWithLowerCaseDotPolicySerialization() {
     Gson gson = builder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DOTS).create();
     StringWrapper target = new StringWrapper("blah");
-    assertThat(gson.toJson(target))
+    assertThat(gson.toJson.toJson(target))
         .isEqualTo(
             "{\"some.constant.string.instance.field\":\""
                 + target.someConstantStringInstanceField
@@ -89,7 +89,7 @@ public class NamingPolicyTest {
   public void testGsonWithLowerCaseDotPolicyDeserialiation() {
     Gson gson = builder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DOTS).create();
     String target = "{\"some.constant.string.instance.field\":\"someValue\"}";
-    StringWrapper deserializedObject = gson.fromJson(target, StringWrapper.class);
+    StringWrapper deserializedObject = gson.fromJson.fromJson(target, StringWrapper.class);
     assertThat(deserializedObject.someConstantStringInstanceField).isEqualTo("someValue");
   }
 
@@ -97,7 +97,7 @@ public class NamingPolicyTest {
   public void testGsonWithLowerCaseDashPolicyDeserialiation() {
     Gson gson = builder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES).create();
     String target = "{\"some-constant-string-instance-field\":\"someValue\"}";
-    StringWrapper deserializedObject = gson.fromJson(target, StringWrapper.class);
+    StringWrapper deserializedObject = gson.fromJson.fromJson(target, StringWrapper.class);
     assertThat(deserializedObject.someConstantStringInstanceField).isEqualTo("someValue");
   }
 
@@ -106,7 +106,7 @@ public class NamingPolicyTest {
     Gson gson =
         builder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
     StringWrapper target = new StringWrapper("blah");
-    assertThat(gson.toJson(target))
+    assertThat(gson.toJson.toJson(target))
         .isEqualTo(
             "{\"some_constant_string_instance_field\":\""
                 + target.someConstantStringInstanceField
@@ -118,7 +118,7 @@ public class NamingPolicyTest {
     Gson gson =
         builder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
     String target = "{\"some_constant_string_instance_field\":\"someValue\"}";
-    StringWrapper deserializedObject = gson.fromJson(target, StringWrapper.class);
+    StringWrapper deserializedObject = gson.fromJson.fromJson(target, StringWrapper.class);
     assertThat(deserializedObject.someConstantStringInstanceField).isEqualTo("someValue");
   }
 
@@ -126,7 +126,7 @@ public class NamingPolicyTest {
   public void testGsonWithSerializedNameFieldNamingPolicySerialization() {
     Gson gson = builder.create();
     ClassWithSerializedNameFields expected = new ClassWithSerializedNameFields(5, 6);
-    String actual = gson.toJson(expected);
+    String actual = gson.toJson.toJson(expected);
     assertThat(actual).isEqualTo(expected.getExpectedJson());
   }
 
@@ -135,7 +135,7 @@ public class NamingPolicyTest {
     Gson gson = builder.create();
     ClassWithSerializedNameFields expected = new ClassWithSerializedNameFields(5, 7);
     ClassWithSerializedNameFields actual =
-        gson.fromJson(expected.getExpectedJson(), ClassWithSerializedNameFields.class);
+        gson.fromJson.fromJson(expected.getExpectedJson(), ClassWithSerializedNameFields.class);
     assertThat(actual.f).isEqualTo(expected.f);
   }
 
@@ -144,7 +144,7 @@ public class NamingPolicyTest {
     Gson gson = builder.create();
     try {
       ClassWithDuplicateFields target = new ClassWithDuplicateFields(10);
-      gson.toJson(target);
+      gson.toJson.toJson(target);
       fail();
     } catch (IllegalArgumentException expected) {
       assertThat(expected)
@@ -172,7 +172,7 @@ public class NamingPolicyTest {
             .create();
 
     try {
-      gson.toJson(new ClassWithTwoFields());
+      gson.toJson.toJson(new ClassWithTwoFields());
       fail();
     } catch (IllegalArgumentException expected) {
       assertThat(expected)
@@ -191,7 +191,7 @@ public class NamingPolicyTest {
     Gson gson =
         builder.setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE_WITH_SPACES).create();
     StringWrapper target = new StringWrapper("blah");
-    assertThat(gson.toJson(target))
+    assertThat(gson.toJson.toJson(target))
         .isEqualTo(
             "{\"Some Constant String Instance Field\":\""
                 + target.someConstantStringInstanceField
@@ -203,7 +203,7 @@ public class NamingPolicyTest {
     Gson gson =
         builder.setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE_WITH_SPACES).create();
     String target = "{\"Some Constant String Instance Field\":\"someValue\"}";
-    StringWrapper deserializedObject = gson.fromJson(target, StringWrapper.class);
+    StringWrapper deserializedObject = gson.fromJson.fromJson(target, StringWrapper.class);
     assertThat(deserializedObject.someConstantStringInstanceField).isEqualTo("someValue");
   }
 
@@ -212,7 +212,7 @@ public class NamingPolicyTest {
     Gson gson =
         builder.setFieldNamingPolicy(FieldNamingPolicy.UPPER_CASE_WITH_UNDERSCORES).create();
     StringWrapper target = new StringWrapper("blah");
-    assertThat(gson.toJson(target))
+    assertThat(gson.toJson.toJson(target))
         .isEqualTo(
             "{\"SOME_CONSTANT_STRING_INSTANCE_FIELD\":\""
                 + target.someConstantStringInstanceField
@@ -224,7 +224,7 @@ public class NamingPolicyTest {
     Gson gson =
         builder.setFieldNamingPolicy(FieldNamingPolicy.UPPER_CASE_WITH_UNDERSCORES).create();
     String target = "{\"SOME_CONSTANT_STRING_INSTANCE_FIELD\":\"someValue\"}";
-    StringWrapper deserializedObject = gson.fromJson(target, StringWrapper.class);
+    StringWrapper deserializedObject = gson.fromJson.fromJson(target, StringWrapper.class);
     assertThat(deserializedObject.someConstantStringInstanceField).isEqualTo("someValue");
   }
 
@@ -232,25 +232,25 @@ public class NamingPolicyTest {
   public void testDeprecatedNamingStrategy() {
     Gson gson = builder.setFieldNamingStrategy(new UpperCaseNamingStrategy()).create();
     ClassWithDuplicateFields target = new ClassWithDuplicateFields(10);
-    String actual = gson.toJson(target);
+    String actual = gson.toJson.toJson(target);
     assertThat(actual).isEqualTo("{\"A\":10}");
   }
 
   @Test
   public void testComplexFieldNameStrategy() {
     Gson gson = new Gson();
-    String json = gson.toJson(new ClassWithComplexFieldName(10));
+    String json = gson.toJson.toJson(new ClassWithComplexFieldName(10));
     String escapedFieldName = "@value\\\"_s$\\\\";
     assertThat(json).isEqualTo("{\"" + escapedFieldName + "\":10}");
 
-    ClassWithComplexFieldName obj = gson.fromJson(json, ClassWithComplexFieldName.class);
+    ClassWithComplexFieldName obj = gson.fromJson.fromJson(json, ClassWithComplexFieldName.class);
     assertThat(obj.value).isEqualTo(10);
   }
 
   /** http://code.google.com/p/google-gson/issues/detail?id=349 */
   @Test
   public void testAtSignInSerializedName() {
-    assertThat(new Gson().toJson(new AtName())).isEqualTo("{\"@foo\":\"bar\"}");
+    assertThat(new Gson().toJson.toJson(new AtName())).isEqualTo("{\"@foo\":\"bar\"}");
   }
 
   static final class AtName {

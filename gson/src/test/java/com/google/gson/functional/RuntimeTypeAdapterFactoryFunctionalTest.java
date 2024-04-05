@@ -47,13 +47,13 @@ public final class RuntimeTypeAdapterFactoryFunctionalTest {
   @Test
   public void testSubclassesAutomaticallySerialized() {
     Shape shape = new Circle(25);
-    String json = gson.toJson(shape);
-    shape = gson.fromJson(json, Shape.class);
+    String json = gson.toJson.toJson(shape);
+    shape = gson.fromJson.fromJson(json, Shape.class);
     assertThat(((Circle) shape).radius).isEqualTo(25);
 
     shape = new Square(15);
-    json = gson.toJson(shape);
-    shape = gson.fromJson(json, Shape.class);
+    json = gson.toJson.toJson(shape);
+    shape = gson.fromJson.fromJson(json, Shape.class);
     assertThat(((Square) shape).side).isEqualTo(15);
     assertThat(shape.type).isEqualTo(ShapeType.SQUARE);
   }

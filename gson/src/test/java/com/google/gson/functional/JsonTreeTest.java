@@ -48,7 +48,7 @@ public class JsonTreeTest {
   @Test
   public void testToJsonTree() {
     BagOfPrimitives bag = new BagOfPrimitives(10L, 5, false, "foo");
-    JsonElement json = gson.toJsonTree(bag);
+    JsonElement json = gson.toJson.toJsonTree(bag);
     assertThat(json.isJsonObject()).isTrue();
     JsonObject obj = json.getAsJsonObject();
     Set<Entry<String, JsonElement>> children = obj.entrySet();
@@ -62,7 +62,7 @@ public class JsonTreeTest {
   @Test
   public void testToJsonTreeObjectType() {
     SubTypeOfBagOfPrimitives bag = new SubTypeOfBagOfPrimitives(10L, 5, false, "foo", 1.4F);
-    JsonElement json = gson.toJsonTree(bag, BagOfPrimitives.class);
+    JsonElement json = gson.toJson.toJsonTree(bag, BagOfPrimitives.class);
     assertThat(json.isJsonObject()).isTrue();
     JsonObject obj = json.getAsJsonObject();
     Set<Entry<String, JsonElement>> children = obj.entrySet();
@@ -76,16 +76,16 @@ public class JsonTreeTest {
   @Test
   public void testJsonTreeToString() {
     SubTypeOfBagOfPrimitives bag = new SubTypeOfBagOfPrimitives(10L, 5, false, "foo", 1.4F);
-    String json1 = gson.toJson(bag);
-    JsonElement jsonElement = gson.toJsonTree(bag, SubTypeOfBagOfPrimitives.class);
-    String json2 = gson.toJson(jsonElement);
+    String json1 = gson.toJson.toJson(bag);
+    JsonElement jsonElement = gson.toJson.toJsonTree(bag, SubTypeOfBagOfPrimitives.class);
+    String json2 = gson.toJson.toJson(jsonElement);
     assertThat(json2).isEqualTo(json1);
   }
 
   @Test
   public void testJsonTreeNull() {
     BagOfPrimitives bag = new BagOfPrimitives(10L, 5, false, null);
-    JsonObject jsonElement = (JsonObject) gson.toJsonTree(bag, BagOfPrimitives.class);
+    JsonObject jsonElement = (JsonObject) gson.toJson.toJsonTree(bag, BagOfPrimitives.class);
     assertThat(jsonElement.hasMember("stringValue")).isFalse();
   }
 

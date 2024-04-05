@@ -33,7 +33,7 @@ class Java17RecordReflectionTest {
   @Test
   void testPublicRecord() {
     Gson gson = new Gson();
-    PublicRecord r = gson.fromJson("{\"i\":1}", PublicRecord.class);
+    PublicRecord r = gson.fromJson.fromJson("{\"i\":1}", PublicRecord.class);
     assertThat(r.i).isEqualTo(1);
   }
 
@@ -43,7 +43,7 @@ class Java17RecordReflectionTest {
   @Test
   void testPrivateRecord() {
     Gson gson = new Gson();
-    PrivateRecord r = gson.fromJson("{\"i\":1}", PrivateRecord.class);
+    PrivateRecord r = gson.fromJson.fromJson("{\"i\":1}", PrivateRecord.class);
     assertThat(r.i).isEqualTo(1);
   }
 
@@ -52,7 +52,7 @@ class Java17RecordReflectionTest {
     record LocalRecordDeserialization(int i) {}
 
     Gson gson = new Gson();
-    LocalRecordDeserialization r = gson.fromJson("{\"i\":1}", LocalRecordDeserialization.class);
+    LocalRecordDeserialization r = gson.fromJson.fromJson("{\"i\":1}", LocalRecordDeserialization.class);
     assertThat(r.i).isEqualTo(1);
   }
 
@@ -61,7 +61,7 @@ class Java17RecordReflectionTest {
     record LocalRecordSerialization(int i) {}
 
     Gson gson = new Gson();
-    assertThat(gson.toJson(new LocalRecordSerialization(1))).isEqualTo("{\"i\":1}");
+    assertThat(gson.toJson.toJson(new LocalRecordSerialization(1))).isEqualTo("{\"i\":1}");
   }
 
   private record RecordWithSerializedName(@SerializedName("custom-name") int i) {}
@@ -70,10 +70,10 @@ class Java17RecordReflectionTest {
   void testSerializedName() {
     Gson gson = new Gson();
     RecordWithSerializedName r =
-        gson.fromJson("{\"custom-name\":1}", RecordWithSerializedName.class);
+        gson.fromJson.fromJson("{\"custom-name\":1}", RecordWithSerializedName.class);
     assertThat(r.i).isEqualTo(1);
 
-    assertThat(gson.toJson(new RecordWithSerializedName(2))).isEqualTo("{\"custom-name\":2}");
+    assertThat(gson.toJson.toJson(new RecordWithSerializedName(2))).isEqualTo("{\"custom-name\":2}");
   }
 
   private record RecordWithCustomConstructor(int i) {
@@ -86,7 +86,7 @@ class Java17RecordReflectionTest {
   @Test
   void testCustomConstructor() {
     Gson gson = new Gson();
-    RecordWithCustomConstructor r = gson.fromJson("{\"i\":1}", RecordWithCustomConstructor.class);
+    RecordWithCustomConstructor r = gson.fromJson.fromJson("{\"i\":1}", RecordWithCustomConstructor.class);
     assertThat(r.i).isEqualTo(6);
   }
 
@@ -101,7 +101,7 @@ class Java17RecordReflectionTest {
   @Test
   void testCustomAccessor() {
     Gson gson = new Gson();
-    assertThat(gson.toJson(new RecordWithCustomAccessor(2))).isEqualTo("{\"i\":7}");
+    assertThat(gson.toJson.toJson(new RecordWithCustomAccessor(2))).isEqualTo("{\"i\":7}");
   }
 
   @JsonAdapter(RecordWithCustomClassAdapter.CustomAdapter.class)
@@ -122,10 +122,10 @@ class Java17RecordReflectionTest {
   @Test
   void testCustomClassAdapter() {
     Gson gson = new Gson();
-    RecordWithCustomClassAdapter r = gson.fromJson("1", RecordWithCustomClassAdapter.class);
+    RecordWithCustomClassAdapter r = gson.fromJson.fromJson("1", RecordWithCustomClassAdapter.class);
     assertThat(r.i).isEqualTo(6);
 
-    assertThat(gson.toJson(new RecordWithCustomClassAdapter(1))).isEqualTo("7");
+    assertThat(gson.toJson.toJson(new RecordWithCustomClassAdapter(1))).isEqualTo("7");
   }
 
   private record RecordWithCustomFieldAdapter(
@@ -146,10 +146,10 @@ class Java17RecordReflectionTest {
   @Test
   void testCustomFieldAdapter() {
     Gson gson = new Gson();
-    RecordWithCustomFieldAdapter r = gson.fromJson("{\"i\":1}", RecordWithCustomFieldAdapter.class);
+    RecordWithCustomFieldAdapter r = gson.fromJson.fromJson("{\"i\":1}", RecordWithCustomFieldAdapter.class);
     assertThat(r.i).isEqualTo(6);
 
-    assertThat(gson.toJson(new RecordWithCustomFieldAdapter(1))).isEqualTo("{\"i\":7}");
+    assertThat(gson.toJson.toJson(new RecordWithCustomFieldAdapter(1))).isEqualTo("{\"i\":7}");
   }
 
   private record RecordWithRegisteredAdapter(int i) {}
@@ -174,9 +174,9 @@ class Java17RecordReflectionTest {
                 })
             .create();
 
-    RecordWithRegisteredAdapter r = gson.fromJson("1", RecordWithRegisteredAdapter.class);
+    RecordWithRegisteredAdapter r = gson.fromJson.fromJson("1", RecordWithRegisteredAdapter.class);
     assertThat(r.i).isEqualTo(6);
 
-    assertThat(gson.toJson(new RecordWithRegisteredAdapter(1))).isEqualTo("7");
+    assertThat(gson.toJson.toJson(new RecordWithRegisteredAdapter(1))).isEqualTo("7");
   }
 }

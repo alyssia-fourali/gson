@@ -70,7 +70,7 @@ public class ProtosWithComplexAndRepeatedFieldsTest {
             .addSimples(SimpleProto.newBuilder().setMsg("foo").build())
             .addSimples(SimpleProto.newBuilder().setCount(3).build())
             .build();
-    String json = gson.toJson(proto);
+    String json = gson.toJson.toJson(proto);
     assertTrue(json.contains("[2,3]"));
     assertTrue(json.contains("foo"));
     assertTrue(json.contains("count"));
@@ -79,7 +79,7 @@ public class ProtosWithComplexAndRepeatedFieldsTest {
   @Test
   public void testDeserializeRepeatedFieldsProto() {
     String json = "{numbers:[4,6],simples:[{msg:'bar'},{count:7}]}";
-    ProtoWithRepeatedFields proto = gson.fromJson(json, ProtoWithRepeatedFields.class);
+    ProtoWithRepeatedFields proto = gson.fromJson.fromJson(json, ProtoWithRepeatedFields.class);
     assertEquals(4, proto.getNumbers(0));
     assertEquals(6, proto.getNumbers(1));
     assertEquals("bar", proto.getSimples(0).getMsg());
@@ -93,7 +93,7 @@ public class ProtosWithComplexAndRepeatedFieldsTest {
             .setAnotherField("foo")
             .addNameThatTestsCaseFormat("bar")
             .build();
-    final JsonObject json = upperCamelGson.toJsonTree(proto).getAsJsonObject();
+    final JsonObject json = upperCamelGson.toJson.toJsonTree(proto).getAsJsonObject();
     assertEquals("foo", json.get("AnotherField").getAsString());
     assertEquals("bar", json.get("NameThatTestsCaseFormat").getAsJsonArray().get(0).getAsString());
   }
@@ -102,7 +102,7 @@ public class ProtosWithComplexAndRepeatedFieldsTest {
   public void testDeserializeDifferentCaseFormat() {
     final String json = "{NameThatTestsCaseFormat:['bar'],AnotherField:'foo'}";
     ProtoWithDifferentCaseFormat proto =
-        upperCamelGson.fromJson(json, ProtoWithDifferentCaseFormat.class);
+        upperCamelGson.fromJson.fromJson(json, ProtoWithDifferentCaseFormat.class);
     assertEquals("foo", proto.getAnotherField());
     assertEquals("bar", proto.getNameThatTestsCaseFormat(0));
   }

@@ -65,14 +65,14 @@ public class SqlTypesGsonTest {
   @Test
   public void testDefaultSqlDateSerialization() {
     java.sql.Date instant = new java.sql.Date(1259875082000L);
-    String json = gson.toJson(instant);
+    String json = gson.toJson.toJson(instant);
     assertThat(json).isEqualTo("\"Dec 3, 2009\"");
   }
 
   @Test
   public void testDefaultSqlDateDeserialization() {
     String json = "'Dec 3, 2009'";
-    java.sql.Date extracted = gson.fromJson(json, java.sql.Date.class);
+    java.sql.Date extracted = gson.fromJson.fromJson(json, java.sql.Date.class);
     DefaultTypeAdaptersTest.assertEqualsDate(extracted, 2009, 11, 3);
   }
 
@@ -86,9 +86,9 @@ public class SqlTypesGsonTest {
     try {
       java.sql.Date sqlDate = new java.sql.Date(0L);
       Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-      String json = gson.toJson(sqlDate, Timestamp.class);
+      String json = gson.toJson.toJson(sqlDate, Timestamp.class);
       assertThat(json).isEqualTo("\"1970-01-01\"");
-      assertThat(gson.fromJson("\"1970-01-01\"", java.sql.Date.class).getTime()).isEqualTo(0);
+      assertThat(gson.fromJson.fromJson("\"1970-01-01\"", java.sql.Date.class).getTime()).isEqualTo(0);
     } finally {
       TimeZone.setDefault(defaultTimeZone);
       Locale.setDefault(defaultLocale);
@@ -98,21 +98,21 @@ public class SqlTypesGsonTest {
   @Test
   public void testDefaultSqlTimeSerialization() {
     Time now = new Time(1259875082000L);
-    String json = gson.toJson(now);
+    String json = gson.toJson.toJson(now);
     assertThat(json).isEqualTo("\"01:18:02 PM\"");
   }
 
   @Test
   public void testDefaultSqlTimeDeserialization() {
     String json = "'1:18:02 PM'";
-    Time extracted = gson.fromJson(json, Time.class);
+    Time extracted = gson.fromJson.fromJson(json, Time.class);
     DefaultTypeAdaptersTest.assertEqualsTime(extracted, 13, 18, 2);
   }
 
   @Test
   public void testDefaultSqlTimestampSerialization() {
     Timestamp now = new java.sql.Timestamp(1259875082000L);
-    String json = gson.toJson(now);
+    String json = gson.toJson.toJson(now);
     // The exact format of the serialized date-time string depends on the JDK version. The pattern
     // here allows for an optional comma after the date, and what might be U+202F (Narrow No-Break
     // Space) before "PM".
@@ -122,7 +122,7 @@ public class SqlTypesGsonTest {
   @Test
   public void testDefaultSqlTimestampDeserialization() {
     String json = "'Dec 3, 2009 1:18:02 PM'";
-    Timestamp extracted = gson.fromJson(json, Timestamp.class);
+    Timestamp extracted = gson.fromJson.fromJson(json, Timestamp.class);
     DefaultTypeAdaptersTest.assertEqualsDate(extracted, 2009, 11, 3);
     DefaultTypeAdaptersTest.assertEqualsTime(extracted, 13, 18, 2);
   }
@@ -137,9 +137,9 @@ public class SqlTypesGsonTest {
     try {
       Timestamp timestamp = new Timestamp(0L);
       Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-      String json = gson.toJson(timestamp, Timestamp.class);
+      String json = gson.toJson.toJson(timestamp, Timestamp.class);
       assertThat(json).isEqualTo("\"1970-01-01\"");
-      assertThat(gson.fromJson("\"1970-01-01\"", Timestamp.class).getTime()).isEqualTo(0);
+      assertThat(gson.fromJson.fromJson("\"1970-01-01\"", Timestamp.class).getTime()).isEqualTo(0);
     } finally {
       TimeZone.setDefault(defaultTimeZone);
       Locale.setDefault(defaultLocale);

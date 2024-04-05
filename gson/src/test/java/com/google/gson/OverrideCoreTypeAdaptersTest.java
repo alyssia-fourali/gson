@@ -60,27 +60,27 @@ public class OverrideCoreTypeAdaptersTest {
   @Test
   public void testOverrideWrapperBooleanAdapter() {
     Gson gson = new GsonBuilder().registerTypeAdapter(Boolean.class, booleanAsIntAdapter).create();
-    assertThat(gson.toJson(true, boolean.class)).isEqualTo("true");
-    assertThat(gson.toJson(true, Boolean.class)).isEqualTo("1");
-    assertThat(gson.fromJson("true", boolean.class)).isEqualTo(Boolean.TRUE);
-    assertThat(gson.fromJson("1", Boolean.class)).isEqualTo(Boolean.TRUE);
-    assertThat(gson.fromJson("0", Boolean.class)).isEqualTo(Boolean.FALSE);
+    assertThat(gson.toJson.toJson(true, boolean.class)).isEqualTo("true");
+    assertThat(gson.toJson.toJson(true, Boolean.class)).isEqualTo("1");
+    assertThat(gson.fromJson.fromJson("true", boolean.class)).isEqualTo(Boolean.TRUE);
+    assertThat(gson.fromJson.fromJson("1", Boolean.class)).isEqualTo(Boolean.TRUE);
+    assertThat(gson.fromJson.fromJson("0", Boolean.class)).isEqualTo(Boolean.FALSE);
   }
 
   @Test
   public void testOverridePrimitiveBooleanAdapter() {
     Gson gson = new GsonBuilder().registerTypeAdapter(boolean.class, booleanAsIntAdapter).create();
-    assertThat(gson.toJson(true, boolean.class)).isEqualTo("1");
-    assertThat(gson.toJson(true, Boolean.class)).isEqualTo("true");
-    assertThat(gson.fromJson("1", boolean.class)).isEqualTo(Boolean.TRUE);
-    assertThat(gson.fromJson("true", Boolean.class)).isEqualTo(Boolean.TRUE);
-    assertThat(gson.toJson(false, boolean.class)).isEqualTo("0");
+    assertThat(gson.toJson.toJson(true, boolean.class)).isEqualTo("1");
+    assertThat(gson.toJson.toJson(true, Boolean.class)).isEqualTo("true");
+    assertThat(gson.fromJson.fromJson("1", boolean.class)).isEqualTo(Boolean.TRUE);
+    assertThat(gson.fromJson.fromJson("true", Boolean.class)).isEqualTo(Boolean.TRUE);
+    assertThat(gson.toJson.toJson(false, boolean.class)).isEqualTo("0");
   }
 
   @Test
   public void testOverrideStringAdapter() {
     Gson gson = new GsonBuilder().registerTypeAdapter(String.class, swapCaseStringAdapter).create();
-    assertThat(gson.toJson("Hello", String.class)).isEqualTo("\"HELLO\"");
-    assertThat(gson.fromJson("\"Hello\"", String.class)).isEqualTo("hello");
+    assertThat(gson.toJson.toJson("Hello", String.class)).isEqualTo("\"HELLO\"");
+    assertThat(gson.fromJson.fromJson("\"Hello\"", String.class)).isEqualTo("hello");
   }
 }

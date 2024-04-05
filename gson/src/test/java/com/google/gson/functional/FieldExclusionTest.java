@@ -44,12 +44,12 @@ public class FieldExclusionTest {
   public void testDefaultInnerClassExclusion() {
     Gson gson = new Gson();
     Outer.Inner target = outer.new Inner(VALUE);
-    String result = gson.toJson(target);
+    String result = gson.toJson.toJson(target);
     assertThat(result).isEqualTo(target.toJson());
 
     gson = new GsonBuilder().create();
     target = outer.new Inner(VALUE);
-    result = gson.toJson(target);
+    result = gson.toJson.toJson(target);
     assertThat(result).isEqualTo(target.toJson());
   }
 
@@ -57,7 +57,7 @@ public class FieldExclusionTest {
   public void testInnerClassExclusion() {
     Gson gson = new GsonBuilder().disableInnerClassSerialization().create();
     Outer.Inner target = outer.new Inner(VALUE);
-    String result = gson.toJson(target);
+    String result = gson.toJson.toJson(target);
     assertThat(result).isEqualTo("null");
   }
 
@@ -65,12 +65,12 @@ public class FieldExclusionTest {
   public void testDefaultNestedStaticClassIncluded() {
     Gson gson = new Gson();
     Outer.Inner target = outer.new Inner(VALUE);
-    String result = gson.toJson(target);
+    String result = gson.toJson.toJson(target);
     assertThat(result).isEqualTo(target.toJson());
 
     gson = new GsonBuilder().create();
     target = outer.new Inner(VALUE);
-    result = gson.toJson(target);
+    result = gson.toJson.toJson(target);
     assertThat(result).isEqualTo(target.toJson());
   }
 

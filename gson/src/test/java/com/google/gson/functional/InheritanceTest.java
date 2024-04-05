@@ -61,7 +61,7 @@ public class InheritanceTest {
         new SubTypeOfNested(
             new BagOfPrimitives(10, 20, false, "stringValue"),
             new BagOfPrimitives(30, 40, true, "stringValue"));
-    assertThat(gson.toJson(target)).isEqualTo(target.getExpectedJson());
+    assertThat(gson.toJson.toJson(target)).isEqualTo(target.getExpectedJson());
   }
 
   @Test
@@ -71,14 +71,14 @@ public class InheritanceTest {
             + "\"booleanValue\":false,\"stringValue\":\"stringValue\"},\"primitive2\":"
             + "{\"longValue\":30,\"intValue\":40,\"booleanValue\":true,"
             + "\"stringValue\":\"stringValue\"}}";
-    SubTypeOfNested target = gson.fromJson(json, SubTypeOfNested.class);
+    SubTypeOfNested target = gson.fromJson.fromJson(json, SubTypeOfNested.class);
     assertThat(target.getExpectedJson()).isEqualTo(json);
   }
 
   @Test
   public void testClassWithBaseFieldSerialization() {
     ClassWithBaseField sub = new ClassWithBaseField(new Sub());
-    JsonObject json = (JsonObject) gson.toJsonTree(sub);
+    JsonObject json = (JsonObject) gson.toJson.toJsonTree(sub);
     JsonElement base = json.getAsJsonObject().get(ClassWithBaseField.FIELD_KEY);
     assertThat(base.getAsJsonObject().get(Sub.SUB_FIELD_KEY).getAsString()).isEqualTo(Sub.SUB_NAME);
   }
@@ -87,7 +87,7 @@ public class InheritanceTest {
   public void testClassWithBaseArrayFieldSerialization() {
     Base[] baseClasses = new Base[] {new Sub(), new Sub()};
     ClassWithBaseArrayField sub = new ClassWithBaseArrayField(baseClasses);
-    JsonObject json = gson.toJsonTree(sub).getAsJsonObject();
+    JsonObject json = gson.toJson.toJsonTree(sub).getAsJsonObject();
     JsonArray bases = json.get(ClassWithBaseArrayField.FIELD_KEY).getAsJsonArray();
     for (JsonElement element : bases) {
       assertThat(element.getAsJsonObject().get(Sub.SUB_FIELD_KEY).getAsString())
@@ -101,7 +101,7 @@ public class InheritanceTest {
     baseClasses.add(new Sub());
     baseClasses.add(new Sub());
     ClassWithBaseCollectionField sub = new ClassWithBaseCollectionField(baseClasses);
-    JsonObject json = gson.toJsonTree(sub).getAsJsonObject();
+    JsonObject json = gson.toJson.toJsonTree(sub).getAsJsonObject();
     JsonArray bases = json.get(ClassWithBaseArrayField.FIELD_KEY).getAsJsonArray();
     for (JsonElement element : bases) {
       assertThat(element.getAsJsonObject().get(Sub.SUB_FIELD_KEY).getAsString())
@@ -112,21 +112,21 @@ public class InheritanceTest {
   @Test
   public void testBaseSerializedAsSub() {
     Base base = new Sub();
-    JsonObject json = gson.toJsonTree(base).getAsJsonObject();
+    JsonObject json = gson.toJson.toJsonTree(base).getAsJsonObject();
     assertThat(json.get(Sub.SUB_FIELD_KEY).getAsString()).isEqualTo(Sub.SUB_NAME);
   }
 
   @Test
   public void testBaseSerializedAsSubForToJsonMethod() {
     Base base = new Sub();
-    String json = gson.toJson(base);
+    String json = gson.toJson.toJson(base);
     assertThat(json).contains(Sub.SUB_NAME);
   }
 
   @Test
   public void testBaseSerializedAsBaseWhenSpecifiedWithExplicitType() {
     Base base = new Sub();
-    JsonObject json = gson.toJsonTree(base, Base.class).getAsJsonObject();
+    JsonObject json = gson.toJson.toJsonTree(base, Base.class).getAsJsonObject();
     assertThat(json.get(Base.BASE_FIELD_KEY).getAsString()).isEqualTo(Base.BASE_NAME);
     assertThat(json.get(Sub.SUB_FIELD_KEY)).isNull();
   }
@@ -134,7 +134,7 @@ public class InheritanceTest {
   @Test
   public void testBaseSerializedAsBaseWhenSpecifiedWithExplicitTypeForToJsonMethod() {
     Base base = new Sub();
-    String json = gson.toJson(base, Base.class);
+    String json = gson.toJson.toJson(base, Base.class);
     assertThat(json).contains(Base.BASE_NAME);
     assertThat(json).doesNotContain(Sub.SUB_FIELD_KEY);
   }
@@ -142,14 +142,14 @@ public class InheritanceTest {
   @Test
   public void testBaseSerializedAsSubWhenSpecifiedWithExplicitType() {
     Base base = new Sub();
-    JsonObject json = gson.toJsonTree(base, Sub.class).getAsJsonObject();
+    JsonObject json = gson.toJson.toJsonTree(base, Sub.class).getAsJsonObject();
     assertThat(json.get(Sub.SUB_FIELD_KEY).getAsString()).isEqualTo(Sub.SUB_NAME);
   }
 
   @Test
   public void testBaseSerializedAsSubWhenSpecifiedWithExplicitTypeForToJsonMethod() {
     Base base = new Sub();
-    String json = gson.toJson(base, Sub.class);
+    String json = gson.toJson.toJson(base, Sub.class);
     assertThat(json).contains(Sub.SUB_NAME);
   }
 
@@ -192,7 +192,7 @@ public class InheritanceTest {
     sortedSet.add('d');
     ClassWithSubInterfacesOfCollection target =
         new ClassWithSubInterfacesOfCollection(list, queue, set, sortedSet);
-    assertThat(gson.toJson(target)).isEqualTo(target.getExpectedJson());
+    assertThat(gson.toJson.toJson(target)).isEqualTo(target.getExpectedJson());
   }
 
   @Test
@@ -202,7 +202,7 @@ public class InheritanceTest {
             + "\"sortedSet\":[\"a\",\"b\",\"c\",\"d\"]"
             + "}";
     ClassWithSubInterfacesOfCollection target =
-        gson.fromJson(json, ClassWithSubInterfacesOfCollection.class);
+        gson.fromJson.fromJson(json, ClassWithSubInterfacesOfCollection.class);
     assertThat(target.listContains(0, 1, 2, 3)).isTrue();
     assertThat(target.queueContains(0, 1, 2, 3)).isTrue();
     assertThat(target.setContains(0.1F, 0.2F, 0.3F, 0.4F)).isTrue();

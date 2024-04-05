@@ -48,7 +48,7 @@ public final class GraphAdapterBuilderTest {
         "{'0x1':{'name':'ROCK','beats':'0x2'},"
             + "'0x2':{'name':'SCISSORS','beats':'0x3'},"
             + "'0x3':{'name':'PAPER','beats':'0x1'}}",
-        gson.toJson(rock).replace('"', '\''));
+        gson.toJson.toJson(rock).replace('"', '\''));
   }
 
   @Test
@@ -62,7 +62,7 @@ public final class GraphAdapterBuilderTest {
     new GraphAdapterBuilder().addType(Roshambo.class).registerOn(gsonBuilder);
     Gson gson = gsonBuilder.create();
 
-    Roshambo rock = gson.fromJson(json, Roshambo.class);
+    Roshambo rock = gson.fromJson.fromJson(json, Roshambo.class);
     assertEquals("ROCK", rock.name);
     Roshambo scissors = rock.beats;
     assertEquals("SCISSORS", scissors.name);
@@ -79,7 +79,7 @@ public final class GraphAdapterBuilderTest {
     new GraphAdapterBuilder().addType(Roshambo.class).registerOn(gsonBuilder);
     Gson gson = gsonBuilder.create();
 
-    Roshambo suicide = gson.fromJson(json, Roshambo.class);
+    Roshambo suicide = gson.fromJson.fromJson(json, Roshambo.class);
     assertEquals("SUICIDE", suicide.name);
     assertSame(suicide, suicide.beats);
   }
@@ -100,7 +100,7 @@ public final class GraphAdapterBuilderTest {
         .registerOn(gsonBuilder);
     Gson gson = gsonBuilder.create();
 
-    String json = gson.toJson(listOfLists, listOfListsType);
+    String json = gson.toJson.toJson(listOfLists, listOfListsType);
     assertEquals("{'0x1':['0x1','0x2'],'0x2':[]}", json.replace('"', '\''));
   }
 
@@ -116,7 +116,7 @@ public final class GraphAdapterBuilderTest {
         .registerOn(gsonBuilder);
     Gson gson = gsonBuilder.create();
 
-    List<List<?>> listOfLists = gson.fromJson("{'0x1':['0x1','0x2'],'0x2':[]}", listOfListsType);
+    List<List<?>> listOfLists = gson.fromJson.fromJson("{'0x1':['0x1','0x2'],'0x2':[]}", listOfListsType);
     assertEquals(2, listOfLists.size());
     assertSame(listOfLists, listOfLists.get(0));
     assertEquals(Collections.emptyList(), listOfLists.get(1));
@@ -140,7 +140,7 @@ public final class GraphAdapterBuilderTest {
         "{'0x1':{'name':'Google','employees':['0x2','0x3']},"
             + "'0x2':{'name':'Jesse','company':'0x1'},"
             + "'0x3':{'name':'Joel','company':'0x1'}}",
-        gson.toJson(google).replace('"', '\''));
+        gson.toJson.toJson(google).replace('"', '\''));
   }
 
   @Test
@@ -156,7 +156,7 @@ public final class GraphAdapterBuilderTest {
         "{'0x1':{'name':'Google','employees':['0x2','0x3']},"
             + "'0x2':{'name':'Jesse','company':'0x1'},"
             + "'0x3':{'name':'Joel','company':'0x1'}}";
-    Company company = gson.fromJson(json, Company.class);
+    Company company = gson.fromJson.fromJson(json, Company.class);
     assertEquals("Google", company.name);
     Employee jesse = company.employees.get(0);
     assertEquals("Jesse", jesse.name);

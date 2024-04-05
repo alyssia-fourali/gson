@@ -46,11 +46,11 @@ public final class JsonAdapterSerializerDeserializerTest {
   public void testJsonSerializerDeserializerBasedJsonAdapterOnFields() {
     Gson gson = new Gson();
     String json =
-        gson.toJson(new Computer(new User("Inderjeet Singh"), null, new User("Jesse Wilson")));
+        gson.toJson.toJson(new Computer(new User("Inderjeet Singh"), null, new User("Jesse Wilson")));
     assertThat(json)
         .isEqualTo("{\"user1\":\"UserSerializer\",\"user3\":\"UserSerializerDeserializer\"}");
     Computer computer =
-        gson.fromJson("{'user2':'Jesse Wilson','user3':'Jake Wharton'}", Computer.class);
+        gson.fromJson.fromJson("{'user2':'Jesse Wilson','user3':'Jake Wharton'}", Computer.class);
     assertThat(computer.user2.name).isEqualTo("UserDeserializer");
     assertThat(computer.user3.name).isEqualTo("UserSerializerDeserializer");
   }
@@ -115,9 +115,9 @@ public final class JsonAdapterSerializerDeserializerTest {
   @Test
   public void testJsonSerializerDeserializerBasedJsonAdapterOnClass() {
     Gson gson = new Gson();
-    String json = gson.toJson(new Computer2(new User2("Inderjeet Singh")));
+    String json = gson.toJson.toJson(new Computer2(new User2("Inderjeet Singh")));
     assertThat(json).isEqualTo("{\"user\":\"UserSerializerDeserializer2\"}");
-    Computer2 computer = gson.fromJson("{'user':'Inderjeet Singh'}", Computer2.class);
+    Computer2 computer = gson.fromJson.fromJson("{'user':'Inderjeet Singh'}", Computer2.class);
     assertThat(computer.user.name).isEqualTo("UserSerializerDeserializer2");
   }
 
@@ -156,7 +156,7 @@ public final class JsonAdapterSerializerDeserializerTest {
   public void testDifferentJsonAdaptersForGenericFieldsOfSameRawType() {
     Container c = new Container("Foo", 10);
     Gson gson = new Gson();
-    String json = gson.toJson(c);
+    String json = gson.toJson.toJson(c);
     assertThat(json).contains("\"a\":\"BaseStringAdapter\"");
     assertThat(json).contains("\"b\":\"BaseIntegerAdapter\"");
   }
@@ -223,7 +223,7 @@ public final class JsonAdapterSerializerDeserializerTest {
             .serializeNulls()
             .create();
 
-    String json = gson.toJson(new WithNullSafe(null, null, null, null));
+    String json = gson.toJson.toJson(new WithNullSafe(null, null, null, null));
     // Only nullSafe=true serializer writes null; for @JsonAdapter with deserializer nullSafe is
     // ignored when serializing
     assertThat(json)
@@ -231,7 +231,7 @@ public final class JsonAdapterSerializerDeserializerTest {
             "{\"userS\":\"UserSerializer\",\"userSN\":null,\"userD\":\"fallback-write\",\"userDN\":\"fallback-write\"}");
 
     WithNullSafe deserialized =
-        gson.fromJson(
+        gson.fromJson.fromJson(
             "{\"userS\":null,\"userSN\":null,\"userD\":null,\"userDN\":null}", WithNullSafe.class);
     // For @JsonAdapter with serializer nullSafe is ignored when deserializing
     assertThat(deserialized.userS.name).isEqualTo("fallback-read");

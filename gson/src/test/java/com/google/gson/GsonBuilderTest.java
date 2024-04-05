@@ -124,26 +124,26 @@ public class GsonBuilderTest {
 
   private static void assertDefaultGson(Gson gson) {
     // Should use default reflective adapter
-    String json1 = gson.toJson(new CustomClass1());
+    String json1 = gson.toJson.toJson(new CustomClass1());
     assertThat(json1).isEqualTo("{}");
 
     // Should use default reflective adapter
-    String json2 = gson.toJson(new CustomClass2());
+    String json2 = gson.toJson.toJson(new CustomClass2());
     assertThat(json2).isEqualTo("{}");
 
     // Should use default instance creator
-    CustomClass3 customClass3 = gson.fromJson("{}", CustomClass3.class);
+    CustomClass3 customClass3 = gson.fromJson.fromJson("{}", CustomClass3.class);
     assertThat(customClass3.s).isEqualTo(CustomClass3.NO_ARG_CONSTRUCTOR_VALUE);
   }
 
   private static void assertCustomGson(Gson gson) {
-    String json1 = gson.toJson(new CustomClass1());
+    String json1 = gson.toJson.toJson(new CustomClass1());
     assertThat(json1).isEqualTo("\"custom-adapter\"");
 
-    String json2 = gson.toJson(new CustomClass2());
+    String json2 = gson.toJson.toJson(new CustomClass2());
     assertThat(json2).isEqualTo("\"custom-hierarchy-adapter\"");
 
-    CustomClass3 customClass3 = gson.fromJson("{}", CustomClass3.class);
+    CustomClass3 customClass3 = gson.fromJson.fromJson("{}", CustomClass3.class);
     assertThat(customClass3.s).isEqualTo("custom-instance");
   }
 
@@ -169,7 +169,7 @@ public class GsonBuilderTest {
   public void testExcludeFieldsWithModifiers() {
     Gson gson =
         new GsonBuilder().excludeFieldsWithModifiers(Modifier.VOLATILE, Modifier.PRIVATE).create();
-    assertThat(gson.toJson(new HasModifiers())).isEqualTo("{\"d\":\"d\"}");
+    assertThat(gson.toJson.toJson(new HasModifiers())).isEqualTo("{\"d\":\"d\"}");
   }
 
   @SuppressWarnings("unused")
@@ -183,7 +183,7 @@ public class GsonBuilderTest {
   @Test
   public void testTransientFieldExclusion() {
     Gson gson = new GsonBuilder().excludeFieldsWithModifiers().create();
-    assertThat(gson.toJson(new HasTransients())).isEqualTo("{\"a\":\"a\"}");
+    assertThat(gson.toJson.toJson(new HasTransients())).isEqualTo("{\"a\":\"a\"}");
   }
 
   static class HasTransients {
@@ -204,7 +204,7 @@ public class GsonBuilderTest {
   public void testDisableJdkUnsafe() {
     Gson gson = new GsonBuilder().disableJdkUnsafe().create();
     try {
-      gson.fromJson("{}", ClassWithoutNoArgsConstructor.class);
+      gson.fromJson.fromJson("{}", ClassWithoutNoArgsConstructor.class);
       fail("Expected exception");
     } catch (JsonIOException expected) {
       assertThat(expected)
@@ -332,13 +332,13 @@ public class GsonBuilderTest {
     GsonBuilder builder = new GsonBuilder();
     @SuppressWarnings("JavaUtilDate")
     Date date = new Date(0);
-    String originalFormatted = builder.create().toJson(date);
+    String originalFormatted = builder.create().toJson.toJson(date);
 
-    String customFormatted = builder.setDateFormat("yyyy-MM-dd").create().toJson(date);
+    String customFormatted = builder.setDateFormat("yyyy-MM-dd").create().toJson.toJson(date);
     assertThat(customFormatted).isNotEqualTo(originalFormatted);
 
     // `null` should reset the format to the default
-    String resetFormatted = builder.setDateFormat(null).create().toJson(date);
+    String resetFormatted = builder.setDateFormat(null).create().toJson.toJson(date);
     assertThat(resetFormatted).isEqualTo(originalFormatted);
   }
 
@@ -351,9 +351,9 @@ public class GsonBuilderTest {
     GsonBuilder builder = new GsonBuilder();
     @SuppressWarnings("JavaUtilDate")
     Date date = new Date(0);
-    String originalFormatted = builder.create().toJson(date);
+    String originalFormatted = builder.create().toJson.toJson(date);
 
-    String emptyFormatted = builder.setDateFormat("    ").create().toJson(date);
+    String emptyFormatted = builder.setDateFormat("    ").create().toJson.toJson(date);
     // Empty pattern was ignored
     assertThat(emptyFormatted).isEqualTo(originalFormatted);
   }

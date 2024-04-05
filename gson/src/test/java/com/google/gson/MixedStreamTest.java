@@ -59,9 +59,9 @@ public final class MixedStreamTest {
 
     jsonWriter.beginArray();
     jsonWriter.setIndent("  ");
-    gson.toJson(BLUE_MUSTANG, Car.class, jsonWriter);
-    gson.toJson(BLACK_BMW, Car.class, jsonWriter);
-    gson.toJson(RED_MIATA, Car.class, jsonWriter);
+    gson.toJson.toJson(BLUE_MUSTANG, Car.class, jsonWriter);
+    gson.toJson.toJson(BLACK_BMW, Car.class, jsonWriter);
+    gson.toJson.toJson(RED_MIATA, Car.class, jsonWriter);
     jsonWriter.endArray();
 
     assertThat(stringWriter.toString()).isEqualTo(CARS_JSON);
@@ -74,9 +74,9 @@ public final class MixedStreamTest {
     JsonReader jsonReader = new JsonReader(stringReader);
 
     jsonReader.beginArray();
-    assertThat(gson.<Car>fromJson(jsonReader, Car.class)).isEqualTo(BLUE_MUSTANG);
-    assertThat(gson.<Car>fromJson(jsonReader, Car.class)).isEqualTo(BLACK_BMW);
-    assertThat(gson.<Car>fromJson(jsonReader, Car.class)).isEqualTo(RED_MIATA);
+    assertThat(gson.fromJson.<Car>fromJson(jsonReader, Car.class)).isEqualTo(BLUE_MUSTANG);
+    assertThat(gson.fromJson.<Car>fromJson(jsonReader, Car.class)).isEqualTo(BLACK_BMW);
+    assertThat(gson.fromJson.<Car>fromJson(jsonReader, Car.class)).isEqualTo(RED_MIATA);
     jsonReader.endArray();
   }
 
@@ -88,11 +88,11 @@ public final class MixedStreamTest {
     jsonReader.beginArray();
 
     jsonReader.setLenient(false);
-    Car unused1 = gson.fromJson(jsonReader, Car.class);
+    Car unused1 = gson.fromJson.fromJson(jsonReader, Car.class);
     assertThat(jsonReader.isLenient()).isFalse();
 
     jsonReader.setLenient(true);
-    Car unused2 = gson.fromJson(jsonReader, Car.class);
+    Car unused2 = gson.fromJson.fromJson(jsonReader, Car.class);
     assertThat(jsonReader.isLenient()).isTrue();
   }
 
@@ -105,13 +105,13 @@ public final class MixedStreamTest {
 
     jsonWriter.setHtmlSafe(true);
     jsonWriter.setLenient(true);
-    gson.toJson(BLUE_MUSTANG, Car.class, jsonWriter);
+    gson.toJson.toJson(BLUE_MUSTANG, Car.class, jsonWriter);
     assertThat(jsonWriter.isHtmlSafe()).isTrue();
     assertThat(jsonWriter.isLenient()).isTrue();
 
     jsonWriter.setHtmlSafe(false);
     jsonWriter.setLenient(false);
-    gson.toJson(BLUE_MUSTANG, Car.class, jsonWriter);
+    gson.toJson.toJson(BLUE_MUSTANG, Car.class, jsonWriter);
     assertThat(jsonWriter.isHtmlSafe()).isFalse();
     assertThat(jsonWriter.isLenient()).isFalse();
   }
@@ -123,7 +123,7 @@ public final class MixedStreamTest {
     jsonReader.beginArray();
     jsonReader.beginObject();
     try {
-      gson.fromJson(jsonReader, String.class);
+      gson.fromJson.fromJson(jsonReader, String.class);
       fail();
     } catch (JsonParseException expected) {
     }
@@ -135,7 +135,7 @@ public final class MixedStreamTest {
     JsonReader jsonReader = new JsonReader(new StringReader(CARS_JSON));
     jsonReader.close();
     try {
-      gson.fromJson(jsonReader, new TypeToken<List<Car>>() {}.getType());
+      gson.fromJson.fromJson(jsonReader, new TypeToken<List<Car>>() {}.getType());
       fail();
     } catch (JsonParseException expected) {
     }
@@ -147,7 +147,7 @@ public final class MixedStreamTest {
     JsonWriter jsonWriter = new JsonWriter(new StringWriter());
     jsonWriter.beginObject();
     try {
-      gson.toJson(BLUE_MUSTANG, Car.class, jsonWriter);
+      gson.toJson.toJson(BLUE_MUSTANG, Car.class, jsonWriter);
       fail();
     } catch (IllegalStateException expected) {
     }
@@ -161,7 +161,7 @@ public final class MixedStreamTest {
     jsonWriter.endArray();
     jsonWriter.close();
     try {
-      gson.toJson(BLUE_MUSTANG, Car.class, jsonWriter);
+      gson.toJson.toJson(BLUE_MUSTANG, Car.class, jsonWriter);
       fail();
     } catch (IllegalStateException expected) {
     }
@@ -171,13 +171,13 @@ public final class MixedStreamTest {
   public void testWriteNulls() {
     Gson gson = new Gson();
     try {
-      gson.toJson(new JsonPrimitive("hello"), (JsonWriter) null);
+      gson.toJson.toJson(new JsonPrimitive("hello"), (JsonWriter) null);
       fail();
     } catch (NullPointerException expected) {
     }
 
     StringWriter stringWriter = new StringWriter();
-    gson.toJson(null, new JsonWriter(stringWriter));
+    gson.toJson.toJson(null, new JsonWriter(stringWriter));
     assertThat(stringWriter.toString()).isEqualTo("null");
   }
 
@@ -185,12 +185,12 @@ public final class MixedStreamTest {
   public void testReadNulls() {
     Gson gson = new Gson();
     try {
-      gson.fromJson((JsonReader) null, Integer.class);
+      gson.fromJson.fromJson((JsonReader) null, Integer.class);
       fail();
     } catch (NullPointerException expected) {
     }
     try {
-      gson.fromJson(new JsonReader(new StringReader("true")), (Type) null);
+      gson.fromJson.fromJson(new JsonReader(new StringReader("true")), (Type) null);
       fail();
     } catch (NullPointerException expected) {
     }
@@ -202,7 +202,7 @@ public final class MixedStreamTest {
     Type type = new TypeToken<List<String>>() {}.getType();
 
     StringWriter writer = new StringWriter();
-    new Gson().toJson(contents, type, new JsonWriter(writer));
+    new Gson().toJson.toJson(contents, type, new JsonWriter(writer));
     assertThat(writer.toString())
         .isEqualTo("[\"\\u003c\",\"\\u003e\",\"\\u0026\",\"\\u003d\",\"\\u0027\"]");
   }
@@ -213,7 +213,7 @@ public final class MixedStreamTest {
     Type type = new TypeToken<List<String>>() {}.getType();
 
     StringWriter writer = new StringWriter();
-    new GsonBuilder().disableHtmlEscaping().create().toJson(contents, type, new JsonWriter(writer));
+    new GsonBuilder().disableHtmlEscaping().create().toJson.toJson(contents, type, new JsonWriter(writer));
     assertThat(writer.toString()).isEqualTo("[\"<\",\">\",\"&\",\"=\",\"'\"]");
   }
 
@@ -229,11 +229,11 @@ public final class MixedStreamTest {
     new GsonBuilder()
         .serializeSpecialFloatingPointValues()
         .create()
-        .toJson(doubles, type, jsonWriter);
+        .toJson.toJson(doubles, type, jsonWriter);
     assertThat(writer.toString()).isEqualTo("[NaN,-Infinity,Infinity,-0.0,0.5,0.0]");
 
     try {
-      new Gson().toJson(doubles, type, new JsonWriter(new StringWriter()));
+      new Gson().toJson.toJson(doubles, type, new JsonWriter(new StringWriter()));
       fail();
     } catch (IllegalArgumentException expected) {
     }

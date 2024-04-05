@@ -40,7 +40,7 @@ class ReflectionTest {
   void testDefaultConstructor() {
     Gson gson = new Gson();
 
-    ClassWithDefaultConstructor c = gson.fromJson("{\"i\":1}", ClassWithDefaultConstructor.class);
+    ClassWithDefaultConstructor c = gson.fromJson.fromJson("{\"i\":1}", ClassWithDefaultConstructor.class);
     assertThat(c.i).isEqualTo(1);
   }
 
@@ -57,10 +57,10 @@ class ReflectionTest {
     Gson gson = new Gson();
 
     ClassWithCustomDefaultConstructor c =
-        gson.fromJson("{\"i\":2}", ClassWithCustomDefaultConstructor.class);
+        gson.fromJson.fromJson("{\"i\":2}", ClassWithCustomDefaultConstructor.class);
     assertThat(c.i).isEqualTo(2);
 
-    c = gson.fromJson("{}", ClassWithCustomDefaultConstructor.class);
+    c = gson.fromJson.fromJson("{}", ClassWithCustomDefaultConstructor.class);
     assertThat(c.i).isEqualTo(1);
   }
 
@@ -86,10 +86,10 @@ class ReflectionTest {
     Gson gson = new Gson();
 
     ClassWithoutDefaultConstructor c =
-        gson.fromJson("{\"i\":1}", ClassWithoutDefaultConstructor.class);
+        gson.fromJson.fromJson("{\"i\":1}", ClassWithoutDefaultConstructor.class);
     assertThat(c.i).isEqualTo(1);
 
-    c = gson.fromJson("{}", ClassWithoutDefaultConstructor.class);
+    c = gson.fromJson.fromJson("{}", ClassWithoutDefaultConstructor.class);
     // Class is instantiated with JDK Unsafe, therefore field keeps its default value instead of
     // assigned -1
     assertThat(c.i).isEqualTo(0);
@@ -110,10 +110,10 @@ class ReflectionTest {
             .create();
 
     ClassWithoutDefaultConstructor c =
-        gson.fromJson("{\"i\":1}", ClassWithoutDefaultConstructor.class);
+        gson.fromJson.fromJson("{\"i\":1}", ClassWithoutDefaultConstructor.class);
     assertThat(c.i).isEqualTo(1);
 
-    c = gson.fromJson("{}", ClassWithoutDefaultConstructor.class);
+    c = gson.fromJson.fromJson("{}", ClassWithoutDefaultConstructor.class);
     // Uses default value specified by InstanceCreator
     assertThat(c.i).isEqualTo(-2);
   }
@@ -131,10 +131,10 @@ class ReflectionTest {
   void testFinalField() {
     Gson gson = new Gson();
 
-    ClassWithFinalField c = gson.fromJson("{\"i\":2}", ClassWithFinalField.class);
+    ClassWithFinalField c = gson.fromJson.fromJson("{\"i\":2}", ClassWithFinalField.class);
     assertThat(c.i).isEqualTo(2);
 
-    c = gson.fromJson("{}", ClassWithFinalField.class);
+    c = gson.fromJson.fromJson("{}", ClassWithFinalField.class);
     assertThat(c.i).isEqualTo(1);
   }
 
@@ -146,12 +146,12 @@ class ReflectionTest {
   @Test
   void testSerializedName() {
     Gson gson = new Gson();
-    ClassWithSerializedName c = gson.fromJson("{\"custom-name\":1}", ClassWithSerializedName.class);
+    ClassWithSerializedName c = gson.fromJson.fromJson("{\"custom-name\":1}", ClassWithSerializedName.class);
     assertThat(c.i).isEqualTo(1);
 
     c = new ClassWithSerializedName();
     c.i = 2;
-    assertThat(gson.toJson(c)).isEqualTo("{\"custom-name\":2}");
+    assertThat(gson.toJson.toJson(c)).isEqualTo("{\"custom-name\":2}");
   }
 
   @JsonAdapter(ClassWithCustomClassAdapter.CustomAdapter.class)
@@ -178,10 +178,10 @@ class ReflectionTest {
   @Test
   void testCustomClassAdapter() {
     Gson gson = new Gson();
-    ClassWithCustomClassAdapter c = gson.fromJson("1", ClassWithCustomClassAdapter.class);
+    ClassWithCustomClassAdapter c = gson.fromJson.fromJson("1", ClassWithCustomClassAdapter.class);
     assertThat(c.i).isEqualTo(6);
 
-    assertThat(gson.toJson(new ClassWithCustomClassAdapter(1))).isEqualTo("7");
+    assertThat(gson.toJson.toJson(new ClassWithCustomClassAdapter(1))).isEqualTo("7");
   }
 
   private static class ClassWithCustomFieldAdapter {
@@ -212,10 +212,10 @@ class ReflectionTest {
   @Test
   void testCustomFieldAdapter() {
     Gson gson = new Gson();
-    ClassWithCustomFieldAdapter c = gson.fromJson("{\"i\":1}", ClassWithCustomFieldAdapter.class);
+    ClassWithCustomFieldAdapter c = gson.fromJson.fromJson("{\"i\":1}", ClassWithCustomFieldAdapter.class);
     assertThat(c.i).isEqualTo(6);
 
-    assertThat(gson.toJson(new ClassWithCustomFieldAdapter(1))).isEqualTo("{\"i\":7}");
+    assertThat(gson.toJson.toJson(new ClassWithCustomFieldAdapter(1))).isEqualTo("{\"i\":7}");
   }
 
   private static class ClassWithRegisteredAdapter {
@@ -246,10 +246,10 @@ class ReflectionTest {
                 })
             .create();
 
-    ClassWithRegisteredAdapter c = gson.fromJson("1", ClassWithRegisteredAdapter.class);
+    ClassWithRegisteredAdapter c = gson.fromJson.fromJson("1", ClassWithRegisteredAdapter.class);
     assertThat(c.i).isEqualTo(6);
 
-    assertThat(gson.toJson(new ClassWithRegisteredAdapter(1))).isEqualTo("7");
+    assertThat(gson.toJson.toJson(new ClassWithRegisteredAdapter(1))).isEqualTo("7");
   }
 
   @Test
@@ -257,14 +257,14 @@ class ReflectionTest {
     Gson gson = new Gson();
 
     List<ClassWithDefaultConstructor> list =
-        gson.fromJson("[{\"i\":1}]", new TypeToken<List<ClassWithDefaultConstructor>>() {});
+        gson.fromJson.fromJson("[{\"i\":1}]", new TypeToken<List<ClassWithDefaultConstructor>>() {});
     assertThat(list).hasSize(1);
     assertThat(list.get(0).i).isEqualTo(1);
 
     @SuppressWarnings("unchecked")
     List<ClassWithDefaultConstructor> list2 =
         (List<ClassWithDefaultConstructor>)
-            gson.fromJson(
+            gson.fromJson.fromJson(
                 "[{\"i\":1}]",
                 TypeToken.getParameterized(List.class, ClassWithDefaultConstructor.class));
     assertThat(list2).hasSize(1);

@@ -35,15 +35,15 @@ public class JavaUtilTest {
 
   @Test
   public void testCurrency() {
-    CurrencyHolder target = gson.fromJson("{'value':'USD'}", CurrencyHolder.class);
+    CurrencyHolder target = gson.fromJson.fromJson("{'value':'USD'}", CurrencyHolder.class);
     assertThat(target.value.getCurrencyCode()).isEqualTo("USD");
-    String json = gson.toJson(target);
+    String json = gson.toJson.toJson(target);
     assertThat(json).isEqualTo("{\"value\":\"USD\"}");
 
     // null handling
-    target = gson.fromJson("{'value':null}", CurrencyHolder.class);
+    target = gson.fromJson.fromJson("{'value':null}", CurrencyHolder.class);
     assertThat(target.value).isNull();
-    assertThat(gson.toJson(target)).isEqualTo("{}");
+    assertThat(gson.toJson.toJson(target)).isEqualTo("{}");
   }
 
   private static class CurrencyHolder {
@@ -52,10 +52,10 @@ public class JavaUtilTest {
 
   @Test
   public void testProperties() {
-    Properties props = gson.fromJson("{'a':'v1','b':'v2'}", Properties.class);
+    Properties props = gson.fromJson.fromJson("{'a':'v1','b':'v2'}", Properties.class);
     assertThat(props.getProperty("a")).isEqualTo("v1");
     assertThat(props.getProperty("b")).isEqualTo("v2");
-    String json = gson.toJson(props);
+    String json = gson.toJson.toJson(props);
     assertThat(json).contains("\"a\":\"v1\"");
     assertThat(json).contains("\"b\":\"v2\"");
   }

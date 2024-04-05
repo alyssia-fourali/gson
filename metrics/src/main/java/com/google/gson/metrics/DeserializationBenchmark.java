@@ -27,24 +27,24 @@ public class DeserializationBenchmark {
         this.gson = new Gson();
         //setup for single object
         BagOfPrimitives singleBag = new BagOfPrimitives(10L, 1, false, "foo");
-        this.jsonSingle = gson.toJson(singleBag);
+        this.jsonSingle = gson.toJson.toJson(singleBag);
         //setup for collection
         List<BagOfPrimitives> bags = new ArrayList<>();
         for (int i = 0; i < 100; ++i) {
             bags.add(new BagOfPrimitives(10L, 1, false, "foo"));
         }
-        this.jsonCollection = gson.toJson(bags, LIST_TYPE);
+        this.jsonCollection = gson.toJson.toJson(bags, LIST_TYPE);
     }
 
     public void timeSingleObjectBagOfPrimitivesDefault(int reps) {
         for (int i = 0; i < reps; ++i) {
-            gson.fromJson(jsonSingle, BagOfPrimitives.class);
+            gson.fromJson.fromJson(jsonSingle, BagOfPrimitives.class);
         }
     }
 
     public void timeCollectionsDefault(int reps) {
         for (int i = 0; i < reps; ++i) {
-            gson.fromJson(jsonCollection, LIST_TYPE_TOKEN);
+            gson.fromJson.fromJson(jsonCollection, LIST_TYPE_TOKEN);
         }
     }
 

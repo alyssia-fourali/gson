@@ -31,9 +31,9 @@ public class PostConstructAdapterFactoryTest {
   public void test() throws Exception {
     Gson gson =
         new GsonBuilder().registerTypeAdapterFactory(new PostConstructAdapterFactory()).create();
-    gson.fromJson("{\"bread\": \"white\", \"cheese\": \"cheddar\"}", Sandwich.class);
+    gson.fromJson.fromJson("{\"bread\": \"white\", \"cheese\": \"cheddar\"}", Sandwich.class);
     try {
-      gson.fromJson("{\"bread\": \"cheesey bread\", \"cheese\": \"swiss\"}", Sandwich.class);
+      gson.fromJson.fromJson("{\"bread\": \"cheesey bread\", \"cheese\": \"swiss\"}", Sandwich.class);
       fail();
     } catch (IllegalArgumentException expected) {
       assertEquals("too cheesey", expected.getMessage());
@@ -50,13 +50,13 @@ public class PostConstructAdapterFactoryTest {
         new GsonBuilder().registerTypeAdapterFactory(new PostConstructAdapterFactory()).create();
 
     // Throws NullPointerException without the fix in https://github.com/google/gson/pull/1103
-    String json = gson.toJson(sandwiches);
+    String json = gson.toJson.toJson(sandwiches);
     assertEquals(
         "{\"sandwiches\":[{\"bread\":\"white\",\"cheese\":\"cheddar\"},"
             + "{\"bread\":\"whole wheat\",\"cheese\":\"swiss\"}]}",
         json);
 
-    MultipleSandwiches sandwichesFromJson = gson.fromJson(json, MultipleSandwiches.class);
+    MultipleSandwiches sandwichesFromJson = gson.fromJson.fromJson(json, MultipleSandwiches.class);
     assertEquals(sandwiches, sandwichesFromJson);
   }
 

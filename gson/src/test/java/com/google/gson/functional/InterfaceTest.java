@@ -42,13 +42,13 @@ public class InterfaceTest {
 
   @Test
   public void testSerializingObjectImplementingInterface() {
-    assertThat(gson.toJson(obj)).isEqualTo(OBJ_JSON);
+    assertThat(gson.toJson.toJson(obj)).isEqualTo(OBJ_JSON);
   }
 
   @Test
   public void testSerializingInterfaceObjectField() {
     TestObjectWrapper objWrapper = new TestObjectWrapper(obj);
-    assertThat(gson.toJson(objWrapper)).isEqualTo("{\"obj\":" + OBJ_JSON + "}");
+    assertThat(gson.toJson.toJson(objWrapper)).isEqualTo("{\"obj\":" + OBJ_JSON + "}");
   }
 
   private static interface TestObjectInterface {

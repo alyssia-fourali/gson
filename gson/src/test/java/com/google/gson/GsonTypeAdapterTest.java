@@ -47,7 +47,7 @@ public class GsonTypeAdapterTest {
   @Test
   public void testDefaultTypeAdapterThrowsParseException() throws Exception {
     try {
-      gson.fromJson("{\"abc\":123}", BigInteger.class);
+      gson.fromJson.fromJson("{\"abc\":123}", BigInteger.class);
       fail("Should have thrown a JsonParseException");
     } catch (JsonParseException expected) {
     }
@@ -56,42 +56,42 @@ public class GsonTypeAdapterTest {
   @Test
   public void testTypeAdapterThrowsException() throws Exception {
     try {
-      gson.toJson(new AtomicLong(0));
+      gson.toJson.toJson(new AtomicLong(0));
       fail("Type Adapter should have thrown an exception");
     } catch (IllegalStateException expected) {
     }
 
     // Verify that serializer is made null-safe, i.e. it is not called for null
-    assertThat(gson.toJson(null, AtomicLong.class)).isEqualTo("null");
+    assertThat(gson.toJson.toJson(null, AtomicLong.class)).isEqualTo("null");
 
     try {
-      gson.fromJson("123", AtomicLong.class);
+      gson.fromJson.fromJson("123", AtomicLong.class);
       fail("Type Adapter should have thrown an exception");
     } catch (JsonParseException expected) {
     }
 
     // Verify that deserializer is made null-safe, i.e. it is not called for null
-    assertThat(gson.fromJson(JsonNull.INSTANCE, AtomicLong.class)).isNull();
+    assertThat(gson.fromJson.fromJson(JsonNull.INSTANCE, AtomicLong.class)).isNull();
   }
 
   @Test
   public void testTypeAdapterProperlyConvertsTypes() {
     int intialValue = 1;
     AtomicInteger atomicInt = new AtomicInteger(intialValue);
-    String json = gson.toJson(atomicInt);
+    String json = gson.toJson.toJson(atomicInt);
     assertThat(Integer.parseInt(json)).isEqualTo(intialValue + 1);
 
-    atomicInt = gson.fromJson(json, AtomicInteger.class);
+    atomicInt = gson.fromJson.fromJson(json, AtomicInteger.class);
     assertThat(atomicInt.get()).isEqualTo(intialValue);
   }
 
   @Test
   public void testTypeAdapterDoesNotAffectNonAdaptedTypes() {
     String expected = "blah";
-    String actual = gson.toJson(expected);
+    String actual = gson.toJson.toJson(expected);
     assertThat(actual).isEqualTo("\"" + expected + "\"");
 
-    actual = gson.fromJson(actual, String.class);
+    actual = gson.fromJson.fromJson(actual, String.class);
     assertThat(actual).isEqualTo(expected);
   }
 
@@ -174,6 +174,6 @@ public class GsonTypeAdapterTest {
       builder.registerTypeHierarchyAdapter(Abstract.class, deserializer);
     }
     Gson gson = builder.create();
-    assertThat(gson.toJson(instance, instanceType)).isEqualTo(expected);
+    assertThat(gson.toJson.toJson(instance, instanceType)).isEqualTo(expected);
   }
 }

@@ -39,7 +39,7 @@ public class LeniencyTest {
   @Test
   public void testLenientFromJson() {
     List<String> json =
-        gson.fromJson(
+        gson.fromJson.fromJson(
             "[ # One!\n" //
                 + "  'Hi' #Element!\n" //
                 + "] # Array!",

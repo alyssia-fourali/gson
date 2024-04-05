@@ -35,7 +35,7 @@ public class NoSerializedNameMain {
   /** Main entrypoint, called by {@code ShrinkingIT.testNoSerializedName_NoArgsConstructor()}. */
   public static String runTestNoArgsConstructor() {
     TestClassNoArgsConstructor deserialized =
-        new Gson().fromJson("{\"s\":\"value\"}", same(TestClassNoArgsConstructor.class));
+        new Gson().fromJson.fromJson("{\"s\":\"value\"}", same(TestClassNoArgsConstructor.class));
     return deserialized.s;
   }
 
@@ -46,14 +46,14 @@ public class NoSerializedNameMain {
   public static String runTestNoJdkUnsafe() {
     Gson gson = new GsonBuilder().disableJdkUnsafe().create();
     TestClassNotAbstract deserialized =
-        gson.fromJson("{\"s\": \"value\"}", same(TestClassNotAbstract.class));
+        gson.fromJson.fromJson("{\"s\": \"value\"}", same(TestClassNotAbstract.class));
     return deserialized.s;
   }
 
   /** Main entrypoint, called by {@code ShrinkingIT.testNoSerializedName_HasArgsConstructor()}. */
   public static String runTestHasArgsConstructor() {
     TestClassHasArgsConstructor deserialized =
-        new Gson().fromJson("{\"s\":\"value\"}", same(TestClassHasArgsConstructor.class));
+        new Gson().fromJson.fromJson("{\"s\":\"value\"}", same(TestClassHasArgsConstructor.class));
     return deserialized.s;
   }
 }

@@ -49,13 +49,13 @@ public class ArrayTest {
   @Test
   public void testTopLevelArrayOfIntsSerialization() {
     int[] target = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-    assertThat(gson.toJson(target)).isEqualTo("[1,2,3,4,5,6,7,8,9]");
+    assertThat(gson.toJson.toJson(target)).isEqualTo("[1,2,3,4,5,6,7,8,9]");
   }
 
   @Test
   public void testTopLevelArrayOfIntsDeserialization() {
     int[] expected = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-    int[] actual = gson.fromJson("[1,2,3,4,5,6,7,8,9]", int[].class);
+    int[] actual = gson.fromJson.fromJson("[1,2,3,4,5,6,7,8,9]", int[].class);
     assertThat(actual).isEqualTo(expected);
   }
 
@@ -63,7 +63,7 @@ public class ArrayTest {
   public void testInvalidArrayDeserialization() {
     String json = "[1, 2 3, 4, 5]";
     try {
-      gson.fromJson(json, int[].class);
+      gson.fromJson.fromJson(json, int[].class);
       fail("Gson should not deserialize array elements with missing ,");
     } catch (JsonParseException expected) {
     }
@@ -72,18 +72,18 @@ public class ArrayTest {
   @Test
   public void testEmptyArraySerialization() {
     int[] target = {};
-    assertThat(gson.toJson(target)).isEqualTo("[]");
+    assertThat(gson.toJson.toJson(target)).isEqualTo("[]");
   }
 
   @Test
   public void testEmptyArrayDeserialization() {
-    int[] actualObject = gson.fromJson("[]", int[].class);
+    int[] actualObject = gson.fromJson.fromJson("[]", int[].class);
     assertThat(actualObject).hasLength(0);
 
-    Integer[] actualObject2 = gson.fromJson("[]", Integer[].class);
+    Integer[] actualObject2 = gson.fromJson.fromJson("[]", Integer[].class);
     assertThat(actualObject2).hasLength(0);
 
-    actualObject = gson.fromJson("[ ]", int[].class);
+    actualObject = gson.fromJson.fromJson("[ ]", int[].class);
     assertThat(actualObject).hasLength(0);
   }
 
@@ -91,7 +91,7 @@ public class ArrayTest {
   public void testNullsInArraySerialization() {
     String[] array = {"foo", null, "bar"};
     String expected = "[\"foo\",null,\"bar\"]";
-    String json = gson.toJson(array);
+    String json = gson.toJson.toJson(array);
     assertThat(json).isEqualTo(expected);
   }
 
@@ -99,7 +99,7 @@ public class ArrayTest {
   public void testNullsInArrayDeserialization() {
     String json = "[\"foo\",null,\"bar\"]";
     String[] expected = {"foo", null, "bar"};
-    String[] target = gson.fromJson(json, expected.getClass());
+    String[] target = gson.fromJson.fromJson(json, expected.getClass());
     assertThat(target).asList().containsAnyIn(expected);
   }
 
@@ -107,13 +107,13 @@ public class ArrayTest {
   public void testSingleNullInArraySerialization() {
     BagOfPrimitives[] array = new BagOfPrimitives[1];
     array[0] = null;
-    String json = gson.toJson(array);
+    String json = gson.toJson.toJson(array);
     assertThat(json).isEqualTo("[null]");
   }
 
   @Test
   public void testSingleNullInArrayDeserialization() {
-    BagOfPrimitives[] array = gson.fromJson("[null]", BagOfPrimitives[].class);
+    BagOfPrimitives[] array = gson.fromJson.fromJson("[null]", BagOfPrimitives[].class);
     assertThat(array).asList().containsExactly((Object) null);
   }
 
@@ -122,34 +122,34 @@ public class ArrayTest {
     gson = new GsonBuilder().serializeNulls().create();
     String[] array = {"foo", null, "bar"};
     String expected = "[\"foo\",null,\"bar\"]";
-    String json = gson.toJson(array);
+    String json = gson.toJson.toJson(array);
     assertThat(json).isEqualTo(expected);
   }
 
   @Test
   public void testArrayOfStringsSerialization() {
     String[] target = {"Hello", "World"};
-    assertThat(gson.toJson(target)).isEqualTo("[\"Hello\",\"World\"]");
+    assertThat(gson.toJson.toJson(target)).isEqualTo("[\"Hello\",\"World\"]");
   }
 
   @Test
   public void testArrayOfStringsDeserialization() {
     String json = "[\"Hello\",\"World\"]";
-    String[] target = gson.fromJson(json, String[].class);
+    String[] target = gson.fromJson.fromJson(json, String[].class);
     assertThat(target).asList().containsExactly("Hello", "World");
   }
 
   @Test
   public void testSingleStringArraySerialization() {
     String[] s = {"hello"};
-    String output = gson.toJson(s);
+    String output = gson.toJson.toJson(s);
     assertThat(output).isEqualTo("[\"hello\"]");
   }
 
   @Test
   public void testSingleStringArrayDeserialization() {
     String json = "[\"hello\"]";
-    String[] arrayType = gson.fromJson(json, String[].class);
+    String[] arrayType = gson.fromJson.fromJson(json, String[].class);
     assertThat(arrayType).asList().containsExactly("hello");
   }
 
@@ -175,7 +175,7 @@ public class ArrayTest {
     }
     sb.append(']');
 
-    String json = gson.toJson(arrayOfCollection, typeToSerialize);
+    String json = gson.toJson.toJson(arrayOfCollection, typeToSerialize);
     assertThat(json).isEqualTo(sb.toString());
   }
 
@@ -183,7 +183,7 @@ public class ArrayTest {
   public void testArrayOfCollectionDeserialization() {
     String json = "[[1,2],[3,4]]";
     Type type = new TypeToken<Collection<Integer>[]>() {}.getType();
-    Collection<Integer>[] target = gson.fromJson(json, type);
+    Collection<Integer>[] target = gson.fromJson.fromJson(json, type);
 
     assertThat(target.length).isEqualTo(2);
     assertThat(target[0].toArray(new Integer[0])).isEqualTo(new Integer[] {1, 2});
@@ -193,7 +193,7 @@ public class ArrayTest {
   @Test
   public void testArrayOfPrimitivesAsObjectsSerialization() {
     Object[] objs = new Object[] {1, "abc", 0.3f, 5L};
-    String json = gson.toJson(objs);
+    String json = gson.toJson.toJson(objs);
     assertThat(json).contains("abc");
     assertThat(json).contains("0.3");
     assertThat(json).contains("5");
@@ -202,7 +202,7 @@ public class ArrayTest {
   @Test
   public void testArrayOfPrimitivesAsObjectsDeserialization() {
     String json = "[1,'abc',0.3,1.1,5]";
-    Object[] objs = gson.fromJson(json, Object[].class);
+    Object[] objs = gson.fromJson.fromJson(json, Object[].class);
     assertThat(((Number) objs[0]).intValue()).isEqualTo(1);
     assertThat(objs[1]).isEqualTo("abc");
     assertThat(((Number) objs[2]).doubleValue()).isEqualTo(0.3);
@@ -214,11 +214,11 @@ public class ArrayTest {
   public void testObjectArrayWithNonPrimitivesSerialization() {
     ClassWithObjects classWithObjects = new ClassWithObjects();
     BagOfPrimitives bagOfPrimitives = new BagOfPrimitives();
-    String classWithObjectsJson = gson.toJson(classWithObjects);
-    String bagOfPrimitivesJson = gson.toJson(bagOfPrimitives);
+    String classWithObjectsJson = gson.toJson.toJson(classWithObjects);
+    String bagOfPrimitivesJson = gson.toJson.toJson(bagOfPrimitives);
 
     Object[] objects = {classWithObjects, bagOfPrimitives};
-    String json = gson.toJson(objects);
+    String json = gson.toJson.toJson(objects);
 
     assertThat(json).contains(classWithObjectsJson);
     assertThat(json).contains(bagOfPrimitivesJson);
@@ -227,13 +227,13 @@ public class ArrayTest {
   @Test
   public void testArrayOfNullSerialization() {
     Object[] array = {null};
-    String json = gson.toJson(array);
+    String json = gson.toJson.toJson(array);
     assertThat(json).isEqualTo("[null]");
   }
 
   @Test
   public void testArrayOfNullDeserialization() {
-    String[] values = gson.fromJson("[null]", String[].class);
+    String[] values = gson.fromJson.fromJson("[null]", String[].class);
     assertThat(values[0]).isNull();
   }
 
@@ -244,7 +244,7 @@ public class ArrayTest {
       {"3m Co", "71.72", "0.02", "0.03", "4/2 12:00am", "Manufacturing"},
       {"Alcoa Inc", "29.01", "0.42", "1.47", "4/1 12:00am", "Manufacturing"}
     };
-    String json = gson.toJson(items);
+    String json = gson.toJson.toJson(items);
     assertThat(json).contains("[[\"3m Co");
     assertThat(json).contains("Manufacturing\"]]");
   }
@@ -252,20 +252,20 @@ public class ArrayTest {
   @Test
   public void testMultidimensionalObjectArraysSerialization() {
     Object[][] array = {new Object[] {1, 2}};
-    assertThat(gson.toJson(array)).isEqualTo("[[1,2]]");
+    assertThat(gson.toJson.toJson(array)).isEqualTo("[[1,2]]");
   }
 
   @Test
   public void testMultidimensionalPrimitiveArraysSerialization() {
     int[][] array = {{1, 2}, {3, 4}};
-    assertThat(gson.toJson(array)).isEqualTo("[[1,2],[3,4]]");
+    assertThat(gson.toJson.toJson(array)).isEqualTo("[[1,2],[3,4]]");
   }
 
   /** Regression test for Issue 205 */
   @Test
   public void testMixingTypesInObjectArraySerialization() {
     Object[] array = {1, 2, new Object[] {"one", "two", 3}};
-    assertThat(gson.toJson(array)).isEqualTo("[1,2,[\"one\",\"two\",3]]");
+    assertThat(gson.toJson.toJson(array)).isEqualTo("[1,2,[\"one\",\"two\",3]]");
   }
 
   /** Regression tests for Issue 272 */
@@ -274,7 +274,7 @@ public class ArrayTest {
     String json =
         "[['3m Co','71.72','0.02','0.03','4/2 12:00am','Manufacturing'],"
             + "['Alcoa Inc','29.01','0.42','1.47','4/1 12:00am','Manufacturing']]";
-    String[][] items = gson.fromJson(json, String[][].class);
+    String[][] items = gson.fromJson.fromJson(json, String[][].class);
     assertThat(items[0][0]).isEqualTo("3m Co");
     assertThat(items[1][5]).isEqualTo("Manufacturing");
   }
@@ -283,7 +283,7 @@ public class ArrayTest {
   public void testMultidimensionalPrimitiveArraysDeserialization() {
     String json = "[[1,2],[3,4]]";
     int[][] expected = {{1, 2}, {3, 4}};
-    assertThat(gson.fromJson(json, int[][].class)).isEqualTo(expected);
+    assertThat(gson.fromJson.fromJson(json, int[][].class)).isEqualTo(expected);
   }
 
   /** http://code.google.com/p/google-gson/issues/detail?id=342 */
@@ -293,7 +293,7 @@ public class ArrayTest {
       new String[] {"test1", "test2"},
       new String[] {"test3", "test4"}
     };
-    assertThat(new Gson().toJson(stringArrays))
+    assertThat(new Gson().toJson.toJson(stringArrays))
         .isEqualTo("[[\"test1\",\"test2\"],[\"test3\",\"test4\"]]");
   }
 }

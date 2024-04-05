@@ -44,9 +44,9 @@ public class TypeVariableTest {
     arrayList.add(3);
     bar1.map.put("key1", arrayList);
     bar1.map.put("key2", new ArrayList<Integer>());
-    String json = gson.toJson(bar1);
+    String json = gson.toJson.toJson(bar1);
 
-    Bar bar2 = gson.fromJson(json, Bar.class);
+    Bar bar2 = gson.fromJson.fromJson(json, Bar.class);
     assertThat(bar2).isEqualTo(bar1);
   }
 
@@ -56,20 +56,20 @@ public class TypeVariableTest {
     Foo<String, Integer> original = new Foo<>("e", 5, false);
     original.map.put("f", Arrays.asList(6, 7));
     Type type = new TypeToken<Foo<String, Integer>>() {}.getType();
-    String json = gson.toJson(original, type);
+    String json = gson.toJson.toJson(original, type);
     assertThat(json)
         .isEqualTo(
             "{\"someSField\":\"e\",\"someTField\":5,\"map\":{\"f\":[6,7]},\"redField\":false}");
-    assertThat(gson.<Foo<String, Integer>>fromJson(json, type)).isEqualTo(original);
+    assertThat(gson.fromJson.<Foo<String, Integer>>fromJson(json, type)).isEqualTo(original);
   }
 
   @Test
   public void testBasicTypeVariables() {
     Gson gson = new Gson();
     Blue blue1 = new Blue(true);
-    String json = gson.toJson(blue1);
+    String json = gson.toJson.toJson(blue1);
 
-    Blue blue2 = gson.fromJson(json, Blue.class);
+    Blue blue2 = gson.fromJson.fromJson(json, Blue.class);
     assertThat(blue2).isEqualTo(blue1);
   }
 

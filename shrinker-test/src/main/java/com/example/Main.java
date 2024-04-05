@@ -65,12 +65,12 @@ public class Main {
         outputConsumer,
         "Write: TypeToken " + description,
         () ->
-            gson.toJson(Arrays.asList(new ClassWithAdapter(1)), typeTokenSupplier.get().getType()));
+            gson.toJson.toJson(Arrays.asList(new ClassWithAdapter(1)), typeTokenSupplier.get().getType()));
     TestExecutor.run(
         outputConsumer,
         "Read: TypeToken " + description,
         () -> {
-          Object deserialized = gson.fromJson("[{\"custom\": 3}]", typeTokenSupplier.get());
+          Object deserialized = gson.fromJson.fromJson("[{\"custom\": 3}]", typeTokenSupplier.get());
           return deserialized.toString();
         });
   }
@@ -80,7 +80,7 @@ public class Main {
    * understanding that reflection is used for {@code obj}.
    */
   private static String toJson(Gson gson, Object obj) {
-    return gson.toJson(same(obj));
+    return gson.toJson.toJson(same(obj));
   }
 
   /**
@@ -88,7 +88,7 @@ public class Main {
    * understanding that reflection is used for {@code c}.
    */
   private static <T> T fromJson(Gson gson, String json, Class<T> c) {
-    return gson.fromJson(json, same(c));
+    return gson.fromJson.fromJson(json, same(c));
   }
 
   private static void testNamedFields(BiConsumer<String, String> outputConsumer) {
@@ -277,7 +277,7 @@ public class Main {
     TestExecutor.run(
         outputConsumer,
         "Read: Generic TypeToken",
-        () -> gson.fromJson("{\"t\": 1}", new TypeToken<GenericClass<DummyClass>>() {}).toString());
+        () -> gson.fromJson.fromJson("{\"t\": 1}", new TypeToken<GenericClass<DummyClass>>() {}).toString());
     TestExecutor.run(
         outputConsumer,
         "Read: Using Generic",
@@ -286,7 +286,7 @@ public class Main {
         outputConsumer,
         "Read: Using Generic TypeToken",
         () ->
-            gson.fromJson(
+            gson.fromJson.fromJson(
                     "{\"g\": {\"t\": 1}}", new TypeToken<GenericUsingGenericClass<DummyClass>>() {})
                 .toString());
   }

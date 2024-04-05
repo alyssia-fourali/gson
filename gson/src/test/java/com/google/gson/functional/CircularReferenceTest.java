@@ -52,7 +52,7 @@ public class CircularReferenceTest {
     a.children.add(b);
     b.children.add(a);
     try {
-      gson.toJson(a);
+      gson.toJson.toJson(a);
       fail("Circular types should not get printed!");
     } catch (StackOverflowError expected) {
     }
@@ -63,7 +63,7 @@ public class CircularReferenceTest {
     ClassOverridingEquals objA = new ClassOverridingEquals();
     objA.ref = objA;
 
-    String json = gson.toJson(objA);
+    String json = gson.toJson.toJson(objA);
     assertThat(json).doesNotContain("ref"); // self-reference is ignored
   }
 
@@ -73,7 +73,7 @@ public class CircularReferenceTest {
     objA.children = new ClassWithSelfReferenceArray[] {objA};
 
     try {
-      gson.toJson(objA);
+      gson.toJson.toJson(objA);
       fail("Circular reference to self can not be serialized!");
     } catch (StackOverflowError expected) {
     }
@@ -101,7 +101,7 @@ public class CircularReferenceTest {
                 })
             .create();
     try {
-      gson.toJson(obj);
+      gson.toJson.toJson(obj);
       fail("Circular reference to self can not be serialized!");
     } catch (StackOverflowError expected) {
     }
@@ -115,13 +115,13 @@ public class CircularReferenceTest {
     a.children.add(b);
     a.children.add(c);
     b.children.add(c);
-    assertThat(gson.toJson(a)).isNotNull();
+    assertThat(gson.toJson.toJson(a)).isNotNull();
   }
 
   @Test
   public void testDirectedAcyclicGraphDeserialization() {
     String json = "{\"children\":[{\"children\":[{\"children\":[]}]},{\"children\":[]}]}";
-    ContainsReferenceToSelfType target = gson.fromJson(json, ContainsReferenceToSelfType.class);
+    ContainsReferenceToSelfType target = gson.fromJson.fromJson(json, ContainsReferenceToSelfType.class);
     assertThat(target).isNotNull();
     assertThat(target.children).hasSize(2);
   }

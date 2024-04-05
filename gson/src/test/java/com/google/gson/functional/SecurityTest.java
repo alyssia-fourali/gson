@@ -43,7 +43,7 @@ public class SecurityTest {
   @Test
   public void testNonExecutableJsonSerialization() {
     Gson gson = gsonBuilder.generateNonExecutableJson().create();
-    String json = gson.toJson(new BagOfPrimitives());
+    String json = gson.toJson.toJson(new BagOfPrimitives());
     assertThat(json).startsWith(JSON_NON_EXECUTABLE_PREFIX);
   }
 
@@ -51,14 +51,14 @@ public class SecurityTest {
   public void testNonExecutableJsonDeserialization() {
     String json = JSON_NON_EXECUTABLE_PREFIX + "{longValue:1}";
     Gson gson = gsonBuilder.create();
-    BagOfPrimitives target = gson.fromJson(json, BagOfPrimitives.class);
+    BagOfPrimitives target = gson.fromJson.fromJson(json, BagOfPrimitives.class);
     assertThat(target.longValue).isEqualTo(1);
   }
 
   @Test
   public void testJsonWithNonExectuableTokenSerialization() {
     Gson gson = gsonBuilder.generateNonExecutableJson().create();
-    String json = gson.toJson(JSON_NON_EXECUTABLE_PREFIX);
+    String json = gson.toJson.toJson(JSON_NON_EXECUTABLE_PREFIX);
     assertThat(json).contains(")]}'\n");
   }
 
@@ -70,7 +70,7 @@ public class SecurityTest {
   public void testJsonWithNonExectuableTokenWithRegularGsonDeserialization() {
     Gson gson = gsonBuilder.create();
     String json = JSON_NON_EXECUTABLE_PREFIX + "{stringValue:')]}\\u0027\\n'}";
-    BagOfPrimitives target = gson.fromJson(json, BagOfPrimitives.class);
+    BagOfPrimitives target = gson.fromJson.fromJson(json, BagOfPrimitives.class);
     assertThat(target.stringValue).isEqualTo(")]}'\n");
   }
 
@@ -83,7 +83,7 @@ public class SecurityTest {
     // Gson should be able to deserialize a stream with non-exectuable token even if it is created
     Gson gson = gsonBuilder.generateNonExecutableJson().create();
     String json = JSON_NON_EXECUTABLE_PREFIX + "{intValue:2,stringValue:')]}\\u0027\\n'}";
-    BagOfPrimitives target = gson.fromJson(json, BagOfPrimitives.class);
+    BagOfPrimitives target = gson.fromJson.fromJson(json, BagOfPrimitives.class);
     assertThat(target.stringValue).isEqualTo(")]}'\n");
     assertThat(target.intValue).isEqualTo(2);
   }

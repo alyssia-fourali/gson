@@ -40,19 +40,19 @@ public class MapAsArrayTypeAdapterTest {
     Map<Point, String> original = new LinkedHashMap<>();
     original.put(new Point(5, 5), "a");
     original.put(new Point(8, 8), "b");
-    String json = gson.toJson(original, type);
+    String json = gson.toJson.toJson(original, type);
     assertThat(json).isEqualTo("[[{\"x\":5,\"y\":5},\"a\"],[{\"x\":8,\"y\":8},\"b\"]]");
-    assertThat(gson.<Map<Point, String>>fromJson(json, type)).isEqualTo(original);
+    assertThat(gson.fromJson.<Map<Point, String>>fromJson(json, type)).isEqualTo(original);
 
     // test that registering a type adapter for one map doesn't interfere with others
     Map<String, Boolean> otherMap = new LinkedHashMap<>();
     otherMap.put("t", true);
     otherMap.put("f", false);
-    assertThat(gson.toJson(otherMap, Map.class)).isEqualTo("{\"t\":true,\"f\":false}");
-    assertThat(gson.toJson(otherMap, new TypeToken<Map<String, Boolean>>() {}.getType()))
+    assertThat(gson.toJson.toJson(otherMap, Map.class)).isEqualTo("{\"t\":true,\"f\":false}");
+    assertThat(gson.toJson.toJson(otherMap, new TypeToken<Map<String, Boolean>>() {}.getType()))
         .isEqualTo("{\"t\":true,\"f\":false}");
     assertThat(
-            gson.<Object>fromJson(
+            gson.fromJson.<Object>fromJson(
                 "{\"t\":true,\"f\":false}", new TypeToken<Map<String, Boolean>>() {}.getType()))
         .isEqualTo(otherMap);
   }
@@ -66,7 +66,7 @@ public class MapAsArrayTypeAdapterTest {
     original.put(1.0D, "a");
     original.put(1.0F, "b");
     try {
-      gson.toJson(original, new TypeToken<Map<Number, String>>() {}.getType());
+      gson.toJson.toJson(original, new TypeToken<Map<Number, String>>() {}.getType());
       fail(); // we no longer hash keys at serialization time
     } catch (JsonSyntaxException expected) {
     }
@@ -78,7 +78,7 @@ public class MapAsArrayTypeAdapterTest {
 
     String s = "[[\"1.00\",\"a\"],[\"1.0\",\"b\"]]";
     try {
-      gson.fromJson(s, new TypeToken<Map<Double, String>>() {}.getType());
+      gson.fromJson.fromJson(s, new TypeToken<Map<Double, String>>() {}.getType());
       fail();
     } catch (JsonSyntaxException expected) {
     }
@@ -96,9 +96,9 @@ public class MapAsArrayTypeAdapterTest {
     Map<Point, String> original = new LinkedHashMap<>();
     original.put(new Point(6, 5), "abc");
     original.put(new Point(1, 8), "def");
-    String json = gson.toJson(original, type);
+    String json = gson.toJson.toJson(original, type);
     assertThat(json).isEqualTo("[[{\"x\":6,\"y\":5},\"abc\"],[{\"x\":1,\"y\":8},\"def\"]]");
-    assertThat(gson.<Map<Point, String>>fromJson(json, type)).isEqualTo(original);
+    assertThat(gson.fromJson.<Map<Point, String>>fromJson(json, type)).isEqualTo(original);
   }
 
   @Test
@@ -107,7 +107,7 @@ public class MapAsArrayTypeAdapterTest {
     PointWithProperty<Point> map = new PointWithProperty<>();
     map.map.put(new Point(2, 3), new Point(4, 5));
     Type type = new TypeToken<PointWithProperty<Point>>() {}.getType();
-    String json = gson.toJson(map, type);
+    String json = gson.toJson.toJson(map, type);
     assertThat(json).isEqualTo("{\"map\":[[{\"x\":2,\"y\":3},{\"x\":4,\"y\":5}]]}");
   }
 
@@ -116,7 +116,7 @@ public class MapAsArrayTypeAdapterTest {
     Gson gson = new GsonBuilder().enableComplexMapKeySerialization().create();
     String json = "{map:[[{x:2,y:3},{x:4,y:5}]]}";
     Type type = new TypeToken<PointWithProperty<Point>>() {}.getType();
-    PointWithProperty<Point> map = gson.fromJson(json, type);
+    PointWithProperty<Point> map = gson.fromJson.fromJson(json, type);
     Point key = map.map.keySet().iterator().next();
     Point value = map.map.values().iterator().next();
     assertThat(key).isEqualTo(new Point(2, 3));

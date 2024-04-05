@@ -53,7 +53,7 @@ public class PrintFormattingTest {
     list.add(new PrimitiveArray());
     list.add(new ClassWithTransientFields<>());
 
-    String json = gson.toJson(list);
+    String json = gson.toJson.toJson(list);
     assertContainsNoWhiteSpace(json);
   }
 
@@ -62,7 +62,7 @@ public class PrintFormattingTest {
     JsonObject obj = new JsonObject();
     obj.addProperty("field1", "value1");
     obj.addProperty("field2", (String) null);
-    String json = gson.toJson(obj);
+    String json = gson.toJson.toJson(obj);
     assertThat(json).contains("field1");
     assertThat(json).doesNotContain("field2");
   }
@@ -73,7 +73,7 @@ public class PrintFormattingTest {
     JsonObject obj = new JsonObject();
     obj.addProperty("field1", "value1");
     obj.addProperty("field2", (String) null);
-    String json = gson.toJson(obj);
+    String json = gson.toJson.toJson(obj);
     assertThat(json).contains("field1");
     assertThat(json).contains("field2");
   }

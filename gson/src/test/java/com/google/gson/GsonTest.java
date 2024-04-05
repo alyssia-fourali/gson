@@ -19,7 +19,7 @@ package com.google.gson;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertThrows;
 
-import com.google.gson.Gson.FutureTypeAdapter;
+import com.google.gson.FutureTypeAdapter;
 import com.google.gson.internal.Excluder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -521,15 +521,15 @@ public final class GsonTest {
 
   private static void assertDefaultGson(Gson gson) {
     // Should use default reflective adapter
-    String json1 = gson.toJson(new CustomClass1());
+    String json1 = gson.toJson.toJson(new CustomClass1());
     assertThat(json1).isEqualTo("{}");
 
     // Should use default reflective adapter
-    String json2 = gson.toJson(new CustomClass2());
+    String json2 = gson.toJson.toJson(new CustomClass2());
     assertThat(json2).isEqualTo("{}");
 
     // Should use default instance creator
-    CustomClass3 customClass3 = gson.fromJson("{}", CustomClass3.class);
+    CustomClass3 customClass3 = gson.fromJson.fromJson("{}", CustomClass3.class);
     assertThat(customClass3.s).isEqualTo(CustomClass3.NO_ARG_CONSTRUCTOR_VALUE);
   }
 
@@ -615,24 +615,24 @@ public final class GsonTest {
 
     // But new Gson instance from `gsonBuilder` should be affected by changes
     Gson otherGson = gsonBuilder.create();
-    String json1 = otherGson.toJson(new CustomClass1());
+    String json1 = otherGson.toJson.toJson(new CustomClass1());
     assertThat(json1).isEqualTo("\"overwritten custom-adapter\"");
 
-    String json2 = otherGson.toJson(new CustomClass2());
+    String json2 = otherGson.toJson.toJson(new CustomClass2());
     assertThat(json2).isEqualTo("\"overwritten custom-hierarchy-adapter\"");
 
-    CustomClass3 customClass3 = otherGson.fromJson("{}", CustomClass3.class);
+    CustomClass3 customClass3 = otherGson.fromJson.fromJson("{}", CustomClass3.class);
     assertThat(customClass3.s).isEqualTo("overwritten custom-instance");
   }
 
   private static void assertCustomGson(Gson gson) {
-    String json1 = gson.toJson(new CustomClass1());
+    String json1 = gson.toJson.toJson(new CustomClass1());
     assertThat(json1).isEqualTo("\"custom-adapter\"");
 
-    String json2 = gson.toJson(new CustomClass2());
+    String json2 = gson.toJson.toJson(new CustomClass2());
     assertThat(json2).isEqualTo("\"custom-hierarchy-adapter\"");
 
-    CustomClass3 customClass3 = gson.fromJson("{}", CustomClass3.class);
+    CustomClass3 customClass3 = gson.fromJson.fromJson("{}", CustomClass3.class);
     assertThat(customClass3.s).isEqualTo("custom-instance");
   }
 

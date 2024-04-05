@@ -77,7 +77,7 @@ public class PerformanceTest {
   }
 
   private void parseLongJson(String json) throws JsonParseException {
-    ExceptionHolder target = gson.fromJson(json, ExceptionHolder.class);
+    ExceptionHolder target = gson.fromJson.fromJson(json, ExceptionHolder.class);
     assertThat(target.message).contains("Error");
     assertThat(target.stackTrace).contains("Yippie");
   }
@@ -123,7 +123,7 @@ public class PerformanceTest {
     for (int i = 0; i < count; ++i) {
       list.add(new CollectionEntry("name" + i, "value" + i));
     }
-    String unused = gson.toJson(list);
+    String unused = gson.toJson.toJson(list);
   }
 
   /** Created in response to http://code.google.com/p/google-gson/issues/detail?id=96 */
@@ -145,7 +145,7 @@ public class PerformanceTest {
     sb.append(']');
     String json = sb.toString();
     Type collectionType = new TypeToken<ArrayList<CollectionEntry>>() {}.getType();
-    List<CollectionEntry> list = gson.fromJson(json, collectionType);
+    List<CollectionEntry> list = gson.fromJson.fromJson(json, collectionType);
     assertThat(list).hasSize(count);
   }
 
@@ -159,7 +159,7 @@ public class PerformanceTest {
       for (int i = 0; i < size; ++i) {
         ba[i] = 0x05;
       }
-      String unused = gson.toJson(ba);
+      String unused = gson.toJson.toJson(ba);
       System.out.printf("Gson could serialize a byte array of size: %d\n", size);
     }
   }
@@ -183,7 +183,7 @@ public class PerformanceTest {
       }
       sb.append("]");
       String json = sb.toString();
-      byte[] ba = gson.fromJson(json, byte[].class);
+      byte[] ba = gson.fromJson.fromJson(json, byte[].class);
       System.out.printf("Gson could deserialize a byte array of size: %d\n", ba.length);
     }
   }
@@ -207,7 +207,7 @@ public class PerformanceTest {
     StringWriter w = new StringWriter();
     long t1 = System.currentTimeMillis();
     for (int i = 0; i < NUM_ITERATIONS; ++i) {
-      gson.toJson(c, w);
+      gson.toJson.toJson(c, w);
     }
     long t2 = System.currentTimeMillis();
     long avg = (t2 - t1) / NUM_ITERATIONS;
@@ -221,7 +221,7 @@ public class PerformanceTest {
     ClassWithList[] target = new ClassWithList[NUM_ITERATIONS];
     long t1 = System.currentTimeMillis();
     for (int i = 0; i < NUM_ITERATIONS; ++i) {
-      target[i] = gson.fromJson(json, ClassWithList.class);
+      target[i] = gson.fromJson.fromJson(json, ClassWithList.class);
     }
     long t2 = System.currentTimeMillis();
     long avg = (t2 - t1) / NUM_ITERATIONS;
@@ -237,12 +237,12 @@ public class PerformanceTest {
     }
 
     long t1 = System.currentTimeMillis();
-    String json = gson.toJson(largeObject);
+    String json = gson.toJson.toJson(largeObject);
     long t2 = System.currentTimeMillis();
     System.out.printf("Large object serialized in: %d ms\n", (t2 - t1));
 
     t1 = System.currentTimeMillis();
-    Map<String, Long> unused = gson.fromJson(json, new TypeToken<Map<String, Long>>() {}.getType());
+    Map<String, Long> unused = gson.fromJson.fromJson(json, new TypeToken<Map<String, Long>>() {}.getType());
     t2 = System.currentTimeMillis();
     System.out.printf("Large object deserialized in: %d ms\n", (t2 - t1));
   }
@@ -258,7 +258,7 @@ public class PerformanceTest {
     StringWriter w = new StringWriter();
     long t1 = System.currentTimeMillis();
     for (int i = 0; i < NUM_ITERATIONS; ++i) {
-      gson.toJson(c, w);
+      gson.toJson.toJson(c, w);
     }
     long t2 = System.currentTimeMillis();
     long avg = (t2 - t1) / NUM_ITERATIONS;
@@ -272,7 +272,7 @@ public class PerformanceTest {
     ClassWithListOfObjects[] target = new ClassWithListOfObjects[NUM_ITERATIONS];
     long t1 = System.currentTimeMillis();
     for (int i = 0; i < NUM_ITERATIONS; ++i) {
-      target[i] = gson.fromJson(json, ClassWithListOfObjects.class);
+      target[i] = gson.fromJson.fromJson(json, ClassWithListOfObjects.class);
     }
     long t2 = System.currentTimeMillis();
     long avg = (t2 - t1) / NUM_ITERATIONS;
@@ -288,9 +288,9 @@ public class PerformanceTest {
     }
 
     Gson gson = new Gson();
-    String json = gson.toJson(original);
+    String json = gson.toJson.toJson(original);
     Type longToLong = new TypeToken<Map<Long, Long>>() {}.getType();
-    Map<Long, Long> unused = gson.fromJson(json, longToLong);
+    Map<Long, Long> unused = gson.fromJson.fromJson(json, longToLong);
   }
 
   private static String buildJsonForClassWithList() {
